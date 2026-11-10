@@ -9,16 +9,18 @@
     <!-- Chart.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-      body.light-theme { background:#f3f6fb !important; color:#172033 !important; }
-      body.light-theme .bg-gray-950 { background-color:#f3f6fb !important; }
-      body.light-theme .bg-gray-900 { background-color:#ffffff !important; }
-      body.light-theme .bg-gray-800 { background-color:#edf1f7 !important; }
-      body.light-theme .text-gray-100, body.light-theme .text-gray-200, body.light-theme .text-gray-300 { color:#263449 !important; }
-      body.light-theme .text-gray-400 { color:#64748b !important; }
-      body.light-theme .text-white { color:#172033 !important; }
+      /* Light theme styling */
+      body.light-theme { background: #f3f6fb !important; color: #172033 !important; }
+      body.light-theme .bg-gray-950 { background-color: #f3f6fb !important; }
+      body.light-theme .bg-gray-900 { background-color: #ffffff !important; }
+      body.light-theme .bg-gray-800 { background-color: #edf1f7 !important; }
+      body.light-theme .text-gray-100, body.light-theme .text-gray-200, body.light-theme .text-gray-300 { color: #263449 !important; }
+      body.light-theme .text-gray-400 { color: #64748b !important; }
+      body.light-theme .text-white { color: #172033 !important; }
+      body.light-theme .border-gray-800, body.light-theme .border-gray-700 { border-color: #d8e0eb !important; }
     </style>
 </head>
-<body class="bg-gray-950 text-gray-100 font-sans min-h-screen p-4 md:p-8">
+<body class="bg-gray-950 text-gray-100 font-sans min-h-screen p-4 md:p-8" id="body-theme">
 
     <div class="max-w-6xl mx-auto">
         <!-- Header -->
@@ -29,64 +31,208 @@
                 </h1>
                 <p class="text-sm text-gray-400 mt-1">AI-Powered Options, Global Cues, Index & Cash Flow Tracker</p>
             </div>
-            <div class="mt-4 md:mt-0 flex items-center gap-3">
+            <div class="mt-4 md:mt-0 flex flex-wrap items-center gap-2">
                 <span id="current-date" class="bg-gray-800 text-xs px-3 py-1.5 rounded-full border border-gray-700 font-medium text-blue-300">Loading...</span>
-                <a href="https://t.me/share/url?url=https://pinnaclemultiheights-gif.github.io/fii-tracker/" target="_blank" class="bg-blue-600 hover:bg-blue-500 text-white text-xs px-3 py-1.5 rounded-full font-medium shadow-md">📢 Telegram</a>
+                <!-- Manual Refresh Data Button -->
+                <button onclick="refreshData()" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs px-3 py-1.5 rounded-full font-bold transition-all shadow-md cursor-pointer flex items-center gap-1">
+                    🔄 Refresh Data
+                </button>
+                <!-- Theme Toggle Button -->
+                <button onclick="toggleTheme()" class="bg-gray-800 hover:bg-gray-700 text-gray-200 text-xs px-3 py-1.5 rounded-full border border-gray-700 font-medium transition-all cursor-pointer">
+                    🌓 Theme
+                </button>
+                <a href="https://t.me/share/url?url=https://pinnaclemultiheights-gif.github.io/fii-tracker/" target="_blank" class="bg-blue-600 hover:bg-blue-500 text-white text-xs px-3 py-1.5 rounded-full font-medium transition-all shadow-md">
+                    📢 Telegram
+                </a>
             </div>
         </header>
 
-        <!-- Global Markets & VIX Bar -->
+        <!-- Global Markets & VIX Fear Meter Bar -->
         <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
             <div class="bg-gray-900 border border-gray-800 p-4 rounded-xl shadow-lg flex justify-between items-center">
-                <div><span class="text-xs text-gray-400 font-bold uppercase">GIFT NIFTY</span><h4 class="text-lg font-extrabold text-white mt-0.5">24,420.00</h4></div>
-                <span class="text-xs font-bold text-green-400 bg-green-900/40 px-2 py-1 rounded">+65.0 (+0.27%)</span>
+                <div>
+                    <span class="text-xs text-gray-400 font-bold uppercase">GIFT NIFTY</span>
+                    <h4 class="text-lg font-extrabold text-white mt-0.5">24,420.00</h4>
+                </div>
+                <span class="text-xs font-bold text-green-400 bg-green-900/40 px-2 py-1 rounded border border-green-800">+65.0 (+0.27%)</span>
             </div>
             <div class="bg-gray-900 border border-gray-800 p-4 rounded-xl shadow-lg flex justify-between items-center">
-                <div><span class="text-xs text-gray-400 font-bold uppercase">Dow Futures</span><h4 class="text-lg font-extrabold text-white mt-0.5">43,910.50</h4></div>
-                <span class="text-xs font-bold text-green-400 bg-green-900/40 px-2 py-1 rounded">+120.0 (+0.27%)</span>
+                <div>
+                    <span class="text-xs text-gray-400 font-bold uppercase">Dow Futures</span>
+                    <h4 class="text-lg font-extrabold text-white mt-0.5">43,910.50</h4>
+                </div>
+                <span class="text-xs font-bold text-green-400 bg-green-900/40 px-2 py-1 rounded border border-green-800">+120.0 (+0.27%)</span>
             </div>
             <div class="bg-gray-900 border border-gray-800 p-4 rounded-xl shadow-lg flex justify-between items-center">
-                <div><span class="text-xs text-gray-400 font-bold uppercase">Nasdaq Futures</span><h4 class="text-lg font-extrabold text-white mt-0.5">19,150.20</h4></div>
-                <span class="text-xs font-bold text-green-400 bg-green-900/40 px-2 py-1 rounded">+95.4 (+0.50%)</span>
+                <div>
+                    <span class="text-xs text-gray-400 font-bold uppercase">Nasdaq Futures</span>
+                    <h4 class="text-lg font-extrabold text-white mt-0.5">19,150.20</h4>
+                </div>
+                <span class="text-xs font-bold text-green-400 bg-green-900/40 px-2 py-1 rounded border border-green-800">+95.4 (+0.50%)</span>
             </div>
             <div class="bg-gray-900 border border-gray-800 p-4 rounded-xl shadow-lg flex justify-between items-center">
-                <div><span class="text-xs text-gray-400 font-bold uppercase">INDIA VIX</span><h4 class="text-lg font-extrabold text-yellow-400 mt-0.5">13.45</h4></div>
-                <span class="text-xs font-bold text-red-400 bg-red-900/40 px-2 py-1 rounded">-0.35 (-2.5%)</span>
+                <div>
+                    <span class="text-xs text-gray-400 font-bold uppercase block">INDIA VIX (FEAR)</span>
+                    <div class="flex items-center gap-2 mt-0.5">
+                        <h4 class="text-lg font-extrabold text-yellow-400">13.45</h4>
+                        <span class="text-[10px] font-bold text-green-300 bg-green-900/50 px-2 py-0.5 rounded border border-green-700">🟢 Stable</span>
+                    </div>
+                </div>
+                <span class="text-xs font-bold text-red-400 bg-red-900/40 px-2 py-1 rounded border border-red-800">-0.35 (-2.5%)</span>
+            </div>
+        </div>
+
+        <!-- CLICKABLE TOOL & SCREENER CARDS -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            <div onclick="openScreenerModal('Stock Screener')" class="bg-gray-900 border border-gray-800 p-5 rounded-2xl shadow-xl hover:border-blue-500 transition-all cursor-pointer group">
+                <div class="flex items-center gap-3 mb-3">
+                    <div class="w-10 h-10 rounded-xl bg-blue-950 border border-blue-800 flex items-center justify-center text-blue-400 text-lg font-bold">📊</div>
+                    <h3 class="text-base font-bold text-blue-400">Stock Screener (Click for List)</h3>
+                </div>
+                <p class="text-xs text-gray-400 leading-relaxed mb-3">Screen Indian F&O stocks using powerful price, volume, and institutional flow filters.</p>
+                <span class="inline-block bg-blue-950/80 text-blue-300 text-[11px] font-semibold px-2.5 py-1 rounded-lg border border-blue-900">📈 View All F&O Stocks Popup</span>
+            </div>
+
+            <div onclick="openScreenerModal('Intraday Screener')" class="bg-gray-900 border border-gray-800 p-5 rounded-2xl shadow-xl hover:border-green-500 transition-all cursor-pointer group">
+                <div class="flex items-center gap-3 mb-3">
+                    <div class="w-10 h-10 rounded-xl bg-green-950 border border-green-800 flex items-center justify-center text-green-400 text-lg font-bold">📈</div>
+                    <h3 class="text-base font-bold text-green-400">Intraday Screener (Click for List)</h3>
+                </div>
+                <p class="text-xs text-gray-400 leading-relaxed mb-3">Find the best intraday trading opportunities and momentum setups in seconds.</p>
+                <span class="inline-block bg-green-950/80 text-green-300 text-[11px] font-semibold px-2.5 py-1 rounded-lg border border-green-900">⚡ View Long Builtup Popup</span>
+            </div>
+        </div>
+
+        <!-- STOCK LIST POPUP MODAL -->
+        <div id="screener-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+            <div class="bg-gray-900 border border-gray-800 rounded-2xl w-full max-w-2xl p-6 shadow-2xl relative">
+                <div class="flex justify-between items-center mb-4 border-b border-gray-800 pb-3">
+                    <h3 id="modal-title" class="text-lg font-extrabold text-blue-400">Screener Stocks List</h3>
+                    <button onclick="closeScreenerModal()" class="text-gray-400 hover:text-white text-lg font-bold bg-gray-800 px-3 py-1 rounded-lg cursor-pointer">✕ Close</button>
+                </div>
+                <div class="overflow-x-auto max-h-96">
+                    <table class="w-full text-left text-xs text-gray-300">
+                        <thead class="bg-gray-800 text-gray-400 uppercase">
+                            <tr><th class="py-2.5 px-3">Symbol</th><th class="py-2.5 px-3">Index</th><th class="py-2.5 px-3">Buildup</th><th class="py-2.5 px-3">Price (₹)</th><th class="py-2.5 px-3">Change (%)</th></tr>
+                        </thead>
+                        <tbody id="modal-table-body" class="divide-y divide-gray-800"></tbody>
+                    </table>
+                </div>
             </div>
         </div>
 
         <!-- Summary Cards (Cash Segment) -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-            <div class="bg-gray-900 border border-gray-800 p-6 rounded-2xl shadow-xl">
-                <h2 class="text-xs font-bold text-gray-400 uppercase">FII Net Cash Flow</h2>
-                <div class="text-3xl font-extrabold text-green-400 mt-2">+ ₹7,212.22 Cr</div>
+            <div class="bg-gray-900 border border-gray-800 p-6 rounded-2xl shadow-xl relative overflow-hidden">
+                <h2 class="text-xs font-bold text-gray-400 uppercase tracking-wider">FII Net Cash Flow</h2>
+                <div class="flex items-baseline mt-3">
+                    <span id="fii-net-val" class="text-3xl md:text-4xl font-extrabold text-green-400">+ ₹7,212.22 Cr</span>
+                </div>
             </div>
-            <div class="bg-gray-900 border border-gray-800 p-6 rounded-2xl shadow-xl">
-                <h2 class="text-xs font-bold text-gray-400 uppercase">DII Net Cash Flow</h2>
-                <div class="text-3xl font-extrabold text-red-400 mt-2">- ₹7,172.53 Cr</div>
+
+            <div class="bg-gray-900 border border-gray-800 p-6 rounded-2xl shadow-xl relative overflow-hidden">
+                <h2 class="text-xs font-bold text-gray-400 uppercase tracking-wider">DII Net Cash Flow</h2>
+                <div class="flex items-baseline mt-3">
+                    <span id="dii-net-val" class="text-3xl md:text-4xl font-extrabold text-red-400">- ₹7,172.53 Cr</span>
+                </div>
             </div>
         </div>
 
         <!-- Chart Section -->
         <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 mb-8 shadow-xl">
-            <h3 class="text-lg font-bold text-gray-200 mb-4">📈 Recent Net Flows Trend</h3>
-            <div class="relative h-64 w-full"><canvas id="flowChart"></canvas></div>
+            <h3 class="text-lg font-bold text-gray-200 mb-4">📈 Recent Net Flows Trend (FII vs DII)</h3>
+            <div class="relative h-72 w-full"><canvas id="flowChart"></canvas></div>
         </div>
+
+        <!-- Historical Data Table -->
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 mb-8 shadow-xl overflow-hidden">
+            <h3 class="text-lg font-bold text-gray-200 mb-4">📋 Historical Trading Data (Cash Segment)</h3>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-sm text-gray-300">
+                    <thead class="bg-gray-800 text-gray-400 uppercase text-xs tracking-wider">
+                        <tr><th class="py-3 px-4">Date</th><th class="py-3 px-4">FII Net (Cr)</th><th class="py-3 px-4">DII Net (Cr)</th><th class="py-3 px-4">Combined Net (Cr)</th></tr>
+                    </thead>
+                    <tbody id="table-body" class="divide-y divide-gray-800"></tbody>
+                </table>
+            </div>
+        </div>
+
         <!-- Footer -->
         <footer class="text-center text-xs text-gray-500 mt-8 py-4 border-t border-gray-900">
             Built for traders & investors. Data source: NSE / BSE institutional reports.
         </footer>
     </div>
 
-    <!-- Script Logic -->
+    <!-- JavaScript Logic -->
     <script>
         document.getElementById("current-date").innerText = "Latest Session: 10-Nov-2026";
+
+        // Theme Toggle Function
+        function toggleTheme() {
+            const body = document.getElementById('body-theme');
+            body.classList.toggle('light-theme');
+        }
+
+        // Refresh Data Button Function
+        function refreshData() {
+            const btn = document.querySelector('button[onclick="refreshData()"]');
+            btn.innerText = "⏳ Updating...";
+            setTimeout(() => {
+                location.reload();
+            }, 500);
+        }
+
+        const stockData = [
+            { symbol: "RELIANCE", index: "NIFTY50", buildup: "Long Builtup", price: 1280.50, change: 18.50, pctChange: "1.47%" },
+            { symbol: "TCS", index: "IT", buildup: "Short Unwind", price: 4120.00, change: -15.00, pctChange: "-0.36%" },
+            { symbol: "HDFCBANK", index: "BANKNIFTY", buildup: "Long Builtup", price: 1750.25, change: 22.10, pctChange: "1.28%" },
+            { symbol: "ICICIBANK", index: "BANKNIFTY", buildup: "Short Cover", price: 1240.80, change: 15.30, pctChange: "1.25%" },
+            { symbol: "INFY", index: "IT", buildup: "Short Builtup", price: 1890.10, change: -24.50, pctChange: "-1.28%" }
+        ];
+
+        function openScreenerModal(screenerType) {
+            const modal = document.getElementById('screener-modal');
+            const modalTitle = document.getElementById('modal-title');
+            const modalBody = document.getElementById('modal-table-body');
+            modalBody.innerHTML = "";
+            modalTitle.innerText = screenerType;
+
+            stockData.forEach(item => {
+                const tr = document.createElement("tr");
+                tr.innerHTML = `
+                    <td class="py-2.5 px-3 font-bold text-white">${item.symbol}</td>
+                    <td class="py-2.5 px-3 text-gray-400">${item.index}</td>
+                    <td class="py-2.5 px-3 font-semibold text-blue-300">${item.buildup}</td>
+                    <td class="py-2.5 px-3 font-bold">₹${item.price.toFixed(2)}</td>
+                    <td class="py-2.5 px-3 font-bold ${item.change >= 0 ? 'text-green-400' : 'text-red-400'}">${item.pctChange}</td>
+                `;
+                modalBody.appendChild(tr);
+            });
+            modal.classList.remove('hidden');
+        }
+
+        function closeScreenerModal() {
+            document.getElementById('screener-modal').classList.add('hidden');
+        }
 
         const historicalData = [
             { date: "10-Nov-2026", fiiNet: 1250.50, diiNet: -450.20 },
             { date: "09-Nov-2026", fiiNet: 7212.22, diiNet: -7172.53 },
             { date: "06-Nov-2026", fiiNet: 13749.82, diiNet: -5968.70 }
         ];
+
+        const tableBody = document.getElementById("table-body");
+        historicalData.forEach(row => {
+            const combined = row.fiiNet + row.diiNet;
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+                <td class="py-3 px-4 font-medium">${row.date}</td>
+                <td class="py-3 px-4 font-bold ${row.fiiNet >= 0 ? 'text-green-400' : 'text-red-400'}">${row.fiiNet >= 0 ? '+' : ''}₹${row.fiiNet.toLocaleString()} Cr</td>
+                <td class="py-3 px-4 font-bold ${row.diiNet >= 0 ? 'text-green-400' : 'text-red-400'}">${row.diiNet >= 0 ? '+' : ''}₹${row.diiNet.toLocaleString()} Cr</td>
+                <td class="py-3 px-4 font-bold ${combined >= 0 ? 'text-blue-400' : 'text-yellow-400'}">${combined >= 0 ? '+' : ''}₹${combined.toLocaleString()} Cr</td>
+            `;
+            tableBody.appendChild(tr);
+        });
 
         const ctx = document.getElementById('flowChart').getContext('2d');
         new Chart(ctx, {
