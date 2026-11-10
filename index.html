@@ -66,66 +66,66 @@
             </div>
         </div>
 
-        <!-- NEW FEATURE: Professional Tool & Screener Cards (Like Image) -->
+        <!-- CLICKABLE ACTIVE TOOL & SCREENER CARDS -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
             <!-- Card 1: Stock Screener -->
-            <div class="bg-gray-900 border border-gray-800 p-5 rounded-2xl shadow-xl hover:border-blue-500/50 transition-all">
+            <div onclick="activateCard('Stock Screener')" class="bg-gray-900 border border-gray-800 p-5 rounded-2xl shadow-xl hover:border-blue-500 transition-all cursor-pointer group">
                 <div class="flex items-center gap-3 mb-3">
-                    <div class="w-10 h-10 rounded-xl bg-blue-950 border border-blue-800 flex items-center justify-center text-blue-400 text-lg font-bold">📊</div>
-                    <h3 class="text-base font-bold text-blue-400">Stock Screener</h3>
+                    <div class="w-10 h-10 rounded-xl bg-blue-950 border border-blue-800 flex items-center justify-center text-blue-400 text-lg font-bold group-hover:scale-110 transition-transform">📊</div>
+                    <h3 class="text-base font-bold text-blue-400">Stock Screener (Click to View)</h3>
                 </div>
                 <p class="text-xs text-gray-400 leading-relaxed mb-3">
                     Screen Indian F&O stocks using powerful price, volume, and institutional flow filters.
                 </p>
                 <span class="inline-block bg-blue-950/80 text-blue-300 text-[11px] font-semibold px-2.5 py-1 rounded-lg border border-blue-900">
-                    📈 Active Market Filter
+                    📈 Click to Show All Stocks
                 </span>
             </div>
 
             <!-- Card 2: Intraday Screener -->
-            <div class="bg-gray-900 border border-gray-800 p-5 rounded-2xl shadow-xl hover:border-green-500/50 transition-all">
+            <div onclick="activateCard('Intraday Screener')" class="bg-gray-900 border border-gray-800 p-5 rounded-2xl shadow-xl hover:border-green-500 transition-all cursor-pointer group">
                 <div class="flex items-center gap-3 mb-3">
-                    <div class="w-10 h-10 rounded-xl bg-green-950 border border-green-800 flex items-center justify-center text-green-400 text-lg font-bold">📈</div>
-                    <h3 class="text-base font-bold text-green-400">Intraday Screener</h3>
+                    <div class="w-10 h-10 rounded-xl bg-green-950 border border-green-800 flex items-center justify-center text-green-400 text-lg font-bold group-hover:scale-110 transition-transform">📈</div>
+                    <h3 class="text-base font-bold text-green-400">Intraday Screener (Click to View)</h3>
                 </div>
                 <p class="text-xs text-gray-400 leading-relaxed mb-3">
                     Find the best intraday trading opportunities and momentum setups in seconds.
                 </p>
                 <span class="inline-block bg-green-950/80 text-green-300 text-[11px] font-semibold px-2.5 py-1 rounded-lg border border-green-900">
-                    ⚡ Live OI Tracker
+                    ⚡ Filter Long Builtup Only
                 </span>
             </div>
 
             <!-- Card 3: Stock Scanners -->
-            <div class="bg-gray-900 border border-gray-800 p-5 rounded-2xl shadow-xl hover:border-purple-500/50 transition-all">
+            <div onclick="activateCard('Stock Scanners')" class="bg-gray-900 border border-gray-800 p-5 rounded-2xl shadow-xl hover:border-purple-500 transition-all cursor-pointer group">
                 <div class="flex items-center gap-3 mb-3">
-                    <div class="w-10 h-10 rounded-xl bg-purple-950 border border-purple-800 flex items-center justify-center text-purple-400 text-lg font-bold">📑</div>
-                    <h3 class="text-base font-bold text-purple-400">Stock Scanners</h3>
+                    <div class="w-10 h-10 rounded-xl bg-purple-950 border border-purple-800 flex items-center justify-center text-purple-400 text-lg font-bold group-hover:scale-110 transition-transform">📑</div>
+                    <h3 class="text-base font-bold text-purple-400">Stock Scanners (Click to View)</h3>
                 </div>
                 <p class="text-xs text-gray-400 leading-relaxed mb-3">
                     Scan thousands of stocks to discover breakout, long buildup, and short coverage trades.
                 </p>
                 <span class="inline-block bg-purple-950/80 text-purple-300 text-[11px] font-semibold px-2.5 py-1 rounded-lg border border-purple-900">
-                    🔍 Multi-Index Scan
+                    🔍 Filter Short Builtup Only
                 </span>
             </div>
 
             <!-- Card 4: Chart Screener -->
-            <div class="bg-gray-900 border border-gray-800 p-5 rounded-2xl shadow-xl hover:border-pink-500/50 transition-all">
+            <div onclick="activateCard('Chart Screener')" class="bg-gray-900 border border-gray-800 p-5 rounded-2xl shadow-xl hover:border-pink-500 transition-all cursor-pointer group">
                 <div class="flex items-center gap-3 mb-3">
-                    <div class="w-10 h-10 rounded-xl bg-pink-950 border border-pink-800 flex items-center justify-center text-pink-400 text-lg font-bold">📉</div>
-                    <h3 class="text-base font-bold text-pink-400">Chart Screener</h3>
+                    <div class="w-10 h-10 rounded-xl bg-pink-950 border border-pink-800 flex items-center justify-center text-pink-400 text-lg font-bold group-hover:scale-110 transition-transform">📉</div>
+                    <h3 class="text-base font-bold text-pink-400">Chart Screener (Click to View)</h3>
                 </div>
                 <p class="text-xs text-gray-400 leading-relaxed mb-3">
                     Discover stocks using 20 EMA swing patterns, technical analysis, and price action rules.
                 </p>
                 <span class="inline-block bg-pink-950/80 text-pink-300 text-[11px] font-semibold px-2.5 py-1 rounded-lg border border-pink-900">
-                    🎯 Strategy Guide
+                    🎯 Show Strategy Guide
                 </span>
             </div>
         </div>
 
-        <!-- AI Trade Ideas & Strategy Hub (Index-Wise Clear Breakdown) -->
+        <!-- AI Trade Ideas & Strategy Hub -->
         <div class="bg-gradient-to-r from-blue-950 via-gray-900 to-indigo-950 border border-blue-800/60 rounded-2xl p-6 mb-6 shadow-2xl relative">
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-3 mb-4 border-b border-blue-900/50 pb-3">
                 <div class="flex items-center gap-2">
@@ -138,7 +138,6 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
-                <!-- Nifty 50 Idea -->
                 <div class="bg-gray-800/80 p-4 rounded-xl border border-blue-900/60 shadow">
                     <div class="flex items-center justify-between mb-2">
                         <strong class="text-blue-400 text-sm">📈 NIFTY 50 Setup</strong>
@@ -150,7 +149,6 @@
                     </p>
                 </div>
 
-                <!-- Bank Nifty Idea -->
                 <div class="bg-gray-800/80 p-4 rounded-xl border border-indigo-900/60 shadow">
                     <div class="flex items-center justify-between mb-2">
                         <strong class="text-indigo-400 text-sm">🏦 BANK NIFTY Setup</strong>
@@ -162,7 +160,6 @@
                     </p>
                 </div>
 
-                <!-- Finnifty & Others Idea -->
                 <div class="bg-gray-800/80 p-4 rounded-xl border border-purple-900/60 shadow">
                     <div class="flex items-center justify-between mb-2">
                         <strong class="text-purple-400 text-sm">🎯 FINNIFTY & Hedging</strong>
@@ -591,6 +588,25 @@
                 tbody.appendChild(tr);
             });
         }
+
+        // Function to make screener cards interactive & active
+        function activateCard(cardName) {
+            if(cardName === 'Stock Screener') {
+                filterByIndex('ALL');
+                filterByBuildup('ALL');
+                alert("📊 Stock Screener Activated: Showing all F&O stocks.");
+            } else if(cardName === 'Intraday Screener') {
+                filterByBuildup('Long Builtup');
+                alert("📈 Intraday Screener Activated: Filtered for 'Long Builtup' momentum stocks.");
+            } else if(cardName === 'Stock Scanners') {
+                filterByBuildup('Short Builtup');
+                alert("📑 Stock Scanner Activated: Filtered for 'Short Builtup' breakdown stocks.");
+            } else if(cardName === 'Chart Screener') {
+                window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+                alert("📉 Chart Screener Activated: Scrolled down to Strategy & 20 EMA Guide.");
+            }
+        }
+        window.activateCard = activateCard;
 
         function filterByIndex(idx) {
             currentIndexFilter = idx;
