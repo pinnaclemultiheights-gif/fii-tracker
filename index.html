@@ -333,7 +333,7 @@
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 gap-4">
                 <div>
                     <h3 class="text-lg font-bold text-gray-200">🔍 F&O Stock Built-up & Trend Scanner</h3>
-                    <p class="text-xs text-gray-400 mt-0.5">Filter by Index and Buildup status.</p>
+                    <p class="text-xs text-gray-400 mt-0.5">Filter by Index and Buildup status. Hover on 📈 icon for preview.</p>
                 </div>
                 <div class="w-full md:w-64">
                     <input type="text" id="stock-search" onkeyup="filterStocks()" placeholder="Search stock symbol..." class="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-blue-500">
@@ -597,7 +597,24 @@
 
                 const tr = document.createElement("tr");
                 tr.innerHTML = `
-                    <td class="py-3 px-4 font-bold text-white">${item.symbol}</td>
+                    <td class="py-3 px-4 font-bold text-white flex items-center gap-2">
+                        <span>${item.symbol}</span>
+                        <!-- HOVER CHART ICON WITH POPUP PREVIEW -->
+                        <div class="relative group/tooltip inline-block cursor-pointer">
+                            <span class="text-blue-400 hover:text-blue-300 text-sm">📈</span>
+                            <div class="absolute left-6 bottom-0 w-64 bg-gray-900 border border-blue-500/60 rounded-xl p-4 shadow-2xl hidden group-hover/tooltip:block z-30 text-xs">
+                                <div class="flex justify-between items-center mb-2 border-b border-gray-800 pb-1">
+                                    <strong class="text-white">${item.symbol}</strong>
+                                    <span class="text-blue-400 font-semibold">Live Preview</span>
+                                </div>
+                                <div class="space-y-1.5 text-gray-300">
+                                    <div class="flex justify-between"><span>Price:</span> <strong class="text-white">₹${item.price}</strong></div>
+                                    <div class="flex justify-between"><span>Buildup:</span> <strong class="text-green-400">${item.buildup}</strong></div>
+                                    <div class="flex justify-between"><span>OI Change:</span> <strong class="text-yellow-400">${item.oiChange}</strong></div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
                     <td class="py-3 px-4 text-gray-400 font-semibold">${item.index}</td>
                     <td class="py-3 px-4"><span class="px-2.5 py-1 rounded text-[10px] font-bold ${badgeClass}">${item.buildup}</span></td>
                     <td class="py-3 px-4 font-semibold">₹${item.price.toFixed(2)}</td>
@@ -690,60 +707,4 @@
         renderStockTable(stockData);
 
         const historicalData = [
-            { date: "10-Nov-2026", fiiNet: 1250.50, diiNet: -450.20 },
-            { date: "09-Nov-2026", fiiNet: 7212.22, diiNet: -7172.53 },
-            { date: "06-Nov-2026", fiiNet: 13749.82, diiNet: -5968.70 },
-            { date: "05-Nov-2026", fiiNet: 14974.68, diiNet: -10444.50 },
-            { date: "04-Nov-2026", fiiNet: 7284.03, diiNet: -3712.23 }
-        ];
-
-        const tableBody = document.getElementById("table-body");
-        historicalData.forEach(row => {
-            const combined = row.fiiNet + row.diiNet;
-            const tr = document.createElement("tr");
-            tr.innerHTML = `
-                <td class="py-3 px-4 font-medium text-gray-200">${row.date}</td>
-                <td class="py-3 px-4 font-bold ${row.fiiNet >= 0 ? 'text-green-400' : 'text-red-400'}">${row.fiiNet >= 0 ? '+' : ''}₹${row.fiiNet.toLocaleString()} Cr</td>
-                <td class="py-3 px-4 font-bold ${row.diiNet >= 0 ? 'text-green-400' : 'text-red-400'}">${row.diiNet >= 0 ? '+' : ''}₹${row.diiNet.toLocaleString()} Cr</td>
-                <td class="py-3 px-4 font-bold ${combined >= 0 ? 'text-blue-400' : 'text-yellow-400'}">${combined >= 0 ? '+' : ''}₹${combined.toLocaleString()} Cr</td>
-            `;
-            tableBody.appendChild(tr);
-        });
-
-        const ctx = document.getElementById('flowChart').getContext('2d');
-        new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: historicalData.map(item => item.date).reverse(),
-                datasets: [
-                    {
-                        label: 'FII Net (Cr)',
-                        data: historicalData.map(item => item.fiiNet).reverse(),
-                        backgroundColor: 'rgba(74, 222, 128, 0.7)',
-                        borderColor: 'rgb(74, 222, 128)',
-                        borderWidth: 1
-                    },
-                    {
-                        label: 'DII Net (Cr)',
-                        data: historicalData.map(item => item.diiNet).reverse(),
-                        backgroundColor: 'rgba(248, 113, 113, 0.7)',
-                        borderColor: 'rgb(248, 113, 113)',
-                        borderWidth: 1
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    x: { ticks: { color: '#9ca3af' }, grid: { color: '#374151' } },
-                    y: { ticks: { color: '#9ca3af' }, grid: { color: '#374151' } }
-                },
-                plugins: {
-                    legend: { labels: { color: '#e5e7eb' } }
-                }
-            }
-        });
-    </script>
-</body>
-</html>
+            { date: "10-Nov-2
