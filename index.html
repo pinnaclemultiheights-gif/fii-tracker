@@ -31,22 +31,22 @@
             </div>
         </header>
 
-        <!-- Market Status & Today's Expiry Banner (Yahan aap easily status badal sakte hain) -->
+        <!-- NEW: Market Status & Today's Expiry Banner -->
         <div class="bg-gradient-to-r from-gray-900 to-gray-900 border border-gray-800 p-4 rounded-xl mb-6 shadow-xl flex flex-col md:flex-row justify-between items-center gap-4">
             <div class="flex items-center gap-3">
                 <span class="relative flex h-3 w-3">
-                  <span id="status-ping" class="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-400 opacity-75"></span>
-                  <span id="status-dot" class="relative inline-flex rounded-full h-3 w-3 bg-yellow-500"></span>
+                  <span id="status-ping" class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                  <span id="status-dot" class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
                 </span>
                 <div>
                     <span class="text-xs text-gray-400 uppercase tracking-wider font-semibold">Market Status:</span>
-                    <span id="market-status-text" class="text-sm font-bold text-yellow-400 ml-1">MARKET CLOSED / HOLIDAY</span>
+                    <span id="market-status-text" class="text-sm font-bold text-green-400 ml-1">LIVE & ACTIVE (NSE/BSE)</span>
                 </div>
             </div>
             
             <div class="flex items-center gap-2 bg-gray-800/80 px-4 py-2 rounded-lg border border-gray-700">
                 <span class="text-xs text-yellow-400 font-bold uppercase">🎯 Today's Expiry:</span>
-                <span id="expiry-index-name" class="text-sm font-extrabold text-white">FINNIFTY (Weekly Expiry)</span>
+                <span id="expiry-index-name" class="text-sm font-extrabold text-white">NIFTY 50 (Weekly Expiry)</span>
             </div>
         </div>
 
@@ -273,8 +273,43 @@
 
     <!-- JavaScript logic -->
     <script>
-        // Date setting
-        document.getElementById("current-date").innerText = "Latest Session: 10-Nov-2026";
+        // Automatic Expiry and Market Status Detector
+        const today = new Date();
+        const dayOfWeek = today.getDay(); // 0 = Sun, 1 = Mon, 2 = Tue, 3 = Wed, 4 = Thu, 5 = Fri, 6 = Sat
+        const hours = today.getHours();
+        const minutes = today.getMinutes();
+        const currentTime = hours * 60 + minutes;
+
+        // Market active check (NSE timing ~ 9:15 AM to 3:30 PM, Mon-Fri)
+        let isMarketOpen = (dayOfWeek >= 1 && dayOfWeek <= 5) && (currentTime >= 555 && currentTime <= 930);
+        
+        const statusText = document.getElementById('market-status-text');
+        const statusDot = document.getElementById('status-dot');
+        const statusPing = document.getElementById('status-ping');
+
+        if (dayOfWeek === 0 || dayOfWeek === 6) {
+            statusText.innerText = "MARKET CLOSED (WEEKEND)";
+            statusText.className = "text-sm font-bold text-red-400 ml-1";
+            statusDot.className = "relative inline-flex rounded-full h-3 w-3 bg-red-500";
+            statusPing.style.display = 'none';
+        } else if (!isMarketOpen) {
+            statusText.innerText = "AFTER HOURS / CLOSED";
+            statusText.className = "text-sm font-bold text-yellow-400 ml-1";
+            statusDot.className = "relative inline-flex rounded-full h-3 w-3 bg-yellow-500";
+            statusPing.style.display = 'none';
+        }
+
+        // Expiry calculation based on day
+        const expiryMap = {
+            1: "MIDCPNIFTY (Weekly Expiry)",
+            2: "FINNIFTY (Weekly Expiry)",
+            3: "BANKNIFTY (Weekly Expiry)",
+            4: "NIFTY 50 (Weekly Expiry)",
+            5: "SENSEX (Weekly Expiry)"
+        };
+
+        const todayExpiry = expiryMap[dayOfWeek] || "No Expiry Today (Weekend)";
+        document.getElementById('expiry-index-name').innerText = todayExpiry;
 
         function calculateRisk() {
             const capital = parseFloat(document.getElementById('calc-capital').value) || 0;
@@ -290,12 +325,16 @@
         }
 
         const historicalData = [
-            { date: "10-Nov-2026", fiiNet: 1250.50, diiNet: -450.20 },
             { date: "09-Nov-2026", fiiNet: 7212.22, diiNet: -7172.53 },
+            { date: "08-Nov-2026", fiiNet: -0.25, diiNet: 39.69 },
             { date: "06-Nov-2026", fiiNet: 13749.82, diiNet: -5968.70 },
             { date: "05-Nov-2026", fiiNet: 14974.68, diiNet: -10444.50 },
-            { date: "04-Nov-2026", fiiNet: 7284.03, diiNet: -3712.23 }
+            { date: "04-Nov-2026", fiiNet: 7284.03, diiNet: -3712.23 },
+            { date: "03-Nov-2026", fiiNet: 6836.81, diiNet: -3678.85 },
+            { date: "02-Nov-2026", fiiNet: 3114.68, diiNet: -392.20 }
         ];
+
+        document.getElementById("current-date").innerText = "Latest Session: " + historicalData[0].date;
 
         const tableBody = document.getElementById("table-body");
         historicalData.forEach(row => {
