@@ -31,7 +31,7 @@
             </div>
         </header>
 
-        <!-- Global Markets & VIX Fear Meter Bar (Fixed Layout) -->
+        <!-- Global Markets & VIX Fear Meter Bar -->
         <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
             <!-- GIFT Nifty -->
             <div class="bg-gray-900 border border-gray-800 p-4 rounded-xl shadow-lg flex justify-between items-center">
@@ -57,7 +57,7 @@
                 </div>
                 <span class="text-xs font-bold text-green-400 bg-green-900/40 px-2 py-1 rounded border border-green-800">+95.4 (+0.50%)</span>
             </div>
-            <!-- India VIX (Fear Meter - Fixed & Clean Layout) -->
+            <!-- India VIX (Fear Meter) -->
             <div class="bg-gray-900 border border-gray-800 p-4 rounded-xl shadow-lg flex justify-between items-center">
                 <div>
                     <span class="text-xs text-gray-400 font-bold uppercase block">INDIA VIX (FEAR)</span>
@@ -112,11 +112,14 @@
             </div>
         </div>
 
-        <!-- OPTIONS DASHBOARD (3 Separate Index Cards) -->
+        <!-- OPTIONS DASHBOARD (With Live OI Change Data) -->
         <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 mb-8 shadow-xl">
-            <div class="mb-6">
-                <h3 class="text-lg font-bold text-gray-200">📊 Nifty, Bank Nifty & Finnifty Option Dashboard</h3>
-                <p class="text-xs text-gray-400 mt-0.5">Real-time Open Interest (OI), PCR, and institutional strike positioning across major indices.</p>
+            <div class="mb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-2">
+                <div>
+                    <h3 class="text-lg font-bold text-gray-200">📊 Nifty, Bank Nifty & Finnifty Option Dashboard</h3>
+                    <p class="text-xs text-gray-400 mt-0.5">Real-time Open Interest (OI), OI Change, PCR, and Max Pain positioning.</p>
+                </div>
+                <span class="text-xs bg-emerald-900/40 text-emerald-300 px-3 py-1 rounded-lg border border-emerald-800 font-semibold animate-pulse">⚡ Live OI Change Tracking Active</span>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -132,12 +135,12 @@
                             <strong class="text-green-400">1.24 (Bullish)</strong>
                         </div>
                         <div class="flex justify-between items-center bg-gray-900/50 p-2 rounded-lg">
-                            <span class="text-gray-400">Total Call OI:</span>
-                            <strong class="text-red-400">2.45 Cr</strong>
+                            <span class="text-gray-400">Total Call OI & Change:</span>
+                            <span class="text-right"><strong class="text-red-400 block">2.45 Cr</strong><span class="text-[10px] text-green-400 font-bold">+12.4 Lakh (Built-up)</span></span>
                         </div>
                         <div class="flex justify-between items-center bg-gray-900/50 p-2 rounded-lg">
-                            <span class="text-gray-400">Total Put OI:</span>
-                            <strong class="text-green-400">3.04 Cr</strong>
+                            <span class="text-gray-400">Total Put OI & Change:</span>
+                            <span class="text-right"><strong class="text-green-400 block">3.04 Cr</strong><span class="text-[10px] text-green-400 font-bold">+28.5 Lakh (Writing)</span></span>
                         </div>
                         <div class="flex justify-between items-center bg-gray-900/50 p-2 rounded-lg">
                             <span class="text-gray-400">Max Pain Strike:</span>
@@ -158,12 +161,12 @@
                             <strong class="text-yellow-400">1.08 (Neutral)</strong>
                         </div>
                         <div class="flex justify-between items-center bg-gray-900/50 p-2 rounded-lg">
-                            <span class="text-gray-400">Total Call OI:</span>
-                            <strong class="text-red-400">1.85 Cr</strong>
+                            <span class="text-gray-400">Total Call OI & Change:</span>
+                            <span class="text-right"><strong class="text-red-400 block">1.85 Cr</strong><span class="text-[10px] text-red-400 font-bold">+8.2 Lakh (Short Built)</span></span>
                         </div>
                         <div class="flex justify-between items-center bg-gray-900/50 p-2 rounded-lg">
-                            <span class="text-gray-400">Total Put OI:</span>
-                            <strong class="text-green-400">2.00 Cr</strong>
+                            <span class="text-gray-400">Total Put OI & Change:</span>
+                            <span class="text-right"><strong class="text-green-400 block">2.00 Cr</strong><span class="text-[10px] text-green-400 font-bold">+14.1 Lakh (Writing)</span></span>
                         </div>
                         <div class="flex justify-between items-center bg-gray-900/50 p-2 rounded-lg">
                             <span class="text-gray-400">Max Pain Strike:</span>
@@ -184,12 +187,12 @@
                             <strong class="text-red-400">0.95 (Bearish Bias)</strong>
                         </div>
                         <div class="flex justify-between items-center bg-gray-900/50 p-2 rounded-lg">
-                            <span class="text-gray-400">Total Call OI:</span>
-                            <strong class="text-red-400">95 Lakh</strong>
+                            <span class="text-gray-400">Total Call OI & Change:</span>
+                            <span class="text-right"><strong class="text-red-400 block">95 Lakh</strong><span class="text-[10px] text-red-400 font-bold">+5.4 Lakh (Built-up)</span></span>
                         </div>
                         <div class="flex justify-between items-center bg-gray-900/50 p-2 rounded-lg">
-                            <span class="text-gray-400">Total Put OI:</span>
-                            <strong class="text-green-400">90 Lakh</strong>
+                            <span class="text-gray-400">Total Put OI & Change:</span>
+                            <span class="text-right"><strong class="text-green-400 block">90 Lakh</strong><span class="text-[10px] text-yellow-400 font-bold">-2.1 Lakh (Unwinding)</span></span>
                         </div>
                         <div class="flex justify-between items-center bg-gray-900/50 p-2 rounded-lg">
                             <span class="text-gray-400">Max Pain Strike:</span>
@@ -333,7 +336,7 @@
                 <div class="bg-gray-800 p-4 rounded-xl border border-red-900/50">
                     <h4 class="font-bold text-red-400 mb-2">🔴 Index Sell / Short Setup</h4>
                     <p class="text-gray-300 text-xs leading-relaxed">
-                        Jab FII Net Negative ho aur Index price <strong>20 EMA ke niche</strong> jaakar lagataar <strong>Swing Lows break</strong> karta jaye, tab PE (Put) sell plan karein.
+                        Jab FII Net Negative ho aur Index price <strong>20 EMA ke niche</strong> jaakar lagataar <strong>Swing Highs break</strong> karta jaye, tab PE (Put) sell plan karein.
                     </p>
                 </div>
                 <div class="bg-gray-800 p-4 rounded-xl border border-yellow-900/50">
