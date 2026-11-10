@@ -31,22 +31,22 @@
             </div>
         </header>
 
-        <!-- NEW: Market Status & Today's Expiry Banner -->
+        <!-- Market Status & Today's Expiry Banner (Yahan aap easily status badal sakte hain) -->
         <div class="bg-gradient-to-r from-gray-900 to-gray-900 border border-gray-800 p-4 rounded-xl mb-6 shadow-xl flex flex-col md:flex-row justify-between items-center gap-4">
             <div class="flex items-center gap-3">
                 <span class="relative flex h-3 w-3">
-                  <span id="status-ping" class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                  <span id="status-dot" class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                  <span id="status-ping" class="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-400 opacity-75"></span>
+                  <span id="status-dot" class="relative inline-flex rounded-full h-3 w-3 bg-yellow-500"></span>
                 </span>
                 <div>
                     <span class="text-xs text-gray-400 uppercase tracking-wider font-semibold">Market Status:</span>
-                    <span id="market-status-text" class="text-sm font-bold text-green-400 ml-1">LIVE & ACTIVE (NSE/BSE)</span>
+                    <span id="market-status-text" class="text-sm font-bold text-yellow-400 ml-1">MARKET CLOSED / HOLIDAY</span>
                 </div>
             </div>
             
             <div class="flex items-center gap-2 bg-gray-800/80 px-4 py-2 rounded-lg border border-gray-700">
                 <span class="text-xs text-yellow-400 font-bold uppercase">🎯 Today's Expiry:</span>
-                <span id="expiry-index-name" class="text-sm font-extrabold text-white">NIFTY 50 (Weekly Expiry)</span>
+                <span id="expiry-index-name" class="text-sm font-extrabold text-white">FINNIFTY (Weekly Expiry)</span>
             </div>
         </div>
 
@@ -224,4 +224,126 @@
 
         <!-- Historical Data Table -->
         <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 mb-8 shadow-xl overflow-hidden">
-            <h3 class="text-lg font-bold text-gray-200 mb
+            <h3 class="text-lg font-bold text-gray-200 mb-4">📋 Historical Trading Data (Cash Segment)</h3>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-sm text-gray-300">
+                    <thead class="bg-gray-800 text-gray-400 uppercase text-xs tracking-wider">
+                        <tr>
+                            <th class="py-3 px-4">Date</th>
+                            <th class="py-3 px-4">FII Net (Cr)</th>
+                            <th class="py-3 px-4">DII Net (Cr)</th>
+                            <th class="py-3 px-4">Combined Net (Cr)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body" class="divide-y divide-gray-800"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Strategy & Decision Guide -->
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 mb-8 shadow-xl">
+            <h3 class="text-lg font-bold text-gray-200 mb-4">💡 FII Flow + Index 20 EMA Trading Strategy Guide</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                <div class="bg-gray-800 p-4 rounded-xl border border-green-900/50">
+                    <h4 class="font-bold text-green-400 mb-2">🟢 Index Buy / Long Setup</h4>
+                    <p class="text-gray-300 text-xs leading-relaxed">
+                        Jab FII Net Positive ho aur <strong>Nifty / Bank Nifty</strong> price <strong>20 EMA ke upar</strong> sustain karte hue lagataar <strong>Swing Highs break</strong> kare, tab CE (Call) ya Long Futures buy plan karein.
+                    </p>
+                </div>
+                <div class="bg-gray-800 p-4 rounded-xl border border-red-900/50">
+                    <h4 class="font-bold text-red-400 mb-2">🔴 Index Sell / Short Setup</h4>
+                    <p class="text-gray-300 text-xs leading-relaxed">
+                        Jab FII Net Negative ho aur Index price <strong>20 EMA ke niche</strong> jaakar lagataar <strong>Swing Lows break</strong> karta jaye, tab PE (Put) ya Short Futures sell plan karein.
+                    </p>
+                </div>
+                <div class="bg-gray-800 p-4 rounded-xl border border-yellow-900/50">
+                    <h4 class="font-bold text-yellow-400 mb-2">⚠️ Reversal & Exit Rule</h4>
+                    <p class="text-gray-300 text-xs leading-relaxed">
+                        Agar Index price 20 EMA ko cross karke opposite direction me swing break de, toh turant apni current index position se <strong>Exit</strong> karein ya reverse position lein.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="text-center text-xs text-gray-500 mt-8 py-4 border-t border-gray-900">
+            Built for traders & investors. Data source: NSE / BSE institutional reports.
+        </footer>
+    </div>
+
+    <!-- JavaScript logic -->
+    <script>
+        // Date setting
+        document.getElementById("current-date").innerText = "Latest Session: 10-Nov-2026";
+
+        function calculateRisk() {
+            const capital = parseFloat(document.getElementById('calc-capital').value) || 0;
+            const riskPct = parseFloat(document.getElementById('calc-risk-pct').value) || 0;
+            const slPoints = parseFloat(document.getElementById('calc-sl').value) || 1;
+
+            const riskAmount = (capital * riskPct) / 100;
+            const quantity = Math.floor(riskAmount / slPoints);
+
+            document.getElementById('res-risk-amt').innerText = "₹" + riskAmount.toLocaleString('en-IN', {maximumFractionDigits: 2});
+            document.getElementById('res-qty').innerText = quantity.toLocaleString('en-IN') + " Units / Shares";
+            document.getElementById('calc-result').classList.remove('hidden');
+        }
+
+        const historicalData = [
+            { date: "10-Nov-2026", fiiNet: 1250.50, diiNet: -450.20 },
+            { date: "09-Nov-2026", fiiNet: 7212.22, diiNet: -7172.53 },
+            { date: "06-Nov-2026", fiiNet: 13749.82, diiNet: -5968.70 },
+            { date: "05-Nov-2026", fiiNet: 14974.68, diiNet: -10444.50 },
+            { date: "04-Nov-2026", fiiNet: 7284.03, diiNet: -3712.23 }
+        ];
+
+        const tableBody = document.getElementById("table-body");
+        historicalData.forEach(row => {
+            const combined = row.fiiNet + row.diiNet;
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+                <td class="py-3 px-4 font-medium text-gray-200">${row.date}</td>
+                <td class="py-3 px-4 font-bold ${row.fiiNet >= 0 ? 'text-green-400' : 'text-red-400'}">${row.fiiNet >= 0 ? '+' : ''}₹${row.fiiNet.toLocaleString()} Cr</td>
+                <td class="py-3 px-4 font-bold ${row.diiNet >= 0 ? 'text-green-400' : 'text-red-400'}">${row.diiNet >= 0 ? '+' : ''}₹${row.diiNet.toLocaleString()} Cr</td>
+                <td class="py-3 px-4 font-bold ${combined >= 0 ? 'text-blue-400' : 'text-yellow-400'}">${combined >= 0 ? '+' : ''}₹${combined.toLocaleString()} Cr</td>
+            `;
+            tableBody.appendChild(tr);
+        });
+
+        const ctx = document.getElementById('flowChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: historicalData.map(item => item.date).reverse(),
+                datasets: [
+                    {
+                        label: 'FII Net (Cr)',
+                        data: historicalData.map(item => item.fiiNet).reverse(),
+                        backgroundColor: 'rgba(74, 222, 128, 0.7)',
+                        borderColor: 'rgb(74, 222, 128)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'DII Net (Cr)',
+                        data: historicalData.map(item => item.diiNet).reverse(),
+                        backgroundColor: 'rgba(248, 113, 113, 0.7)',
+                        borderColor: 'rgb(248, 113, 113)',
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: { ticks: { color: '#9ca3af' }, grid: { color: '#374151' } },
+                    y: { ticks: { color: '#9ca3af' }, grid: { color: '#374151' } }
+                },
+                plugins: {
+                    legend: { labels: { color: '#e5e7eb' } }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
