@@ -33,7 +33,6 @@
 
         <!-- Global Markets & VIX Fear Meter Bar -->
         <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-            <!-- GIFT Nifty -->
             <div class="bg-gray-900 border border-gray-800 p-4 rounded-xl shadow-lg flex justify-between items-center">
                 <div>
                     <span class="text-xs text-gray-400 font-bold uppercase">GIFT NIFTY</span>
@@ -41,7 +40,6 @@
                 </div>
                 <span class="text-xs font-bold text-green-400 bg-green-900/40 px-2 py-1 rounded border border-green-800">+65.0 (+0.27%)</span>
             </div>
-            <!-- Dow Jones Futures -->
             <div class="bg-gray-900 border border-gray-800 p-4 rounded-xl shadow-lg flex justify-between items-center">
                 <div>
                     <span class="text-xs text-gray-400 font-bold uppercase">Dow Futures</span>
@@ -49,7 +47,6 @@
                 </div>
                 <span class="text-xs font-bold text-green-400 bg-green-900/40 px-2 py-1 rounded border border-green-800">+120.0 (+0.27%)</span>
             </div>
-            <!-- Nasdaq Futures -->
             <div class="bg-gray-900 border border-gray-800 p-4 rounded-xl shadow-lg flex justify-between items-center">
                 <div>
                     <span class="text-xs text-gray-400 font-bold uppercase">Nasdaq Futures</span>
@@ -57,7 +54,6 @@
                 </div>
                 <span class="text-xs font-bold text-green-400 bg-green-900/40 px-2 py-1 rounded border border-green-800">+95.4 (+0.50%)</span>
             </div>
-            <!-- India VIX (Fear Meter) -->
             <div class="bg-gray-900 border border-gray-800 p-4 rounded-xl shadow-lg flex justify-between items-center">
                 <div>
                     <span class="text-xs text-gray-400 font-bold uppercase block">INDIA VIX (FEAR)</span>
@@ -203,12 +199,12 @@
             </div>
         </div>
 
-        <!-- F&O Stock Built-up & Trend Scanner Table with Filter Buttons -->
+        <!-- F&O Stock Built-up & Trend Scanner Table with Index & Buildup Filters -->
         <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 mb-8 shadow-xl">
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 gap-4">
                 <div>
                     <h3 class="text-lg font-bold text-gray-200">🔍 F&O Stock Built-up & Trend Scanner</h3>
-                    <p class="text-xs text-gray-400 mt-0.5">Track Long/Short Buildup, Price Change, Open Interest (OI) & Volume.</p>
+                    <p class="text-xs text-gray-400 mt-0.5">Filter by Index (Nifty 50, Bank Nifty) and Buildup status.</p>
                 </div>
                 <!-- Search Box -->
                 <div class="w-full md:w-64">
@@ -216,13 +212,22 @@
                 </div>
             </div>
 
+            <!-- Index Filter Bar -->
+            <div class="flex flex-wrap items-center gap-2 mb-3 bg-gray-950 p-2.5 rounded-xl border border-gray-800 text-xs font-bold">
+                <span class="text-gray-400 mr-2 text-[11px] uppercase">Select Index:</span>
+                <button onclick="filterByIndex('ALL')" id="idx-all" class="bg-blue-600 text-white px-3 py-1.5 rounded-lg transition-all cursor-pointer shadow">All F&O</button>
+                <button onclick="filterByIndex('NIFTY50')" id="idx-nifty" class="bg-gray-800 text-gray-300 hover:text-white px-3 py-1.5 rounded-lg border border-gray-700 transition-all cursor-pointer">Nifty 50</button>
+                <button onclick="filterByIndex('BANKNIFTY')" id="idx-bank" class="bg-gray-800 text-gray-300 hover:text-white px-3 py-1.5 rounded-lg border border-gray-700 transition-all cursor-pointer">Bank Nifty</button>
+            </div>
+
             <!-- Buildup Filter Buttons Bar -->
             <div class="flex flex-wrap items-center gap-2 mb-4 bg-gray-950 p-3 rounded-xl border border-gray-800 text-xs font-bold">
-                <button onclick="filterByBuildup('ALL')" id="btn-all" class="bg-indigo-600 text-white px-3 py-1.5 rounded-lg transition-all cursor-pointer shadow">ALL FUT</button>
-                <button onclick="filterByBuildup('Long Builtup')" id="btn-long" class="bg-gray-800 hover:bg-green-700 text-green-400 hover:text-white px-3 py-1.5 rounded-lg border border-green-800 transition-all cursor-pointer">LONG BUILTUP</button>
-                <button onclick="filterByBuildup('Short Builtup')" id="btn-short" class="bg-gray-800 hover:bg-red-700 text-red-400 hover:text-white px-3 py-1.5 rounded-lg border border-red-800 transition-all cursor-pointer">SHORT BUILTUP</button>
-                <button onclick="filterByBuildup('Long Unwind')" id="btn-unwind" class="bg-gray-800 hover:bg-amber-700 text-amber-400 hover:text-white px-3 py-1.5 rounded-lg border border-amber-800 transition-all cursor-pointer">LONG UNWIND</button>
-                <button onclick="filterByBuildup('Short Cover')" id="btn-cover" class="bg-gray-800 hover:bg-blue-700 text-blue-400 hover:text-white px-3 py-1.5 rounded-lg border border-blue-800 transition-all cursor-pointer">SHORT COVER</button>
+                <span class="text-gray-400 mr-2 text-[11px] uppercase">Buildup:</span>
+                <button onclick="filterByBuildup('ALL')" id="btn-all" class="bg-indigo-600 text-white px-3 py-1.5 rounded-lg transition-all cursor-pointer shadow">ALL</button>
+                <button onclick="filterByBuildup('Long Builtup')" id="btn-long" class="bg-gray-800 text-green-400 hover:bg-green-700 hover:text-white px-3 py-1.5 rounded-lg border border-green-800 transition-all cursor-pointer">LONG BUILTUP</button>
+                <button onclick="filterByBuildup('Short Builtup')" id="btn-short" class="bg-gray-800 text-red-400 hover:bg-red-700 hover:text-white px-3 py-1.5 rounded-lg border border-red-800 transition-all cursor-pointer">SHORT BUILTUP</button>
+                <button onclick="filterByBuildup('Long Unwind')" id="btn-unwind" class="bg-gray-800 text-amber-400 hover:bg-amber-700 hover:text-white px-3 py-1.5 rounded-lg border border-amber-800 transition-all cursor-pointer">LONG UNWIND</button>
+                <button onclick="filterByBuildup('Short Cover')" id="btn-cover" class="bg-gray-800 text-blue-400 hover:bg-blue-700 hover:text-white px-3 py-1.5 rounded-lg border border-blue-800 transition-all cursor-pointer">SHORT COVER</button>
             </div>
 
             <div class="overflow-x-auto">
@@ -230,12 +235,12 @@
                     <thead class="bg-purple-950/80 text-purple-200 uppercase tracking-wider border-b border-purple-900">
                         <tr>
                             <th class="py-3 px-4 font-bold">Symbol</th>
+                            <th class="py-3 px-4 font-bold">Index</th>
                             <th class="py-3 px-4 font-bold">Builtup</th>
                             <th class="py-3 px-4 font-bold">Price (₹)</th>
                             <th class="py-3 px-4 font-bold">Change (%)</th>
                             <th class="py-3 px-4 font-bold">OI</th>
                             <th class="py-3 px-4 font-bold">OI Change</th>
-                            <th class="py-3 px-4 font-bold">OI Change %</th>
                             <th class="py-3 px-4 font-bold">Volume</th>
                             <th class="py-3 px-4 font-bold">Expiry</th>
                         </tr>
@@ -416,24 +421,26 @@
         }
         window.calculateRisk = calculateRisk;
 
-        // F&O Stock Built-up Data (Cleaned)
+        // Expanded F&O Stock List categorized by Index
         const stockData = [
-            { symbol: "360ONE", buildup: "Long Unwind", price: 1141.20, change: 4.05, pctChange: "0.36%", oi: "46,94,000", oiChange: "-98,500", oiChangePct: "-2.06%", vol: "3,96,500", expiry: "26-Nov-26" },
-            { symbol: "ABB", buildup: "Short Builtup", price: 6907.00, change: 1.50, pctChange: "0.02%", oi: "21,75,625", oiChange: "84,500", oiChangePct: "4.04%", vol: "9,01,250", expiry: "26-Nov-26" },
-            { symbol: "ABCAPITAL", buildup: "Long Unwind", price: 401.00, change: 3.20, pctChange: "0.80%", oi: "2,93,12,050", oiChange: "-10,54,000", oiChangePct: "-3.47%", vol: "48,67,000", expiry: "26-Nov-26" },
-            { symbol: "ADANIENSOL", buildup: "Long Unwind", price: 1448.00, change: -7.40, pctChange: "-0.51%", oi: "21,15,900", oiChange: "11,677", oiChangePct: "0.55%", vol: "10,56,375", expiry: "26-Nov-26" },
-            { symbol: "ADANIENT", buildup: "Long Builtup", price: 2704.00, change: 33.20, pctChange: "1.21%", oi: "1,68,13,926", oiChange: "84,357", oiChangePct: "0.50%", vol: "9,22,674", expiry: "26-Nov-26" },
-            { symbol: "ADANIGREEN", buildup: "Short Cover", price: 1451.00, change: 26.70, pctChange: "1.87%", oi: "1,97,82,000", oiChange: "-1,90,200", oiChangePct: "-0.95%", vol: "16,21,200", expiry: "26-Nov-26" },
-            { symbol: "ADANIPORTS", buildup: "Long Unwind", price: 1942.10, change: -16.10, pctChange: "-0.82%", oi: "1,35,75,500", oiChange: "99,275", oiChangePct: "0.74%", vol: "13,97,450", expiry: "26-Nov-26" },
-            { symbol: "ALKEM", buildup: "Long Builtup", price: 5382.00, change: 48.50, pctChange: "0.91%", oi: "16,35,625", oiChange: "17,000", oiChangePct: "1.03%", vol: "1,95,875", expiry: "26-Nov-26" },
-            { symbol: "AMBER", buildup: "Short Builtup", price: 6234.50, change: -89.50, pctChange: "-1.42%", oi: "9,04,200", oiChange: "18,100", oiChangePct: "2.04%", vol: "5,54,100", expiry: "26-Nov-26" },
-            { symbol: "ANANDRATHI", buildup: "Long Unwind", price: 2370.00, change: -1.40, pctChange: "-0.06%", oi: "41,55,250", oiChange: "-41,250", oiChangePct: "-0.98%", vol: "2,21,000", expiry: "26-Nov-26" },
-            { symbol: "ANGELONE", buildup: "Short Cover", price: 338.60, change: 4.95, pctChange: "1.48%", oi: "36,23,250", oiChange: "-1,27,500", oiChangePct: "-0.35%", vol: "59,20,000", expiry: "26-Nov-26" },
-            { symbol: "APLAPOLLO", buildup: "Long Unwind", price: 2180.00, change: -6.30, pctChange: "-0.29%", oi: "13,29,650", oiChange: "-1,96,000", oiChangePct: "-1.45%", vol: "5,68,050", expiry: "26-Nov-26" },
-            { symbol: "APOLLOHOSP", buildup: "Short Builtup", price: 8496.50, change: 45.00, pctChange: "0.53%", oi: "16,12,125", oiChange: "54,200", oiChangePct: "3.48%", vol: "4,12,000", expiry: "26-Nov-26" }
+            { symbol: "RELIANCE", index: "NIFTY50", buildup: "Long Builtup", price: 1280.50, change: 18.50, pctChange: "1.47%", oi: "4,25,00,000", oiChange: "+12,50,000", vol: "1,25,00,000", expiry: "26-Nov-26" },
+            { symbol: "TCS", index: "NIFTY50", buildup: "Short Unwind", price: 4120.00, change: -15.00, pctChange: "-0.36%", oi: "1,10,00,000", oiChange: "-3,20,000", vol: "45,00,000", expiry: "26-Nov-26" },
+            { symbol: "HDFCBANK", index: "BANKNIFTY", buildup: "Long Builtup", price: 1750.25, change: 22.10, pctChange: "1.28%", oi: "6,50,00,000", oiChange: "+25,00,000", vol: "2,10,00,000", expiry: "26-Nov-26" },
+            { symbol: "ICICIBANK", index: "BANKNIFTY", buildup: "Short Cover", price: 1240.80, change: 15.30, pctChange: "1.25%", oi: "5,10,00,000", oiChange: "-14,00,000", vol: "1,80,00,000", expiry: "26-Nov-26" },
+            { symbol: "INFY", index: "NIFTY50", buildup: "Short Builtup", price: 1890.10, change: -24.50, pctChange: "-1.28%", oi: "2,40,00,000", oiChange: "+8,50,000", vol: "95,00,000", expiry: "26-Nov-26" },
+            { symbol: "SBIN", index: "BANKNIFTY", buildup: "Long Builtup", price: 830.40, change: 12.60, pctChange: "1.54%", oi: "4,80,00,000", oiChange: "+19,00,000", vol: "1,60,00,000", expiry: "26-Nov-26" },
+            { symbol: "BHARTIARTL", index: "NIFTY50", buildup: "Long Unwind", price: 1650.00, change: -8.00, pctChange: "-0.48%", oi: "1,90,00,000", oiChange: "-2,10,000", vol: "60,00,000", expiry: "26-Nov-26" },
+            { symbol: "KOTAKBANK", index: "BANKNIFTY", buildup: "Short Builtup", price: 1780.00, change: -12.00, pctChange: "-0.67%", oi: "2,10,00,000", oiChange: "+4,50,000", vol: "70,00,000", expiry: "26-Nov-26" },
+            { symbol: "ITC", index: "NIFTY50", buildup: "Short Cover", price: 485.50, change: 3.50, pctChange: "0.73%", oi: "3,10,00,000", oiChange: "-5,00,000", vol: "90,00,000", expiry: "26-Nov-26" },
+            { symbol: "AXISBANK", index: "BANKNIFTY", buildup: "Long Builtup", price: 1150.20, change: 19.40, pctChange: "1.72%", oi: "3,40,00,000", oiChange: "+11,00,000", vol: "1,15,00,000", expiry: "26-Nov-26" },
+            { symbol: "LT", index: "NIFTY50", buildup: "Short Builtup", price: 3550.00, change: -45.00, pctChange: "-1.25%", oi: "1,20,00,000", oiChange: "+6,20,000", vol: "50,00,000", expiry: "26-Nov-26" },
+            { symbol: "HINDUNILVR", index: "NIFTY50", buildup: "Long Unwind", price: 2650.00, change: -10.00, pctChange: "-0.38%", oi: "95,00,000", oiChange: "-1,50,000", vol: "40,00,000", expiry: "26-Nov-26" },
+            { symbol: "PNB", index: "BANKNIFTY", buildup: "Long Builtup", price: 105.50, change: 2.80, pctChange: "2.72%", oi: "8,50,00,000", oiChange: "+35,00,000", vol: "2,50,00,000", expiry: "26-Nov-26" },
+            { symbol: "TATAMOTORS", index: "NIFTY50", buildup: "Long Builtup", price: 780.20, change: 25.40, pctChange: "3.37%", oi: "7,20,00,000", oiChange: "+42,00,000", vol: "3,10,00,000", expiry: "26-Nov-26" }
         ];
 
-        let currentFilter = 'ALL';
+        let currentIndexFilter = 'ALL';
+        let currentBuildupFilter = 'ALL';
 
         function renderStockTable(data) {
             const tbody = document.getElementById("stock-table-body");
@@ -442,8 +449,9 @@
             const query = document.getElementById("stock-search").value.toLowerCase();
             const filtered = data.filter(item => {
                 const matchesSearch = item.symbol.toLowerCase().includes(query);
-                const matchesBuildup = (currentFilter === 'ALL' || item.buildup === currentFilter);
-                return matchesSearch && matchesBuildup;
+                const matchesIndex = (currentIndexFilter === 'ALL' || item.index === currentIndexFilter);
+                const matchesBuildup = (currentBuildupFilter === 'ALL' || item.buildup === currentBuildupFilter);
+                return matchesSearch && matchesIndex && matchesBuildup;
             });
 
             if(filtered.length === 0) {
@@ -461,12 +469,12 @@
                 const tr = document.createElement("tr");
                 tr.innerHTML = `
                     <td class="py-3 px-4 font-bold text-white">${item.symbol}</td>
+                    <td class="py-3 px-4 text-gray-400 font-semibold">${item.index}</td>
                     <td class="py-3 px-4"><span class="px-2.5 py-1 rounded text-[10px] font-bold ${badgeClass}">${item.buildup}</span></td>
-                    <td class="py-3 px-4 font-semibold">${item.price.toFixed(2)}</td>
+                    <td class="py-3 px-4 font-semibold">₹${item.price.toFixed(2)}</td>
                     <td class="py-3 px-4 font-bold ${item.change >= 0 ? 'text-green-400' : 'text-red-400'}">${item.change >= 0 ? '+' : ''}${item.change} (${item.pctChange})</td>
                     <td class="py-3 px-4 text-gray-200">${item.oi}</td>
                     <td class="py-3 px-4 font-bold ${item.oiChange.startsWith('-') ? 'text-yellow-400' : 'text-green-400'}">${item.oiChange}</td>
-                    <td class="py-3 px-4">${item.oiChangePct}</td>
                     <td class="py-3 px-4 text-gray-300">${item.vol}</td>
                     <td class="py-3 px-4 text-gray-400">${item.expiry}</td>
                 `;
@@ -474,23 +482,21 @@
             });
         }
 
+        function filterByIndex(idx) {
+            currentIndexFilter = idx;
+            document.getElementById('idx-all').className = idx === 'ALL' ? "bg-blue-600 text-white px-3 py-1.5 rounded-lg shadow cursor-pointer" : "bg-gray-800 text-gray-300 px-3 py-1.5 rounded-lg border border-gray-700 cursor-pointer";
+            document.getElementById('idx-nifty').className = idx === 'NIFTY50' ? "bg-blue-600 text-white px-3 py-1.5 rounded-lg shadow cursor-pointer" : "bg-gray-800 text-gray-300 px-3 py-1.5 rounded-lg border border-gray-700 cursor-pointer";
+            document.getElementById('idx-bank').className = idx === 'BANKNIFTY' ? "bg-blue-600 text-white px-3 py-1.5 rounded-lg shadow cursor-pointer" : "bg-gray-800 text-gray-300 px-3 py-1.5 rounded-lg border border-gray-700 cursor-pointer";
+            renderStockTable(stockData);
+        }
+
         function filterByBuildup(type) {
-            currentFilter = type;
-            
-            // Reset button active styles
-            document.getElementById('btn-all').className = "bg-gray-800 text-gray-300 px-3 py-1.5 rounded-lg transition-all cursor-pointer";
-            document.getElementById('btn-long').className = "bg-gray-800 text-green-400 px-3 py-1.5 rounded-lg border border-green-800 transition-all cursor-pointer";
-            document.getElementById('btn-short').className = "bg-gray-800 text-red-400 px-3 py-1.5 rounded-lg border border-red-800 transition-all cursor-pointer";
-            document.getElementById('btn-unwind').className = "bg-gray-800 text-amber-400 px-3 py-1.5 rounded-lg border border-amber-800 transition-all cursor-pointer";
-            document.getElementById('btn-cover').className = "bg-gray-800 text-blue-400 px-3 py-1.5 rounded-lg border border-blue-800 transition-all cursor-pointer";
-
-            // Highlight clicked button
-            if(type === 'ALL') document.getElementById('btn-all').className = "bg-indigo-600 text-white px-3 py-1.5 rounded-lg shadow cursor-pointer";
-            if(type === 'Long Builtup') document.getElementById('btn-long').className = "bg-green-600 text-white px-3 py-1.5 rounded-lg shadow cursor-pointer";
-            if(type === 'Short Builtup') document.getElementById('btn-short').className = "bg-red-600 text-white px-3 py-1.5 rounded-lg shadow cursor-pointer";
-            if(type === 'Long Unwind') document.getElementById('btn-unwind').className = "bg-amber-600 text-white px-3 py-1.5 rounded-lg shadow cursor-pointer";
-            if(type === 'Short Cover') document.getElementById('btn-cover').className = "bg-blue-600 text-white px-3 py-1.5 rounded-lg shadow cursor-pointer";
-
+            currentBuildupFilter = type;
+            document.getElementById('btn-all').className = type === 'ALL' ? "bg-indigo-600 text-white px-3 py-1.5 rounded-lg shadow cursor-pointer" : "bg-gray-800 text-gray-300 px-3 py-1.5 rounded-lg cursor-pointer";
+            document.getElementById('btn-long').className = type === 'Long Builtup' ? "bg-green-600 text-white px-3 py-1.5 rounded-lg shadow cursor-pointer" : "bg-gray-800 text-green-400 px-3 py-1.5 rounded-lg border border-green-800 cursor-pointer";
+            document.getElementById('btn-short').className = type === 'Short Builtup' ? "bg-red-600 text-white px-3 py-1.5 rounded-lg shadow cursor-pointer" : "bg-gray-800 text-red-400 px-3 py-1.5 rounded-lg border border-red-800 cursor-pointer";
+            document.getElementById('btn-unwind').className = type === 'Long Unwind' ? "bg-amber-600 text-white px-3 py-1.5 rounded-lg shadow cursor-pointer" : "bg-gray-800 text-amber-400 px-3 py-1.5 rounded-lg border border-amber-800 cursor-pointer";
+            document.getElementById('btn-cover').className = type === 'Short Cover' ? "bg-blue-600 text-white px-3 py-1.5 rounded-lg shadow cursor-pointer" : "bg-gray-800 text-blue-400 px-3 py-1.5 rounded-lg border border-blue-800 cursor-pointer";
             renderStockTable(stockData);
         }
 
