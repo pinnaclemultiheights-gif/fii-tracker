@@ -523,167 +523,94 @@
             </div>
         </div>
 
-        <!-- Footer -->
-        <footer class="text-center text-xs text-gray-500 mt-8 py-4 border-t border-gray-900">
-            Built for traders & investors. Data source: NSE / BSE institutional reports.
-        </footer>
+   <!-- Footer -->
+        <footer class="text-center text-xs text-gray-500 py-4 border-t border-gray-900">Built for traders & investors.</footer>
     </div>
 
-    <!-- JavaScript logic -->
+    <!-- Script Logic -->
     <script>
         document.getElementById("current-date").innerText = "Latest Session: 10-Nov-2026";
 
-        function calculateRisk() {
-            const capital = parseFloat(document.getElementById('calc-capital').value) || 0;
-            const riskPct = parseFloat(document.getElementById('calc-risk-pct').value) || 0;
-            const slPoints = parseFloat(document.getElementById('calc-sl').value) || 1;
-
-            const riskAmount = (capital * riskPct) / 100;
-            const quantity = Math.floor(riskAmount / slPoints);
-
-            document.getElementById('res-risk-amt').innerText = "₹" + riskAmount.toLocaleString('en-IN', {maximumFractionDigits: 2});
-            document.getElementById('res-qty').innerText = quantity.toLocaleString('en-IN') + " Units / Shares";
-            document.getElementById('calc-result').classList.remove('hidden');
+        function toggleTheme() {
+            const body = document.getElementById('body-theme');
+            body.classList.toggle('bg-gray-950');
+            body.classList.toggle('bg-gray-100');
+            body.classList.toggle('text-gray-100');
+            body.classList.toggle('text-gray-900');
         }
-        window.calculateRisk = calculateRisk;
+
+        let isTickerActive = false;
+        function toggleLiveTicker() {
+            isTickerActive = !isTickerActive;
+            const btn = document.getElementById('ticker-btn');
+            btn.innerHTML = isTickerActive ? "Live Ticker: ON" : "Live Ticker: OFF";
+            btn.className = isTickerActive ? "bg-emerald-600 text-white text-xs px-3 py-1.5 rounded-full font-bold cursor-pointer" : "bg-emerald-900/60 border border-emerald-700 text-emerald-300 text-xs px-3 py-1.5 rounded-full font-bold cursor-pointer";
+        }
 
         const stockData = [
-            { symbol: "RELIANCE", index: "NIFTY50", buildup: "Long Builtup", price: 1280.50, change: 18.50, pctChange: "1.47%", oi: "4,25,00,000", oiChange: "+12,50,000", vol: "1,25,00,000", expiry: "26-Nov-26" },
-            { symbol: "TCS", index: "IT", buildup: "Short Unwind", price: 4120.00, change: -15.00, pctChange: "-0.36%", oi: "1,10,00,000", oiChange: "-3,20,000", vol: "45,00,000", expiry: "26-Nov-26" },
-            { symbol: "HDFCBANK", index: "BANKNIFTY", buildup: "Long Builtup", price: 1750.25, change: 22.10, pctChange: "1.28%", oi: "6,50,00,000", oiChange: "+25,00,000", vol: "2,10,00,000", expiry: "26-Nov-26" },
-            { symbol: "ICICIBANK", index: "BANKNIFTY", buildup: "Short Cover", price: 1240.80, change: 15.30, pctChange: "1.25%", oi: "5,10,00,000", oiChange: "-14,00,000", vol: "1,80,00,000", expiry: "26-Nov-26" },
-            { symbol: "INFY", index: "IT", buildup: "Short Builtup", price: 1890.10, change: -24.50, pctChange: "-1.28%", oi: "2,40,00,000", oiChange: "+8,50,000", vol: "95,00,000", expiry: "26-Nov-26" },
-            { symbol: "SBIN", index: "BANKNIFTY", buildup: "Long Builtup", price: 830.40, change: 12.60, pctChange: "1.54%", oi: "4,80,00,000", oiChange: "+19,00,000", vol: "1,60,00,000", expiry: "26-Nov-26" },
-            { symbol: "SBICARD", index: "FINNIFTY", buildup: "Long Unwind", price: 740.00, change: -5.20, pctChange: "-0.70%", oi: "1,15,00,000", oiChange: "-1,10,000", vol: "30,00,000", expiry: "26-Nov-26" },
-            { symbol: "BAJFINANCE", index: "FINNIFTY", buildup: "Long Builtup", price: 7200.50, change: 95.00, pctChange: "1.34%", oi: "1,85,00,000", oiChange: "+7,40,000", vol: "55,00,000", expiry: "26-Nov-26" },
-            { symbol: "TATAMOTORS", index: "AUTO", buildup: "Long Builtup", price: 780.20, change: 25.40, pctChange: "3.37%", oi: "7,20,00,000", oiChange: "+42,00,000", vol: "3,10,00,000", expiry: "26-Nov-26" },
-            { symbol: "M&M", index: "AUTO", buildup: "Short Cover", price: 2950.00, change: 42.10, pctChange: "1.45%", oi: "2,30,00,000", oiChange: "-6,50,000", vol: "90,00,000", expiry: "26-Nov-26" },
-            { symbol: "SUNPHARMA", index: "PHARMA", buildup: "Long Builtup", price: 1820.00, change: 21.00, pctChange: "1.17%", oi: "1,95,00,000", oiChange: "+5,20,000", vol: "65,00,000", expiry: "26-Nov-26" },
-            { symbol: "DRREDDY", index: "PHARMA", buildup: "Short Builtup", price: 1310.50, change: -18.20, pctChange: "-1.37%", oi: "85,00,000", oiChange: "+3,10,00,000", vol: "25,00,000", expiry: "26-Nov-26" },
-            { symbol: "WIPRO", index: "IT", buildup: "Long Unwind", price: 560.00, change: -4.50, pctChange: "-0.80%", oi: "1,40,00,000", oiChange: "-2,30,000", vol: "50,00,000", expiry: "26-Nov-26" },
-            { symbol: "MARUTI", index: "AUTO", buildup: "Short Builtup", price: 12450.00, change: -120.00, pctChange: "-0.95%", oi: "90,00,000", oiChange: "+3,40,000", vol: "35,00,000", expiry: "26-Nov-26" }
+            { symbol: "RELIANCE", index: "NIFTY50", buildup: "Long Builtup", price: 1280.50, change: 18.50, pctChange: "1.47%", oi: "4.25 Cr", vol: "1.25 Cr" },
+            { symbol: "TCS", index: "IT", buildup: "Short Unwind", price: 4120.00, change: -15.00, pctChange: "-0.36%", oi: "1.10 Cr", vol: "45 Lakh" },
+            { symbol: "HDFCBANK", index: "BANKNIFTY", buildup: "Long Builtup", price: 1750.25, change: 22.10, pctChange: "1.28%", oi: "6.50 Cr", vol: "2.10 Cr" },
+            { symbol: "ICICIBANK", index: "BANKNIFTY", buildup: "Short Cover", price: 1240.80, change: 15.30, pctChange: "1.25%", oi: "5.10 Cr", vol: "1.80 Cr" },
+            { symbol: "INFY", index: "IT", buildup: "Short Builtup", price: 1890.10, change: -24.50, pctChange: "-1.28%", oi: "2.40 Cr", vol: "95 Lakh" }
         ];
 
-        let currentIndexFilter = 'ALL';
-        let currentBuildupFilter = 'ALL';
+        let activeChartInstance = null;
+        function openChartModal(symbol, price) {
+            document.getElementById('chart-stock-title').innerText = symbol;
+            document.getElementById('chart-modal').classList.remove('hidden');
+            const ctx = document.getElementById('stockCanvasChart').getContext('2d');
+            if (activeChartInstance) activeChartInstance.destroy();
+            activeChartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['W1', 'W2', 'W3', 'W4', 'Current'],
+                    datasets: [{ label: 'Price', data: [price*0.9, price*0.95, price*0.92, price*0.98, price], borderColor: '#38bdf8', fill: true, backgroundColor: 'rgba(56, 189, 248, 0.1)' }]
+                },
+                options: { responsive: true, maintainAspectRatio: false }
+            });
+        }
+        function closeChartModal() { document.getElementById('chart-modal').classList.add('hidden'); }
+
+        function openScreenerModal(type) {
+            document.getElementById('modal-title').innerText = type;
+            const tbody = document.getElementById('modal-table-body');
+            tbody.innerHTML = "";
+            stockData.forEach(item => {
+                tbody.innerHTML += `<tr class="border-b border-gray-800"><td class="p-2 font-bold">${item.symbol}</td><td class="p-2 text-gray-400">${item.index}</td><td class="p-2 text-blue-300">${item.buildup}</td><td class="p-2">₹${item.price}</td><td class="p-2 text-green-400">${item.pctChange}</td></tr>`;
+            });
+            document.getElementById('screener-modal').classList.remove('hidden');
+        }
+        function closeScreenerModal() { document.getElementById('screener-modal').classList.add('hidden'); }
 
         function renderStockTable(data) {
             const tbody = document.getElementById("stock-table-body");
             tbody.innerHTML = "";
-            
             const query = document.getElementById("stock-search").value.toLowerCase();
-            const filtered = data.filter(item => {
-                const matchesSearch = item.symbol.toLowerCase().includes(query);
-                const matchesIndex = (currentIndexFilter === 'ALL' || item.index === currentIndexFilter);
-                const matchesBuildup = (currentBuildupFilter === 'ALL' || item.buildup === currentBuildupFilter);
-                return matchesSearch && matchesIndex && matchesBuildup;
-            });
-
-            if(filtered.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="9" class="py-4 text-center text-gray-500">No matching stocks found.</td></tr>`;
-                return;
-            }
+            const filtered = data.filter(item => item.symbol.toLowerCase().includes(query));
 
             filtered.forEach(item => {
-                let badgeClass = "bg-gray-700 text-gray-200";
-                if(item.buildup === "Short Builtup") badgeClass = "bg-red-600 text-white";
-                else if(item.buildup === "Long Unwind") badgeClass = "bg-amber-600 text-white";
-                else if(item.buildup === "Short Cover") badgeClass = "bg-blue-600 text-white";
-                else if(item.buildup === "Long Builtup") badgeClass = "bg-green-600 text-white";
-
-                const tr = document.createElement("tr");
-                tr.innerHTML = `
-                    <td class="py-3 px-4 font-bold text-white">${item.symbol}</td>
-                    <td class="py-3 px-4 text-gray-400 font-semibold">${item.index}</td>
-                    <td class="py-3 px-4"><span class="px-2.5 py-1 rounded text-[10px] font-bold ${badgeClass}">${item.buildup}</span></td>
-                    <td class="py-3 px-4 font-semibold">₹${item.price.toFixed(2)}</td>
-                    <td class="py-3 px-4 font-bold ${item.change >= 0 ? 'text-green-400' : 'text-red-400'}">${item.change >= 0 ? '+' : ''}${item.change} (${item.pctChange})</td>
-                    <td class="py-3 px-4 text-gray-200">${item.oi}</td>
-                    <td class="py-3 px-4 font-bold ${item.oiChange.startsWith('-') ? 'text-yellow-400' : 'text-green-400'}">${item.oiChange}</td>
-                    <td class="py-3 px-4 text-gray-300">${item.vol}</td>
-                    <td class="py-3 px-4 text-gray-400">${item.expiry}</td>
-                `;
-                tbody.appendChild(tr);
+                tbody.innerHTML += `
+                    <tr>
+                        <td class="p-3 font-bold flex items-center gap-2">
+                            <span>${item.symbol}</span>
+                            <button onclick="openChartModal('${item.symbol}', ${item.price})" class="bg-blue-950 text-blue-400 px-2 py-0.5 rounded border border-blue-800 text-[10px] cursor-pointer">📈 Chart</button>
+                        </td>
+                        <td class="p-3 text-gray-400">${item.index}</td>
+                        <td class="p-3"><span class="px-2 py-0.5 rounded text-[10px] font-bold bg-green-600 text-white">${item.buildup}</span></td>
+                        <td class="p-3">₹${item.price}</td>
+                        <td class="p-3 text-green-400 font-bold">${item.pctChange}</td>
+                        <td class="p-3">${item.oi}</td>
+                        <td class="p-3">${item.vol}</td>
+                    </tr>`;
             });
         }
 
-        // Open Modal with Filtered Stock List
-        function openScreenerModal(screenerType) {
-            const modal = document.getElementById('screener-modal');
-            const modalTitle = document.getElementById('modal-title');
-            const modalBody = document.getElementById('modal-table-body');
-            modalBody.innerHTML = "";
-
-            let filteredList = stockData;
-            if(screenerType === 'Stock Screener') {
-                modalTitle.innerText = "📊 Stock Screener: All F&O Stocks";
-                filteredList = stockData;
-            } else if(screenerType === 'Intraday Screener') {
-                modalTitle.innerText = "📈 Intraday Screener: Long Builtup Stocks";
-                filteredList = stockData.filter(i => i.buildup === 'Long Builtup');
-            } else if(screenerType === 'Stock Scanners') {
-                modalTitle.innerText = "📑 Stock Scanners: Short Builtup Stocks";
-                filteredList = stockData.filter(i => i.buildup === 'Short Builtup' || i.buildup === 'Long Unwind');
-            } else if(screenerType === 'Chart Screener') {
-                modalTitle.innerText = "📉 Chart Screener: Top Momentum Gainers";
-                filteredList = stockData.filter(i => i.change > 0);
-            }
-
-            if(filteredList.length === 0) {
-                modalBody.innerHTML = `<tr><td colspan="5" class="py-4 text-center text-gray-400">No stocks found for this criteria.</td></tr>`;
-            } else {
-                filteredList.forEach(item => {
-                    const tr = document.createElement("tr");
-                    tr.innerHTML = `
-                        <td class="py-2.5 px-3 font-bold text-white">${item.symbol}</td>
-                        <td class="py-2.5 px-3 text-gray-400">${item.index}</td>
-                        <td class="py-2.5 px-3 font-semibold text-blue-300">${item.buildup}</td>
-                        <td class="py-2.5 px-3 font-bold">₹${item.price.toFixed(2)}</td>
-                        <td class="py-2.5 px-3 font-bold ${item.change >= 0 ? 'text-green-400' : 'text-red-400'}">${item.change >= 0 ? '+' : ''}${item.change} (${item.pctChange})</td>
-                    `;
-                    modalBody.appendChild(tr);
-                });
-            }
-
-            modal.classList.remove('hidden');
-        }
-
-        function closeScreenerModal() {
-            document.getElementById('screener-modal').classList.add('hidden');
-        }
-        window.openScreenerModal = openScreenerModal;
-        window.closeScreenerModal = closeScreenerModal;
-
-        function filterByIndex(idx) {
-            currentIndexFilter = idx;
-            const indices = ['all', 'nifty', 'bank', 'fin', 'it', 'auto', 'pharma'];
-            indices.forEach(i => {
-                const btn = document.getElementById('idx-' + i);
-                if(btn) btn.className = "bg-gray-800 text-gray-300 hover:text-white px-3 py-1.5 rounded-lg border border-gray-700 transition-all cursor-pointer";
-            });
-
-            const activeBtnMap = { 'ALL': 'idx-all', 'NIFTY50': 'idx-nifty', 'BANKNIFTY': 'idx-bank', 'FINNIFTY': 'idx-fin', 'IT': 'idx-it', 'AUTO': 'idx-auto', 'PHARMA': 'idx-pharma' };
-            if(activeBtnMap[idx]) {
-                document.getElementById(activeBtnMap[idx]).className = "bg-blue-600 text-white px-3 py-1.5 rounded-lg shadow cursor-pointer";
-            }
-            renderStockTable(stockData);
-        }
-
-        function filterByBuildup(type) {
-            currentBuildupFilter = type;
-            document.getElementById('btn-all').className = type === 'ALL' ? "bg-indigo-600 text-white px-3 py-1.5 rounded-lg shadow cursor-pointer" : "bg-gray-800 text-gray-300 px-3 py-1.5 rounded-lg cursor-pointer";
-            document.getElementById('btn-long').className = type === 'Long Builtup' ? "bg-green-600 text-white px-3 py-1.5 rounded-lg shadow cursor-pointer" : "bg-gray-800 text-green-400 px-3 py-1.5 rounded-lg border border-green-800 cursor-pointer";
-            document.getElementById('btn-short').className = type === 'Short Builtup' ? "bg-red-600 text-white px-3 py-1.5 rounded-lg shadow cursor-pointer" : "bg-gray-800 text-red-400 px-3 py-1.5 rounded-lg border border-red-800 cursor-pointer";
-            document.getElementById('btn-unwind').className = type === 'Long Unwind' ? "bg-amber-600 text-white px-3 py-1.5 rounded-lg shadow cursor-pointer" : "bg-gray-800 text-amber-400 px-3 py-1.5 rounded-lg border border-amber-800 cursor-pointer";
-            document.getElementById('btn-cover').className = type === 'Short Cover' ? "bg-blue-600 text-white px-3 py-1.5 rounded-lg shadow cursor-pointer" : "bg-gray-800 text-blue-400 px-3 py-1.5 rounded-lg border border-blue-800 cursor-pointer";
-            renderStockTable(stockData);
-        }
-
-        function filterStocks() {
-            renderStockTable(stockData);
-        }
-
+        function filterStocks() { renderStockTable(stockData); }
         renderStockTable(stockData);
+    </script>
+</body>
+</html>
 
         const historicalData = [
             { date: "10-Nov-2026", fiiNet: 1250.50, diiNet: -450.20 },
