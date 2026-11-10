@@ -66,49 +66,52 @@
             </div>
         </div>
 
-        <!-- NEW FEATURE: AI Trade Ideas & Strategy Column -->
+        <!-- AI Trade Ideas & Strategy Hub (Index-Wise Clear Breakdown) -->
         <div class="bg-gradient-to-r from-blue-950 via-gray-900 to-indigo-950 border border-blue-800/60 rounded-2xl p-6 mb-6 shadow-2xl relative">
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-3 mb-4 border-b border-blue-900/50 pb-3">
                 <div class="flex items-center gap-2">
-                    <span class="bg-blue-600 text-white text-xs px-3 py-1 rounded-full font-bold uppercase tracking-wider animate-pulse">💡 AI Trade Ideas & Strategy Hub</span>
-                    <h3 class="text-base font-extrabold text-white">Live Market Recommendation</h3>
+                    <span class="bg-blue-600 text-white text-xs px-3 py-1 rounded-full font-bold uppercase tracking-wider animate-pulse">💡 AI Index-Wise Trade Ideas</span>
+                    <h3 class="text-base font-extrabold text-white">Actionable Strategy Hub</h3>
                 </div>
                 <span class="text-xs bg-green-900/60 text-green-300 px-3 py-1 rounded-lg border border-green-700 font-bold">
-                    Bias: STRONG BULLISH (CE BUY SETUP)
+                    Market Sentiment: Bullish Bias
                 </span>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
-                <!-- Idea 1: Directional -->
-                <div class="bg-gray-800/80 p-4 rounded-xl border border-gray-700 shadow">
+                <!-- Nifty 50 Idea -->
+                <div class="bg-gray-800/80 p-4 rounded-xl border border-blue-900/60 shadow">
                     <div class="flex items-center justify-between mb-2">
-                        <strong class="text-green-400 text-sm">🟢 Option Buying Idea</strong>
-                        <span class="bg-green-900/50 text-green-300 px-2 py-0.5 rounded text-[10px]">High Conviction</span>
+                        <strong class="text-blue-400 text-sm">📈 NIFTY 50 Setup</strong>
+                        <span class="bg-blue-900/50 text-blue-300 px-2 py-0.5 rounded text-[10px]">PCR: 1.24 (Bullish)</span>
                     </div>
                     <p class="text-gray-300 leading-relaxed">
-                        FII Positive Flow (+₹7,212 Cr) aur low VIX (13.45) ko dekhte hue dips par **CE (Call Option)** buy karein. Stop-loss 20 EMA ke niche rakhein.
+                        <strong>Action:</strong> Buy on Dips / CE Buy.<br>
+                        <strong>Logic:</strong> High Put OI (3.04 Cr) and PCR 1.24 indicate strong support near Max Pain (24,300). Look for long entries near 20 EMA.
                     </p>
                 </div>
 
-                <!-- Idea 2: Strategy / Neutral -->
-                <div class="bg-gray-800/80 p-4 rounded-xl border border-gray-700 shadow">
+                <!-- Bank Nifty Idea -->
+                <div class="bg-gray-800/80 p-4 rounded-xl border border-indigo-900/60 shadow">
                     <div class="flex items-center justify-between mb-2">
-                        <strong class="text-yellow-400 text-sm">⚠️ Straddle / Strangle Alert</strong>
-                        <span class="bg-yellow-900/50 text-yellow-300 px-2 py-0.5 rounded text-[10px]">Low VIX Warning</span>
+                        <strong class="text-indigo-400 text-sm">🏦 BANK NIFTY Setup</strong>
+                        <span class="bg-yellow-900/50 text-yellow-300 px-2 py-0.5 rounded text-[10px]">PCR: 1.08 (Neutral)</span>
                     </div>
                     <p class="text-gray-300 leading-relaxed">
-                        VIX 13.45 par hai (Low volatility). Isliye naked Short Straddle/Strangle avoid karein. Agar sell karna ho toh **Iron Condor (Hedging)** use karein.
+                        <strong>Action:</strong> Range-bound / Momentum Breakout.<br>
+                        <strong>Logic:</strong> PCR is neutral (1.08). Wait for price to break 52,000 Max Pain zone or previous swing high before taking aggressive directional trade.
                     </p>
                 </div>
 
-                <!-- Idea 3: Action Setup -->
-                <div class="bg-gray-800/80 p-4 rounded-xl border border-gray-700 shadow">
+                <!-- Finnifty & Others Idea -->
+                <div class="bg-gray-800/80 p-4 rounded-xl border border-purple-900/60 shadow">
                     <div class="flex items-center justify-between mb-2">
-                        <strong class="text-blue-400 text-sm">🎯 Today's Expiry Focus</strong>
-                        <span class="bg-blue-900/50 text-blue-300 px-2 py-0.5 rounded text-[10px]">Finnifty Active</span>
+                        <strong class="text-purple-400 text-sm">🎯 FINNIFTY & Hedging</strong>
+                        <span class="bg-purple-900/50 text-purple-300 px-2 py-0.5 rounded text-[10px]">Expiry Focus</span>
                     </div>
                     <p class="text-gray-300 leading-relaxed">
-                        Finnifty expiry par OTM Calls/Puts ko direct sell karne ki jagah momentum breakouts (Swing High/Low break) par focus karein.
+                        <strong>Action:</strong> Careful / Hedging Preferred.<br>
+                        <strong>Logic:</strong> Finnifty PCR is 0.95 (Bearish bias). Due to low VIX (13.45), avoid naked selling; use spread or iron condor if trading expiry.
                     </p>
                 </div>
             </div>
@@ -576,7 +579,7 @@
             tr.innerHTML = `
                 <td class="py-3 px-4 font-medium text-gray-200">${row.date}</td>
                 <td class="py-3 px-4 font-bold ${row.fiiNet >= 0 ? 'text-green-400' : 'text-red-400'}">${row.fiiNet >= 0 ? '+' : ''}₹${row.fiiNet.toLocaleString()} Cr</td>
-                <td class="py-3 px-4 font-bold ${row.diiNet >= 0 ? 'text-green-400' : 'text-red-400'}">${row.diiNet >= 0 ? '+' : ''}₹${row.diiNet.toLocaleString()} Cr</td>
+                <td class="py-3 px-4 font-bold ${row.diiNet >= 0 ? 'text-green-400' : 'text-red-400'}">${row.diiNet >= 0 ? '+' : ''}₹${row.dniNet >= 0 ? '+' : ''}₹${row.diiNet.toLocaleString()} Cr</td>
                 <td class="py-3 px-4 font-bold ${combined >= 0 ? 'text-blue-400' : 'text-yellow-400'}">${combined >= 0 ? '+' : ''}₹${combined.toLocaleString()} Cr</td>
             `;
             tableBody.appendChild(tr);
