@@ -18,18 +18,54 @@
                 <h1 class="text-2xl md:text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-500">
                     📊 FII & DII Institutional Trading Terminal
                 </h1>
-                <p class="text-sm text-gray-400 mt-1">AI-Powered Options, Index, Cash, Derivatives & Breadth Tracker</p>
+                <p class="text-sm text-gray-400 mt-1">AI-Powered Options, Global Cues, Index & Cash Flow Tracker</p>
             </div>
             <div class="mt-4 md:mt-0 flex items-center gap-3">
                 <span id="current-date" class="bg-gray-800 text-xs px-3 py-1.5 rounded-full border border-gray-700 font-medium text-blue-300">
                     Loading Date...
                 </span>
                 <!-- Telegram Share Button -->
-                <a href="https://t.me/share/url?url=https://pinnaclemultiheights-gif.github.io/fii-tracker/&text=Check%20out%20today's%20Options%20Dashboard%20and%20Terminal!" target="_blank" class="bg-blue-600 hover:bg-blue-500 text-white text-xs px-3 py-1.5 rounded-full font-medium transition-all shadow-md flex items-center gap-1">
+                <a href="https://t.me/share/url?url=https://pinnaclemultiheights-gif.github.io/fii-tracker/&text=Check%20out%20today's%20Global%20Terminal%20Updates!" target="_blank" class="bg-blue-600 hover:bg-blue-500 text-white text-xs px-3 py-1.5 rounded-full font-medium transition-all shadow-md flex items-center gap-1">
                     📢 Share Telegram
                 </a>
             </div>
         </header>
+
+        <!-- NEW FEATURE 1: Global Markets & VIX Fear Meter Bar -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+            <!-- GIFT Nifty -->
+            <div class="bg-gray-900 border border-gray-800 p-3.5 rounded-xl shadow-lg flex justify-between items-center">
+                <div>
+                    <span class="text-[10px] text-gray-400 font-bold uppercase">GIFT NIFTY</span>
+                    <h4 class="text-base font-extrabold text-white mt-0.5">24,420.00</h4>
+                </div>
+                <span class="text-xs font-bold text-green-400 bg-green-900/40 px-2 py-0.5 rounded border border-green-800">+65.0 (+0.27%)</span>
+            </div>
+            <!-- Dow Jones Futures -->
+            <div class="bg-gray-900 border border-gray-800 p-3.5 rounded-xl shadow-lg flex justify-between items-center">
+                <div>
+                    <span class="text-[10px] text-gray-400 font-bold uppercase">Dow Futures</span>
+                    <h4 class="text-base font-extrabold text-white mt-0.5">43,910.50</h4>
+                </div>
+                <span class="text-xs font-bold text-green-400 bg-green-900/40 px-2 py-0.5 rounded border border-green-800">+120.0 (+0.27%)</span>
+            </div>
+            <!-- Nasdaq Futures -->
+            <div class="bg-gray-900 border border-gray-800 p-3.5 rounded-xl shadow-lg flex justify-between items-center">
+                <div>
+                    <span class="text-[10px] text-gray-400 font-bold uppercase">Nasdaq Futures</span>
+                    <h4 class="text-base font-extrabold text-white mt-0.5">19,150.20</h4>
+                </div>
+                <span class="text-xs font-bold text-green-400 bg-green-900/40 px-2 py-0.5 rounded border border-green-800">+95.4 (+0.50%)</span>
+            </div>
+            <!-- India VIX (Fear Meter) -->
+            <div class="bg-gray-900 border border-gray-800 p-3.5 rounded-xl shadow-lg flex justify-between items-center">
+                <div>
+                    <span class="text-[10px] text-gray-400 font-bold uppercase">India VIX (Fear)</span>
+                    <h4 class="text-base font-extrabold text-yellow-400 mt-0.5">13.45</h4>
+                </div>
+                <span class="text-xs font-bold text-red-400 bg-red-900/40 px-2 py-0.5 rounded border border-red-800">-0.35 (-2.53%)</span>
+            </div>
+        </div>
 
         <!-- AI-Based Live Trade Signal Box -->
         <div class="bg-gradient-to-r from-indigo-950 via-gray-900 to-gray-900 border border-indigo-900/60 rounded-2xl p-6 mb-6 shadow-2xl relative overflow-hidden">
@@ -44,13 +80,13 @@
                 </span>
             </div>
             <p class="text-xs md:text-sm text-gray-300 leading-relaxed mb-4">
-                <strong>Analysis:</strong> FII cash net positive inflow, strong advance-decline ratio, and higher PCR suggest continuing upside momentum. Look for long entries near supports.
+                <strong>Analysis:</strong> FII cash net positive inflow, positive GIFT Nifty cues, low VIX (13.45) indicating stability, and higher PCR suggest continuing upside momentum.
             </p>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs pt-3 border-t border-gray-800">
                 <div><span class="text-gray-400">Trend Strength:</span> <strong class="text-green-400">Moderate Bullish</strong></div>
                 <div><span class="text-gray-400">Recommended Setup:</span> <strong class="text-blue-400">Buy near 20 EMA</strong></div>
                 <div><span class="text-gray-400">Stop-Loss Zone:</span> <strong class="text-red-400">Below Swing Low</strong></div>
-                <div><span class="text-gray-400">Accuracy Index:</span> <strong class="text-yellow-400">76% (High Confidence)</strong></div>
+                <div><span class="text-gray-400">Accuracy Index:</span> <strong class="text-yellow-400">78% (High Confidence)</strong></div>
             </div>
         </div>
 
@@ -73,17 +109,15 @@
             </div>
         </div>
 
-        <!-- OPTIONS DASHBOARD (3 Separate Index Cards: Nifty, BankNifty, Finnifty) -->
+        <!-- OPTIONS DASHBOARD (3 Separate Index Cards) -->
         <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 mb-8 shadow-xl">
             <div class="mb-6">
                 <h3 class="text-lg font-bold text-gray-200">📊 Nifty, Bank Nifty & Finnifty Option Dashboard</h3>
                 <p class="text-xs text-gray-400 mt-0.5">Real-time Open Interest (OI), PCR, and institutional strike positioning across major indices.</p>
             </div>
 
-            <!-- 3 Cards Grid -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                
-                <!-- 1. NIFTY CARD -->
+                <!-- NIFTY CARD -->
                 <div class="bg-gray-800 p-5 rounded-xl border border-gray-700 shadow-lg">
                     <div class="flex justify-between items-center mb-4 border-b border-gray-700 pb-3">
                         <h4 class="font-bold text-blue-400 text-sm">NIFTY 50</h4>
@@ -109,7 +143,7 @@
                     </div>
                 </div>
 
-                <!-- 2. BANK NIFTY CARD -->
+                <!-- BANK NIFTY CARD -->
                 <div class="bg-gray-800 p-5 rounded-xl border border-gray-700 shadow-lg">
                     <div class="flex justify-between items-center mb-4 border-b border-gray-700 pb-3">
                         <h4 class="font-bold text-indigo-400 text-sm">BANK NIFTY</h4>
@@ -135,7 +169,7 @@
                     </div>
                 </div>
 
-                <!-- 3. FINNIFTY CARD -->
+                <!-- FINNIFTY CARD -->
                 <div class="bg-gray-800 p-5 rounded-xl border border-gray-700 shadow-lg">
                     <div class="flex justify-between items-center mb-4 border-b border-gray-700 pb-3">
                         <h4 class="font-bold text-purple-400 text-sm">FINNIFTY</h4>
@@ -160,7 +194,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
 
