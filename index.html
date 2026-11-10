@@ -112,7 +112,7 @@
             </div>
         </div>
 
-        <!-- OPTIONS DASHBOARD (With Live OI Change Data) -->
+        <!-- OPTIONS DASHBOARD -->
         <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 mb-8 shadow-xl">
             <div class="mb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-2">
                 <div>
@@ -136,11 +136,11 @@
                         </div>
                         <div class="flex justify-between items-center bg-gray-900/50 p-2 rounded-lg">
                             <span class="text-gray-400">Total Call OI & Change:</span>
-                            <span class="text-right"><strong class="text-red-400 block">2.45 Cr</strong><span class="text-[10px] text-green-400 font-bold">+12.4 Lakh (Built-up)</span></span>
+                            <span class="text-right"><strong class="text-red-400 block">2.45 Cr</strong><span class="text-[10px] text-green-400 font-bold">+12.4 Lakh</span></span>
                         </div>
                         <div class="flex justify-between items-center bg-gray-900/50 p-2 rounded-lg">
                             <span class="text-gray-400">Total Put OI & Change:</span>
-                            <span class="text-right"><strong class="text-green-400 block">3.04 Cr</strong><span class="text-[10px] text-green-400 font-bold">+28.5 Lakh (Writing)</span></span>
+                            <span class="text-right"><strong class="text-green-400 block">3.04 Cr</strong><span class="text-[10px] text-green-400 font-bold">+28.5 Lakh</span></span>
                         </div>
                         <div class="flex justify-between items-center bg-gray-900/50 p-2 rounded-lg">
                             <span class="text-gray-400">Max Pain Strike:</span>
@@ -162,11 +162,11 @@
                         </div>
                         <div class="flex justify-between items-center bg-gray-900/50 p-2 rounded-lg">
                             <span class="text-gray-400">Total Call OI & Change:</span>
-                            <span class="text-right"><strong class="text-red-400 block">1.85 Cr</strong><span class="text-[10px] text-red-400 font-bold">+8.2 Lakh (Short Built)</span></span>
+                            <span class="text-right"><strong class="text-red-400 block">1.85 Cr</strong><span class="text-[10px] text-red-400 font-bold">+8.2 Lakh</span></span>
                         </div>
                         <div class="flex justify-between items-center bg-gray-900/50 p-2 rounded-lg">
                             <span class="text-gray-400">Total Put OI & Change:</span>
-                            <span class="text-right"><strong class="text-green-400 block">2.00 Cr</strong><span class="text-[10px] text-green-400 font-bold">+14.1 Lakh (Writing)</span></span>
+                            <span class="text-right"><strong class="text-green-400 block">2.00 Cr</strong><span class="text-[10px] text-green-400 font-bold">+14.1 Lakh</span></span>
                         </div>
                         <div class="flex justify-between items-center bg-gray-900/50 p-2 rounded-lg">
                             <span class="text-gray-400">Max Pain Strike:</span>
@@ -188,11 +188,11 @@
                         </div>
                         <div class="flex justify-between items-center bg-gray-900/50 p-2 rounded-lg">
                             <span class="text-gray-400">Total Call OI & Change:</span>
-                            <span class="text-right"><strong class="text-red-400 block">95 Lakh</strong><span class="text-[10px] text-red-400 font-bold">+5.4 Lakh (Built-up)</span></span>
+                            <span class="text-right"><strong class="text-red-400 block">95 Lakh</strong><span class="text-[10px] text-red-400 font-bold">+5.4 Lakh</span></span>
                         </div>
                         <div class="flex justify-between items-center bg-gray-900/50 p-2 rounded-lg">
                             <span class="text-gray-400">Total Put OI & Change:</span>
-                            <span class="text-right"><strong class="text-green-400 block">90 Lakh</strong><span class="text-[10px] text-yellow-400 font-bold">-2.1 Lakh (Unwinding)</span></span>
+                            <span class="text-right"><strong class="text-green-400 block">90 Lakh</strong><span class="text-[10px] text-yellow-400 font-bold">-2.1 Lakh</span></span>
                         </div>
                         <div class="flex justify-between items-center bg-gray-900/50 p-2 rounded-lg">
                             <span class="text-gray-400">Max Pain Strike:</span>
@@ -200,6 +200,40 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <!-- NEW FEATURE: F&O Stock Built-up & Trend Scanner Table -->
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 mb-8 shadow-xl">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 gap-4">
+                <div>
+                    <h3 class="text-lg font-bold text-gray-200">🔍 F&O Stock Built-up & Trend Scanner</h3>
+                    <p class="text-xs text-gray-400 mt-0.5">Track Long/Short Buildup, Price Change, Open Interest (OI) & Volume[cite: 4].</p>
+                </div>
+                <!-- Search Box -->
+                <div class="w-full md:w-64">
+                    <input type="text" id="stock-search" onkeyup="filterStocks()" placeholder="Search stock symbol..." class="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-blue-500">
+                </div>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs text-gray-300">
+                    <thead class="bg-purple-950/80 text-purple-200 uppercase tracking-wider border-b border-purple-900">
+                        <tr>
+                            <th class="py-3 px-4 font-bold">Symbol[cite: 4]</th>
+                            <th class="py-3 px-4 font-bold">Builtup[cite: 4]</th>
+                            <th class="py-3 px-4 font-bold">Price (₹)[cite: 4]</th>
+                            <th class="py-3 px-4 font-bold">Change (%)[cite: 4]</th>
+                            <th class="py-3 px-4 font-bold">OI[cite: 4]</th>
+                            <th class="py-3 px-4 font-bold">OI Change %[cite: 4]</th>
+                            <th class="py-3 px-4 font-bold">Volume[cite: 4]</th>
+                            <th class="py-3 px-4 font-bold">Expiry[cite: 4]</th>
+                        </tr>
+                    </thead>
+                    <tbody id="stock-table-body" class="divide-y divide-gray-800">
+                        <!-- Data will be populated via JS -->
+                    </tbody>
+                </table>
             </div>
         </div>
 
@@ -371,6 +405,59 @@
             document.getElementById('calc-result').classList.remove('hidden');
         }
         window.calculateRisk = calculateRisk;
+
+        // F&O Stock Built-up Data
+        const stockData = [
+            { symbol: "360ONE[cite: 4]", buildup: "Long Unwind[cite: 4]", price: 1141.20, change: 4.05, pctChange: "0.36%", oi: "46,94,000", oiChange: "-98,500", oiChangePct: "-2.06%", vol: "3,96,500", expiry: "26-Nov-26" },
+            { symbol: "ABB[cite: 4]", buildup: "Short Builtup[cite: 4]", price: 6907.00, change: 1.50, pctChange: "0.02%", oi: "21,75,625", oiChange: "84,500", oiChangePct: "4.04%", vol: "9,01,250", expiry: "26-Nov-26" },
+            { symbol: "ABCAPITAL[cite: 4]", buildup: "Long Unwind[cite: 4]", price: 401.00, change: 3.20, pctChange: "0.80%", oi: "2,93,12,050", oiChange: "-10,54,000", oiChangePct: "-3.47%", vol: "48,67,000", expiry: "26-Nov-26" },
+            { symbol: "ADANIENSOL[cite: 4]", buildup: "Long Unwind[cite: 4]", price: 1448.00, change: -7.40, pctChange: "-0.51%", oi: "21,15,900", oiChange: "11,677", oiChangePct: "0.55%", oiChangePct: "0.55%", vol: "10,56,375", expiry: "26-Nov-26" },
+            { symbol: "ADANIENT[cite: 4]", buildup: "Long Unwind[cite: 4]", price: 2704.00, change: -33.20, pctChange: "-1.21%", oi: "1,68,13,926", oiChange: "84,357", oiChangePct: "0.50%", vol: "9,22,674", expiry: "26-Nov-26" },
+            { symbol: "ADANIGREEN[cite: 4]", buildup: "Short Cover[cite: 4]", price: 1451.00, change: 26.70, pctChange: "1.87%", oi: "1,97,82,000", oiChange: "-1,90,200", oiChangePct: "-0.95%", vol: "16,21,200", expiry: "26-Nov-26" },
+            { symbol: "ADANIPORTS[cite: 4]", buildup: "Long Unwind[cite: 4]", price: 1942.10, change: -16.10, pctChange: "-0.82%", oi: "1,35,75,500", oiChange: "99,275", oiChangePct: "0.74%", vol: "13,97,450", expiry: "26-Nov-26" },
+            { symbol: "ALKEM[cite: 4]", buildup: "Long Unwind[cite: 4]", price: 5382.00, change: 48.50, pctChange: "0.91%", oi: "16,35,625", oiChange: "-17,000", oiChangePct: "-1.03%", vol: "1,95,875", expiry: "26-Nov-26" },
+            { symbol: "AMBER[cite: 4]", buildup: "Short Builtup[cite: 4]", price: 6234.50, change: -89.50, pctChange: "-1.42%", oi: "9,04,200", oiChange: "18,100", oiChangePct: "2.04%", vol: "5,54,100", expiry: "26-Nov-26" },
+            { symbol: "ANANDRATHI[cite: 4]", buildup: "Long Unwind[cite: 4]", price: 2370.00, change: -1.40, pctChange: "-0.06%", oi: "41,55,250", oiChange: "-41,250", oiChangePct: "-0.98%", vol: "2,21,000", expiry: "26-Nov-26" },
+            { symbol: "ANGELONE[cite: 4]", buildup: "Short Cover[cite: 4]", price: 338.60, change: 4.95, pctChange: "1.48%", oi: "36,23,250", oiChange: "-1,27,500", oiChangePct: "-0.35%", vol: "59,20,000", expiry: "26-Nov-26" },
+            { symbol: "APLAPOLLO[cite: 4]", buildup: "Long Unwind[cite: 4]", price: 2180.00, change: -6.30, pctChange: "-0.29%", oi: "13,29,650", oiChange: "-1,96,000", oiChangePct: "-1.45%", vol: "5,68,050", expiry: "26-Nov-26" },
+            { symbol: "APOLLOHOSP[cite: 4]", buildup: "Short Builtup[cite: 4]", price: 8496.50, change: 45.00, pctChange: "0.53%", oi: "16,12,125", oiChange: "54,200", oiChangePct: "3.48%", vol: "4,12,000", expiry: "26-Nov-26" }
+        ];
+
+        function renderStockTable(data) {
+            const tbody = document.getElementById("stock-table-body");
+            tbody.innerHTML = "";
+            data.forEach(item => {
+                let badgeClass = "bg-gray-700 text-gray-200";
+                if(item.buildup.includes("Short Builtup")) badgeClass = "bg-red-600 text-white";
+                else if(item.buildup.includes("Long Unwind")) badgeClass = "bg-amber-600 text-white";
+                else if(item.buildup.includes("Short Cover")) badgeClass = "bg-blue-600 text-white";
+                else if(item.buildup.includes("Long Builtup")) badgeClass = "bg-green-600 text-white";
+
+                const tr = document.createElement("tr");
+                tr.innerHTML = `
+                    <td class="py-3 px-4 font-bold text-white">${item.symbol}</td>
+                    <td class="py-3 px-4"><span class="px-2 py-1 rounded text-[10px] font-bold ${badgeClass}">${item.buildup}</span></td>
+                    <td class="py-3 px-4 font-semibold">${item.price.toFixed(2)}</td>
+                    <td class="py-3 px-4 font-bold ${item.change >= 0 ? 'text-green-400' : 'text-red-400'}">${item.change >= 0 ? '+' : ''}${item.change}</td>
+                    <td class="py-3 px-4 ${item.change >= 0 ? 'text-green-400' : 'text-red-400'}">${item.pctChange}</td>
+                    <td class="py-3 px-4 text-gray-200">${item.oi}</td>
+                    <td class="py-3 px-4 font-bold ${item.oiChange.startsWith('-') ? 'text-yellow-400' : 'text-green-400'}">${item.oiChange}</td>
+                    <td class="py-3 px-4">${item.oiChangePct}</td>
+                    <td class="py-3 px-4 text-gray-300">${item.vol}</td>
+                    <td class="py-3 px-4 text-gray-400">${item.expiry}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function filterStocks() {
+            const query = document.getElementById("stock-search").value.toLowerCase();
+            const filtered = stockData.filter(s => s.symbol.toLowerCase().includes(query));
+            renderStockTable(filtered);
+        }
+
+        // Initial render
+        renderStockTable(stockData);
 
         const historicalData = [
             { date: "10-Nov-2026", fiiNet: 1250.50, diiNet: -450.20 },
