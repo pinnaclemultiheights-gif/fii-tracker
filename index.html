@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FII & DII Daily Institutional Flow Tracker</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-950 text-gray-100 font-sans min-h-screen p-4 md:p-8">
+
+    <div class="max-w-6xl mx-auto">
+        <!-- Header -->
+        <header class="flex flex-col md:flex-row justify-between items-center mb-8 border-b border-gray-800 pb-4">
+            <div>
+                <h1 class="text-2xl md:text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-500">
+                    📊 FII & DII Daily Flow Tracker
+                </h1>
+                <p class="text-sm text-gray-400 mt-1">Institutional cash market buying & selling updates</p>
+            </div>
+            <div class="mt-4 md:mt-0 text-right">
+                <span id="current-date" class="bg-gray-800 text-xs px-3 py-1.5 rounded-full border border-gray-700 font-medium text-blue-300">
+                    Loading Date...
+                </span>
+            </div>
+        </header>
+
+        <!-- Summary Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <!-- FII Card -->
+            <div class="bg-gray-900 border border-gray-800 p-6 rounded-2xl shadow-xl relative overflow-hidden">
+                <div class="absolute top-0 right-0 p-4 opacity-10 text-4xl font-bold">FII</div>
+                <h2 class="text-xs font-bold text-gray-400 uppercase tracking-wider">FII Net Cash Flow</h2>
+                <div class="flex items-baseline mt-3">
+                    <span id="fii-net-val" class="text-3xl md:text-4xl font-extrabold text-green-400">+ ₹7,212.22 Cr</span>
+                </div>
+                <div class="mt-4 flex justify-between text-xs text-gray-400 border-t border-gray-800 pt-3">
+                    <span>Buy: <strong id="fii-buy" class="text-gray-200">₹20,311.00 Cr</strong></span>
+                    <span>Sell: <strong id="fii-sell" class="text-gray-200">₹13,098.80 Cr</strong></span>
+                </div>
+            </div>
+
+            <!-- DII Card -->
+            <div class="bg-gray-900 border border-gray-800 p-6 rounded-2xl shadow-xl relative overflow-hidden">
+                <div class="absolute top-0 right-0 p-4 opacity-10 text-4xl font-bold">DII</div>
+                <h2 class="text-xs font-bold text-gray-400 uppercase tracking-wider">DII Net Cash Flow</h2>
+                <div class="flex items-baseline mt-3">
+                    <span id="dii-net-val" class="text-3xl md:text-4xl font-extrabold text-red-400">- ₹7,172.53 Cr</span>
+                </div>
+                <div class="mt-4 flex justify-between text-xs text-gray-400 border-t border-gray-800 pt-3">
+                    <span>Buy: <strong id="dii-buy" class="text-gray-200">₹12,765.00 Cr</strong></span>
+                    <span>Sell: <strong id="dii-sell" class="text-gray-200">₹19,937.50 Cr</strong></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chart Section -->
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 mb-8 shadow-xl">
+            <h3 class="text-lg font-bold text-gray-200 mb-4">📈 Recent Net Flows Trend (FII vs DII)</h3>
+            <div class="relative h-72 w-full">
+                <canvas id="flowChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Historical Data Table -->
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 shadow-xl overflow-hidden">
+            <h3 class="text-lg font-bold text-gray-200 mb-4">📋 Historical Trading Data (Cash Segment)</h3>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-sm text-gray-300">
+                    <thead class="bg-gray-800 text-gray-400 uppercase text-xs tracking-wider">
+                        <tr>
+                            <th class="py-3 px-4">Date</th>
+                            <th class="py-3 px-4">FII Net (Cr)</th>
+                            <th class="py-3 px-4">DII Net (Cr)</th>
+                            <th class="py-3 px-4">Combined Net (Cr)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body" class="divide-y divide-gray-800">
+                        <!-- Dynamic rows will be inserted here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="text-center text-xs text-gray-500 mt-8 py-4 border-t border-gray-900">
+            Built for traders & investors. Data source: NSE / BSE institutional reports.
+        </footer>
+    </div>
+
+    <!-- JavaScript logic -->
+    <script>
+        // Sample historical data structure (Aap ise Python script ya API se automate kar sakte hain)
+        const historicalData = [
+            { date: "09-Nov-2026", fiiNet: 7212.22, diiNet: -7172.53 },
+            { date: "08-Nov-2026", fiiNet: -0.25, diiNet: 39.69 },
+            { date: "06-Nov-2026", fiiNet: 13749.82, diiNet: -5968.70 },
+            { date: "05-Nov-2026", fiiNet: 14974.68, diiNet: -10444.50 },
+            { date: "04-Nov-2026", fiiNet: 7284.03, diiNet: -3712.23 },
+            { date: "03-Nov-2026", fiiNet: 6836.81, diiNet: -3678.85 },
+            { date: "02-Nov-2026", fiiNet: 3114.68, diiNet: -392.20 }
+        ];
+
+        // Populate Date and Summary
+        document.getElementById("current-date").innerText = "Latest Session: " + historicalData[0].date;
+
+        // Populate Table
+        const tableBody = document.getElementById("table-body");
+        historicalData.forEach(row => {
+            const combined = row.fiiNet + row.diiNet;
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+                <td class="py-3 px-4 font-medium text-gray-200">${row.date}</td>
+                <td class="py-3 px-4 font-bold ${row.fiiNet >= 0 ? 'text-green-400' : 'text-red-400'}">${row.fiiNet >= 0 ? '+' : ''}₹${row.fiiNet.toLocaleString()} Cr</td>
+                <td class="py-3 px-4 font-bold ${row.diiNet >= 0 ? 'text-green-400' : 'text-red-400'}">${row.diiNet >= 0 ? '+' : ''}₹${row.diiNet.toLocaleString()} Cr</td>
+                <td class="py-3 px-4 font-bold ${combined >= 0 ? 'text-blue-400' : 'text-yellow-400'}">${combined >= 0 ? '+' : ''}₹${combined.toLocaleString()} Cr</td>
+            `;
+            tableBody.appendChild(tr);
+        });
+
+        // Render Chart
+        const ctx = document.getElementById('flowChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: historicalData.map(item => item.date).reverse(),
+                datasets: [
+                    {
+                        label: 'FII Net (Cr)',
+                        data: historicalData.map(item => item.fiiNet).reverse(),
+                        backgroundColor: 'rgba(74, 222, 128, 0.7)',
+                        borderColor: 'rgb(74, 222, 128)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'DII Net (Cr)',
+                        data: historicalData.map(item => item.diiNet).reverse(),
+                        backgroundColor: 'rgba(248, 113, 113, 0.7)',
+                        borderColor: 'rgb(248, 113, 113)',
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: { ticks: { color: '#9ca3af' }, grid: { color: '#374151' } },
+                    y: { ticks: { color: '#9ca3af' }, grid: { color: '#374151' } }
+                },
+                plugins: {
+                    legend: { labels: { color: '#e5e7eb' } }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
