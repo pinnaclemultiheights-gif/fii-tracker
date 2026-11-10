@@ -13,23 +13,59 @@
 
     <div class="max-w-6xl mx-auto">
         <!-- Header -->
-        <header class="flex flex-col md:flex-row justify-between items-center mb-8 border-b border-gray-800 pb-4">
+        <header class="flex flex-col md:flex-row justify-between items-center mb-6 border-b border-gray-800 pb-4">
             <div>
                 <h1 class="text-2xl md:text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-500">
                     📊 FII & DII Institutional Trading Terminal
                 </h1>
-                <p class="text-sm text-gray-400 mt-1">Complete Cash, Derivatives, Sector & Stock Analysis</p>
+                <p class="text-sm text-gray-400 mt-1">Complete Index, Cash, Derivatives & Sector Flow Tracker</p>
             </div>
             <div class="mt-4 md:mt-0 flex items-center gap-3">
                 <span id="current-date" class="bg-gray-800 text-xs px-3 py-1.5 rounded-full border border-gray-700 font-medium text-blue-300">
                     Loading Date...
                 </span>
                 <!-- Telegram Share Button -->
-                <a href="https://t.me/share/url?url=https://pinnaclemultiheights-gif.github.io/fii-tracker/&text=Check%20out%20today's%20FII/DII%20flow%20data!" target="_blank" class="bg-blue-600 hover:bg-blue-500 text-white text-xs px-3 py-1.5 rounded-full font-medium transition-all shadow-md flex items-center gap-1">
+                <a href="https://t.me/share/url?url=https://pinnaclemultiheights-gif.github.io/fii-tracker/&text=Check%20out%20today's%20FII/DII%20flow%20and%20Market%20Terminal!" target="_blank" class="bg-blue-600 hover:bg-blue-500 text-white text-xs px-3 py-1.5 rounded-full font-medium transition-all shadow-md flex items-center gap-1">
                     📢 Share Telegram
                 </a>
             </div>
         </header>
+
+        <!-- NEW: Major Indices Support Bar -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+            <!-- Nifty 50 -->
+            <div class="bg-gray-900 border border-gray-800 p-4 rounded-xl shadow-lg flex justify-between items-center">
+                <div>
+                    <span class="text-xs text-gray-400 font-semibold">NIFTY 50</span>
+                    <h4 class="text-lg font-extrabold text-white mt-0.5">24,350.25</h4>
+                </div>
+                <span class="text-xs font-bold text-green-400 bg-green-900/40 px-2 py-1 rounded border border-green-800">+145.20 (+0.60%)</span>
+            </div>
+            <!-- Bank Nifty -->
+            <div class="bg-gray-900 border border-gray-800 p-4 rounded-xl shadow-lg flex justify-between items-center">
+                <div>
+                    <span class="text-xs text-gray-400 font-semibold">BANK NIFTY</span>
+                    <h4 class="text-lg font-extrabold text-white mt-0.5">52,110.80</h4>
+                </div>
+                <span class="text-xs font-bold text-green-400 bg-green-900/40 px-2 py-1 rounded border border-green-800">+380.50 (+0.73%)</span>
+            </div>
+            <!-- FinNifty -->
+            <div class="bg-gray-900 border border-gray-800 p-4 rounded-xl shadow-lg flex justify-between items-center">
+                <div>
+                    <span class="text-xs text-gray-400 font-semibold">FINNIFTY</span>
+                    <h4 class="text-lg font-extrabold text-white mt-0.5">23,420.10</h4>
+                </div>
+                <span class="text-xs font-bold text-green-400 bg-green-900/40 px-2 py-1 rounded border border-green-800">+110.30 (+0.47%)</span>
+            </div>
+            <!-- Sensex -->
+            <div class="bg-gray-900 border border-gray-800 p-4 rounded-xl shadow-lg flex justify-between items-center">
+                <div>
+                    <span class="text-xs text-gray-400 font-semibold">SENSEX</span>
+                    <h4 class="text-lg font-extrabold text-white mt-0.5">80,150.40</h4>
+                </div>
+                <span class="text-xs font-bold text-green-400 bg-green-900/40 px-2 py-1 rounded border border-green-800">+410.10 (+0.51%)</span>
+            </div>
+        </div>
 
         <!-- Summary Cards (Cash Segment) -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
@@ -123,7 +159,7 @@
             </div>
         </div>
 
-        <!-- DETAILED SECTOR-WISE FLOW & STOCK WATCHLIST -->
+        <!-- Sector-wise Institutional Flow & Stock Watchlist -->
         <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 mb-8 shadow-xl">
             <h3 class="text-lg font-bold text-gray-200 mb-4">🏭 Sector-wise Institutional Flow & Stock Watchlist</h3>
             <p class="text-xs text-gray-400 mb-6">Sectors with institutional fund inflow/outflow alongside leading bullish & bearish stocks.</p>
@@ -245,13 +281,13 @@
                 <div class="bg-gray-800 p-4 rounded-xl border border-green-900/50">
                     <h4 class="font-bold text-green-400 mb-2">🟢 Bullish / Buy Setup</h4>
                     <p class="text-gray-300 text-xs leading-relaxed">
-                        Jab <strong>FII Net Positive</strong> ho aur chart par price <strong>20 EMA ke upar</strong> sustain karte hue lagataار <strong>Swing Highs break</strong> kar raha ho, tab Long (Buy) side ki position ke liye plan karein.
+                        Jab <strong>FII Net Positive</strong> ho aur chart par price <strong>20 EMA ke upar</strong> sustain karte hue lagataar <strong>Swing Highs break</strong> kar raha ho, tab Long (Buy) side ki position ke liye plan karein.
                     </p>
                 </div>
                 <div class="bg-gray-800 p-4 rounded-xl border border-red-900/50">
                     <h4 class="font-bold text-red-400 mb-2">🔴 Bearish / Sell Setup</h4>
                     <p class="text-gray-300 text-xs leading-relaxed">
-                        Jab <strong>FII Net Negative / Selling</strong> me ho aur price <strong>20 EMA ke niche</strong> jaakar lagataار <strong>Swing Lows break</strong> karta ja raha ho, tab Short (Sell) side ke mauke dekhein.
+                        Jab <strong>FII Net Negative / Selling</strong> me ho aur price <strong>20 EMA ke niche</strong> jaakar lagataar <strong>Swing Lows break</strong> karta ja raha ho, tab Short (Sell) side ke mauke dekhein.
                     </p>
                 </div>
                 <div class="bg-gray-800 p-4 rounded-xl border border-yellow-900/50">
@@ -303,7 +339,7 @@
             tr.innerHTML = `
                 <td class="py-3 px-4 font-medium text-gray-200">${row.date}</td>
                 <td class="py-3 px-4 font-bold ${row.fiiNet >= 0 ? 'text-green-400' : 'text-red-400'}">${row.fiiNet >= 0 ? '+' : ''}₹${row.fiiNet.toLocaleString()} Cr</td>
-                <td class="py-3 px-4 font-bold ${row.diiNet >= 0 ? 'text-green-400' : 'text-red-400'}">${row.diiNet >= 0 ? '+' : ''}₹${row.diiNet.toLocaleString()} Cr</td>
+                <td class="py-3 px-4 font-bold ${row.diiNet >= 0 ? 'text-green-400' : 'text-red-400'}">${row.diiNet >= 0 ? '+' : ''}₹${row.dioNet >= 0 ? '+' : ''}₹${row.diiNet.toLocaleString()} Cr</td>
                 <td class="py-3 px-4 font-bold ${combined >= 0 ? 'text-blue-400' : 'text-yellow-400'}">${combined >= 0 ? '+' : ''}₹${combined.toLocaleString()} Cr</td>
             `;
             tableBody.appendChild(tr);
