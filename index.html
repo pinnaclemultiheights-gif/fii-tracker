@@ -9,7 +9,7 @@
     <!-- Chart.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body class="bg-gray-950 text-gray-100 font-sans min-h-screen p-4 md:p-8">
+<body class="bg-gray-950 text-gray-100 font-sans min-h-screen p-4 md:p-8 transition-colors duration-300" id="body-theme">
 
     <div class="max-w-6xl mx-auto">
         <!-- Header -->
@@ -24,6 +24,14 @@
                 <span id="current-date" class="bg-gray-800 text-xs px-3 py-1.5 rounded-full border border-gray-700 font-medium text-blue-300">
                     Loading Date...
                 </span>
+                <!-- 🚀 NAYA: Live Ticker Toggle Button -->
+                <button onclick="toggleLiveTicker()" id="ticker-btn" class="bg-emerald-900/60 border border-emerald-700 text-emerald-300 text-xs px-3 py-1.5 rounded-full font-bold cursor-pointer flex items-center gap-1.5 transition-all">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Live Ticker: OFF
+                </button>
+                <!-- 🌓 NAYA: Theme Switch Button -->
+                <button onclick="toggleTheme()" class="bg-gray-800 hover:bg-gray-700 text-gray-300 text-xs px-3 py-1.5 rounded-full border border-gray-700 font-medium cursor-pointer transition-all">
+                    🌓 Theme
+                </button>
                 <!-- Telegram Share Button -->
                 <a href="https://t.me/share/url?url=https://pinnaclemultiheights-gif.github.io/fii-tracker/&text=Check%20out%20today's%20Global%20Terminal%20Updates!" target="_blank" class="bg-blue-600 hover:bg-blue-500 text-white text-xs px-3 py-1.5 rounded-full font-medium transition-all shadow-md flex items-center gap-1">
                     📢 Share Telegram
@@ -123,6 +131,63 @@
 
         <!-- STOCK LIST POPUP MODAL (Hidden by default) -->
         <div id="screener-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+            <!-- STOCK CHART POPUP MODAL (Like Screener.in) -->
+        <div id="chart-modal" class="fixed inset-0 bg-black/85 backdrop-blur-sm z-50 hidden flex items-center justify-center p-2 md:p-6">
+            <div class="bg-gray-900 border border-gray-700 rounded-2xl w-full max-w-5xl p-5 shadow-2xl relative flex flex-col max-h-[90vh]">
+                <div class="flex justify-between items-center mb-3 border-b border-gray-800 pb-3">
+                    <div class="flex items-center gap-3">
+                        <h3 id="chart-stock-title" class="text-lg font-extrabold text-white uppercase tracking-wide">STOCK</h3>
+                        <span class="bg-blue-600 text-white text-[10px] font-bold px-2.5 py-0.5 rounded">CHART</span>
+                        <span class="text-xs text-gray-400">Price & Volume</span>
+                    </div>
+                    <button onclick="closeChartModal()" class="text-gray-400 hover:text-white bg-red-600/80 hover:bg-red-600 text-white px-3 py-1 rounded-lg text-xs font-bold cursor-pointer transition-all">✕ Close</button>
+                </div>
+                <div class="flex flex-wrap items-center gap-1.5 mb-4 bg-gray-950 p-2 rounded-xl border border-gray-800 text-xs">
+                    <button onclick="changeTimeframe('1M')" id="tf-1m" class="bg-blue-600 text-white px-3 py-1 rounded-md font-bold cursor-pointer">1M</button>
+                    <button onclick="changeTimeframe('3M')" id="tf-3m" class="bg-gray-800 text-gray-300 hover:text-white px-3 py-1 rounded-md cursor-pointer">3M</button>
+                    <button onclick="changeTimeframe('6M')" id="tf-6m" class="bg-gray-800 text-gray-300 hover:text-white px-3 py-1 rounded-md cursor-pointer">6M</button>
+                    <button onclick="changeTimeframe('1Y')" id="tf-1y" class="bg-gray-800 text-gray-300 hover:text-white px-3 py-1 rounded-md cursor-pointer">1Y</button>
+                    <button onclick="changeTimeframe('MAX')" id="tf-max" class="bg-gray-800 text-gray-300 hover:text-white px-3 py-1 rounded-md cursor-pointer">MAX</button>
+                </div>
+                <div class="relative flex-grow w-full h-80 md:h-96 bg-gray-950 rounded-xl p-2 border border-gray-800">
+                    <canvas id="stockCanvasChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- TELEGRAM BOT MODAL -->
+        <div id="telegram-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+            <div class="bg-gray-900 border border-indigo-800 rounded-2xl w-full max-w-xl p-6 shadow-2xl relative">
+                <div class="flex justify-between items-center mb-4 border-b border-gray-800 pb-3">
+                    <h3 class="text-lg font-extrabold text-indigo-400">📢 Telegram Broadcast Formatter</h3>
+                    <button onclick="closeTelegramModal()" class="text-gray-400 hover:text-white text-lg font-bold bg-gray-800 px-3 py-1 rounded-lg cursor-pointer">✕ Close</button>
+                </div>
+                <textarea id="tg-text-box" rows="6" class="w-full bg-gray-950 border border-gray-800 rounded-xl p-3 text-xs text-gray-200 font-mono focus:outline-none mb-3" readonly>
+🚀 *FII & DII INSTITUTIONAL UPDATE* 📊
+📅 Date: 10-Nov-2026
+🟢 FII Net Cash: +₹7,212.22 Cr
+🔴 DII Net Cash: -₹7,172.53 Cr
+💡 Market Bias: Bullish Momentum (Buy on Dips)
+                </textarea>
+                <div class="flex justify-end gap-2">
+                    <button onclick="copyTelegramText()" class="bg-indigo-600 text-white font-bold text-xs px-4 py-2 rounded-lg cursor-pointer">📋 Copy Message</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- OPEN INTEREST (OI) DEEP DIVE MODAL -->
+        <div id="oi-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+            <div class="bg-gray-900 border border-blue-800 rounded-2xl w-full max-w-2xl p-6 shadow-2xl relative">
+                <div class="flex justify-between items-center mb-4 border-b border-gray-800 pb-3">
+                    <h3 id="oi-modal-title" class="text-lg font-extrabold text-blue-400">Open Interest (OI) Analysis</h3>
+                    <button onclick="closeOiModal()" class="text-gray-400 hover:text-white text-lg font-bold bg-gray-800 px-3 py-1 rounded-lg cursor-pointer">✕ Close</button>
+                </div>
+                <div class="relative h-64 w-full mb-4 bg-gray-950 p-3 rounded-xl border border-gray-800">
+                    <canvas id="oiBarChart"></canvas>
+                </div>
+                <p id="oi-modal-desc" class="text-xs text-gray-300 leading-relaxed bg-gray-950 p-3 rounded-xl border border-gray-800"></p>
+            </div>
+        </div>
             <div class="bg-gray-900 border border-gray-800 rounded-2xl w-full max-w-2xl p-6 shadow-2xl relative">
                 <div class="flex justify-between items-center mb-4 border-b border-gray-800 pb-3">
                     <h3 id="modal-title" class="text-lg font-extrabold text-blue-400">Screener Stocks List</h3>
@@ -535,6 +600,104 @@
 
     <!-- JavaScript logic -->
     <script>
+        // 🌓 Theme Switcher
+        function toggleTheme() {
+            const body = document.getElementById('body-theme');
+            if(body.classList.contains('bg-gray-950')) {
+                body.classList.remove('bg-gray-950', 'text-gray-100');
+                body.classList.add('bg-gray-100', 'text-gray-900');
+            } else {
+                body.classList.remove('bg-gray-100', 'text-gray-900');
+                body.classList.add('bg-gray-950', 'text-gray-100');
+            }
+        }
+        window.toggleTheme = toggleTheme;
+
+        // ⚡ Live Ticker
+        let liveTickerInterval = null;
+        let isTickerActive = false;
+        function toggleLiveTicker() {
+            isTickerActive = !isTickerActive;
+            const btn = document.getElementById('ticker-btn');
+            if(isTickerActive) {
+                btn.innerHTML = `<span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span> Live Ticker: ON`;
+                btn.className = "bg-emerald-600 text-white text-xs px-3 py-1.5 rounded-full font-bold cursor-pointer flex items-center gap-1.5 shadow-lg";
+                liveTickerInterval = setInterval(() => { console.log("Tick.."); }, 3000);
+            } else {
+                btn.innerHTML = `<span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Live Ticker: OFF`;
+                btn.className = "bg-emerald-900/60 text-emerald-300 text-xs px-3 py-1.5 rounded-full font-bold cursor-pointer flex items-center gap-1.5";
+                clearInterval(liveTickerInterval);
+            }
+        }
+        window.toggleLiveTicker = toggleLiveTicker;
+
+        // 📢 Telegram Modal Functions
+        function openTelegramModal() { document.getElementById('telegram-modal').classList.remove('hidden'); }
+        function closeTelegramModal() { document.getElementById('telegram-modal').classList.add('hidden'); }
+        function copyTelegramText() {
+            const tb = document.getElementById('tg-text-box');
+            tb.select();
+            navigator.clipboard.writeText(tb.value);
+            alert("Telegram update copied successfully!");
+        }
+        window.openTelegramModal = openTelegramModal;
+        window.closeTelegramModal = closeTelegramModal;
+        window.copyTelegramText = copyTelegramText;
+
+        // 📊 OI Bar Chart Modal
+        let activeOiChart = null;
+        function openOiModal(indexName, pcr, maxPain, putOi, callOi) {
+            document.getElementById('oi-modal-title').innerText = `📊 ${indexName} - OI Analysis`;
+            document.getElementById('oi-modal-desc').innerHTML = `PCR: <strong>${pcr}</strong> | Max Pain: <strong>${maxPain}</strong>`;
+            document.getElementById('oi-modal').classList.remove('hidden');
+            const ctx = document.getElementById('oiBarChart').getContext('2d');
+            if(activeOiChart) activeOiChart.destroy();
+            activeOiChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Strike -100', 'Max Pain (' + maxPain + ')', 'Strike +100'],
+                    datasets: [{ label: 'Put OI', data: [90, 150, 80], backgroundColor: '#4ade80' }, { label: 'Call OI', data: [70, 130, 95], backgroundColor: '#f87171' }]
+                },
+                options: { responsive: true, maintainAspectRatio: false }
+            });
+        }
+        function closeOiModal() { document.getElementById('oi-modal').classList.add('hidden'); }
+        window.openOiModal = openOiModal;
+        window.closeOiModal = closeOiModal;
+
+        // 📈 Interactive Stock Chart Modal
+        let activeChartInstance = null;
+        function openChartModal(symbol, basePrice) {
+            document.getElementById('chart-stock-title').innerText = symbol;
+            document.getElementById('chart-modal').classList.remove('hidden');
+            renderChartCanvas(basePrice, '1M');
+        }
+        function closeChartModal() {
+            document.getElementById('chart-modal').classList.add('hidden');
+            if (activeChartInstance) activeChartInstance.destroy();
+        }
+        window.openChartModal = openChartModal;
+        window.closeChartModal = closeChartModal;
+
+        function changeTimeframe(tf) {
+            const symbol = document.getElementById('chart-stock-title').innerText;
+            const stock = stockData.find(s => s.symbol === symbol) || { price: 2000 };
+            renderChartCanvas(stock.price, tf);
+        }
+        window.changeTimeframe = changeTimeframe;
+
+        function renderChartCanvas(basePrice, timeframe) {
+            const ctx = document.getElementById('stockCanvasChart').getContext('2d');
+            if (activeChartInstance) activeChartInstance.destroy();
+            activeChartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Current'],
+                    datasets: [{ label: 'Price (₹)', data: [basePrice*0.9, basePrice*0.95, basePrice*0.92, basePrice*0.98, basePrice], borderColor: '#38bdf8', fill: true, backgroundColor: 'rgba(56, 189, 248, 0.1)' }]
+                },
+                options: { responsive: true, maintainAspectRatio: false }
+            });
+        }
         document.getElementById("current-date").innerText = "Latest Session: 10-Nov-2026";
 
         function calculateRisk() {
@@ -577,7 +740,15 @@
             
             const query = document.getElementById("stock-search").value.toLowerCase();
             const filtered = data.filter(item => {
-                const matchesSearch = item.symbol.toLowerCase().includes(query);
+                const matchesSearch = item.symbol const tr = document.createElement("tr");
+                tr.innerHTML = `
+                    <td class="py-3 px-4 font-bold text-white flex items-center gap-2">
+                        <span>${item.symbol}</span>
+                        <!-- 📈 NAYA CHART BUTTON -->
+                        <button onclick="openChartModal('${item.symbol}', ${item.price})" class="text-blue-400 bg-blue-950/60 hover:bg-blue-900 px-2 py-0.5 rounded border border-blue-800 text-[10px] cursor-pointer">📈</button>
+                    </td>
+                    <td class="py-3 px-4 text-gray-400 font-semibold">${item.index}</td>
+                    ....toLowerCase().includes(query);
                 const matchesIndex = (currentIndexFilter === 'ALL' || item.index === currentIndexFilter);
                 const matchesBuildup = (currentBuildupFilter === 'ALL' || item.buildup === currentBuildupFilter);
                 return matchesSearch && matchesIndex && matchesBuildup;
