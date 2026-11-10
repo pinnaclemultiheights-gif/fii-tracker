@@ -18,7 +18,7 @@
                 <h1 class="text-2xl md:text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-500">
                     📊 FII & DII Institutional Trading Terminal
                 </h1>
-                <p class="text-sm text-gray-400 mt-1">Complete Index-wise Advance/Decline & Flow Tracker</p>
+                <p class="text-sm text-gray-400 mt-1">Complete Index, Cash, Derivatives, Breadth & News Tracker</p>
             </div>
             <div class="mt-4 md:mt-0 flex items-center gap-3">
                 <span id="current-date" class="bg-gray-800 text-xs px-3 py-1.5 rounded-full border border-gray-700 font-medium text-blue-300">
@@ -47,6 +47,51 @@
             <div class="flex items-center gap-2 bg-gray-800/80 px-4 py-2 rounded-lg border border-gray-700">
                 <span class="text-xs text-yellow-400 font-bold uppercase">🎯 Today's Expiry:</span>
                 <span id="expiry-index-name" class="text-sm font-extrabold text-white">FINNIFTY (Weekly Expiry)</span>
+            </div>
+        </div>
+
+        <!-- NEW FEATURE: Market Impact News & Events Feed -->
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 mb-8 shadow-xl">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-lg font-bold text-gray-200">📰 Market Impact News & Economic Triggers</h3>
+                <span class="text-xs bg-blue-900/40 text-blue-300 px-2.5 py-1 rounded-full border border-blue-800 font-medium">Live Feed Updates</span>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                <!-- News Item 1 -->
+                <div class="bg-gray-800 p-4 rounded-xl border border-gray-700">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-[10px] font-bold bg-green-900/50 text-green-300 px-2 py-0.5 rounded border border-green-700">BULLISH IMPACT</span>
+                        <span class="text-gray-400">10 Nov, 11:30 AM</span>
+                    </div>
+                    <h4 class="font-bold text-gray-200 mb-1">FIIs Turn Net Buyers in Index Futures</h4>
+                    <p class="text-gray-400 leading-relaxed">
+                        Foreign institutional investors have added fresh long contracts in Nifty futures, indicating short-term recovery signs.
+                    </p>
+                </div>
+
+                <!-- News Item 2 -->
+                <div class="bg-gray-800 p-4 rounded-xl border border-gray-700">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-[10px] font-bold bg-yellow-900/50 text-yellow-300 px-2 py-0.5 rounded border border-yellow-700">GLOBAL WATCH</span>
+                        <span class="text-gray-400">10 Nov, 09:15 AM</span>
+                    </div>
+                    <h4 class="font-bold text-gray-200 mb-1">US Treasury Yields Stabilize</h4>
+                    <p class="text-gray-400 leading-relaxed">
+                        Global bond yields cool off slightly, reducing pressure on emerging market equities like Indian indices.
+                    </p>
+                </div>
+
+                <!-- News Item 3 -->
+                <div class="bg-gray-800 p-4 rounded-xl border border-gray-700">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-[10px] font-bold bg-red-900/50 text-red-300 px-2 py-0.5 rounded border border-red-700">CRITICAL EVENT</span>
+                        <span class="text-gray-400">Upcoming</span>
+                    </div>
+                    <h4 class="font-bold text-gray-200 mb-1">RBI Policy & CPI Data This Week</h4>
+                    <p class="text-gray-400 leading-relaxed">
+                        Banking sector volatility expected ahead of inflation prints. Keep strict stop-loss near 20 EMA levels.
+                    </p>
+                </div>
             </div>
         </div>
 
@@ -82,7 +127,7 @@
             </div>
         </div>
 
-        <!-- INDEX-WISE ADVANCE & DECLINE SECTION -->
+        <!-- Index-wise Advance & Decline Breadth -->
         <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 mb-8 shadow-xl">
             <h3 class="text-lg font-bold text-gray-200 mb-2">📊 Index-wise Advance & Decline Breadth</h3>
             <p class="text-xs text-gray-400 mb-6">Detailed breakdown of stock performance across Nifty 50 and Bank Nifty.</p>
@@ -175,34 +220,6 @@
             </div>
         </div>
 
-        <!-- F&O Sentiments Section -->
-        <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 mb-8 shadow-xl">
-            <h3 class="text-lg font-bold text-gray-200 mb-4">⚡ FII Derivatives (F&O) Sentiments</h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
-                <div class="bg-gray-800 p-4 rounded-xl border border-gray-700">
-                    <div class="flex justify-between items-center mb-2">
-                        <h4 class="font-bold text-blue-400">Index Futures Position</h4>
-                        <span class="text-xs bg-green-900/50 text-green-300 px-2 py-0.5 rounded border border-green-700">Bullish Bias</span>
-                    </div>
-                    <p class="text-xs text-gray-300 leading-relaxed mb-3">FIIs Net Futures contracts status based on Open Interest (OI) changes.</p>
-                    <div class="flex justify-between text-xs text-gray-400 border-t border-gray-700 pt-2">
-                        <span>FII Long: <strong class="text-gray-200">58%</strong></span>
-                        <span>FII Short: <strong class="text-gray-200">42%</strong></span>
-                    </div>
-                </div>
-                <div class="bg-gray-800 p-4 rounded-xl border border-gray-700">
-                    <div class="flex justify-between items-center mb-2">
-                        <h4 class="font-bold text-purple-400">Index Options Activity</h4>
-                        <span class="text-xs bg-purple-900/50 text-purple-300 px-2 py-0.5 rounded border border-purple-700">Call Buying</span>
-                    </div>
-                    <p class="text-xs text-gray-300 leading-relaxed mb-3">Indicates whether big players are aggressively buying Calls (CE) or Puts (PE).</p>
-                    <div class="flex justify-between text-xs text-gray-400 border-t border-gray-700 pt-2">
-                        <span>Options Trend: <strong class="text-green-400">Bullish Premium</strong></span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <!-- Risk & Position Sizing Calculator -->
         <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 mb-8 shadow-xl">
             <h3 class="text-lg font-bold text-gray-200 mb-4">🧮 Live Risk & Position Sizing Calculator</h3>
@@ -277,13 +294,13 @@
                 <div class="bg-gray-800 p-4 rounded-xl border border-red-900/50">
                     <h4 class="font-bold text-red-400 mb-2">🔴 Index Sell / Short Setup</h4>
                     <p class="text-gray-300 text-xs leading-relaxed">
-                        Jab FII Net Negative ho aur Index price <strong>20 EMA ke niche</strong> jaakar lagataار <strong>Swing Lows break</strong> karta jaye, tab PE (Put) ya Short Futures sell plan karein.
+                        Jab FII Net Negative ho aur Index price <strong>20 EMA ke niche</strong> jaakar lagataar <strong>Swing Lows break</strong> karta jaye, tab PE (Put) ya Short Futures sell plan karein.
                     </p>
                 </div>
                 <div class="bg-gray-800 p-4 rounded-xl border border-yellow-900/50">
                     <h4 class="font-bold text-yellow-400 mb-2">⚠️ Reversal & Exit Rule</h4>
                     <p class="text-gray-300 text-xs leading-relaxed">
-                        Agar Index price 20 EMA ko cross karke opposite direction me swing break de, toh turant apni current index position से <strong>Exit</strong> karein ya reverse position lein.
+                        Agar Index price 20 EMA ko cross karke opposite direction me swing break de, toh turant apni current index position se <strong>Exit</strong> karein ya reverse position lein.
                     </p>
                 </div>
             </div>
