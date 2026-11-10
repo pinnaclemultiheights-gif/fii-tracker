@@ -59,10 +59,69 @@
                     <span class="text-xs text-gray-400 font-bold uppercase block">INDIA VIX (FEAR)</span>
                     <div class="flex items-center gap-2 mt-0.5">
                         <h4 class="text-lg font-extrabold text-yellow-400">13.45</h4>
-                        <span class="text-[10px] font-bold text-green-300 bg-green-900/50 px-2 py-0.5 rounded border border-green-700">🟢 Stable / Smooth</span>
+                        <span class="text-[10px] font-bold text-green-300 bg-green-900/50 px-2 py-0.5 rounded border border-green-700">🟢 Stable</span>
                     </div>
                 </div>
                 <span class="text-xs font-bold text-red-400 bg-red-900/40 px-2 py-1 rounded border border-red-800">-0.35 (-2.5%)</span>
+            </div>
+        </div>
+
+        <!-- NEW FEATURE: Professional Tool & Screener Cards (Like Image) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            <!-- Card 1: Stock Screener -->
+            <div class="bg-gray-900 border border-gray-800 p-5 rounded-2xl shadow-xl hover:border-blue-500/50 transition-all">
+                <div class="flex items-center gap-3 mb-3">
+                    <div class="w-10 h-10 rounded-xl bg-blue-950 border border-blue-800 flex items-center justify-center text-blue-400 text-lg font-bold">📊</div>
+                    <h3 class="text-base font-bold text-blue-400">Stock Screener</h3>
+                </div>
+                <p class="text-xs text-gray-400 leading-relaxed mb-3">
+                    Screen Indian F&O stocks using powerful price, volume, and institutional flow filters.
+                </p>
+                <span class="inline-block bg-blue-950/80 text-blue-300 text-[11px] font-semibold px-2.5 py-1 rounded-lg border border-blue-900">
+                    📈 Active Market Filter
+                </span>
+            </div>
+
+            <!-- Card 2: Intraday Screener -->
+            <div class="bg-gray-900 border border-gray-800 p-5 rounded-2xl shadow-xl hover:border-green-500/50 transition-all">
+                <div class="flex items-center gap-3 mb-3">
+                    <div class="w-10 h-10 rounded-xl bg-green-950 border border-green-800 flex items-center justify-center text-green-400 text-lg font-bold">📈</div>
+                    <h3 class="text-base font-bold text-green-400">Intraday Screener</h3>
+                </div>
+                <p class="text-xs text-gray-400 leading-relaxed mb-3">
+                    Find the best intraday trading opportunities and momentum setups in seconds.
+                </p>
+                <span class="inline-block bg-green-950/80 text-green-300 text-[11px] font-semibold px-2.5 py-1 rounded-lg border border-green-900">
+                    ⚡ Live OI Tracker
+                </span>
+            </div>
+
+            <!-- Card 3: Stock Scanners -->
+            <div class="bg-gray-900 border border-gray-800 p-5 rounded-2xl shadow-xl hover:border-purple-500/50 transition-all">
+                <div class="flex items-center gap-3 mb-3">
+                    <div class="w-10 h-10 rounded-xl bg-purple-950 border border-purple-800 flex items-center justify-center text-purple-400 text-lg font-bold">📑</div>
+                    <h3 class="text-base font-bold text-purple-400">Stock Scanners</h3>
+                </div>
+                <p class="text-xs text-gray-400 leading-relaxed mb-3">
+                    Scan thousands of stocks to discover breakout, long buildup, and short coverage trades.
+                </p>
+                <span class="inline-block bg-purple-950/80 text-purple-300 text-[11px] font-semibold px-2.5 py-1 rounded-lg border border-purple-900">
+                    🔍 Multi-Index Scan
+                </span>
+            </div>
+
+            <!-- Card 4: Chart Screener -->
+            <div class="bg-gray-900 border border-gray-800 p-5 rounded-2xl shadow-xl hover:border-pink-500/50 transition-all">
+                <div class="flex items-center gap-3 mb-3">
+                    <div class="w-10 h-10 rounded-xl bg-pink-950 border border-pink-800 flex items-center justify-center text-pink-400 text-lg font-bold">📉</div>
+                    <h3 class="text-base font-bold text-pink-400">Chart Screener</h3>
+                </div>
+                <p class="text-xs text-gray-400 leading-relaxed mb-3">
+                    Discover stocks using 20 EMA swing patterns, technical analysis, and price action rules.
+                </p>
+                <span class="inline-block bg-pink-950/80 text-pink-300 text-[11px] font-semibold px-2.5 py-1 rounded-lg border border-pink-900">
+                    🎯 Strategy Guide
+                </span>
             </div>
         </div>
 
@@ -579,7 +638,7 @@
             tr.innerHTML = `
                 <td class="py-3 px-4 font-medium text-gray-200">${row.date}</td>
                 <td class="py-3 px-4 font-bold ${row.fiiNet >= 0 ? 'text-green-400' : 'text-red-400'}">${row.fiiNet >= 0 ? '+' : ''}₹${row.fiiNet.toLocaleString()} Cr</td>
-                <td class="py-3 px-4 font-bold ${row.diiNet >= 0 ? 'text-green-400' : 'text-red-400'}">${row.diiNet >= 0 ? '+' : ''}₹${row.dniNet >= 0 ? '+' : ''}₹${row.diiNet.toLocaleString()} Cr</td>
+                <td class="py-3 px-4 font-bold ${row.diiNet >= 0 ? 'text-green-400' : 'text-red-400'}">${row.diiNet >= 0 ? '+' : ''}₹${row.diiNet.toLocaleString()} Cr</td>
                 <td class="py-3 px-4 font-bold ${combined >= 0 ? 'text-blue-400' : 'text-yellow-400'}">${combined >= 0 ? '+' : ''}₹${combined.toLocaleString()} Cr</td>
             `;
             tableBody.appendChild(tr);
