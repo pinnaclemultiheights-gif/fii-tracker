@@ -18,13 +18,13 @@
                 <h1 class="text-2xl md:text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-500">
                     📊 FII & DII Institutional Trading Terminal
                 </h1>
-                <p class="text-sm text-gray-400 mt-1">Complete Cash, Derivatives & Sector Flow Tracker</p>
+                <p class="text-sm text-gray-400 mt-1">Complete Cash, Derivatives, Sector & Stock Analysis</p>
             </div>
             <div class="mt-4 md:mt-0 flex items-center gap-3">
                 <span id="current-date" class="bg-gray-800 text-xs px-3 py-1.5 rounded-full border border-gray-700 font-medium text-blue-300">
                     Loading Date...
                 </span>
-                <!-- Feature 5: Telegram Share Button -->
+                <!-- Telegram Share Button -->
                 <a href="https://t.me/share/url?url=https://pinnaclemultiheights-gif.github.io/fii-tracker/&text=Check%20out%20today's%20FII/DII%20flow%20data!" target="_blank" class="bg-blue-600 hover:bg-blue-500 text-white text-xs px-3 py-1.5 rounded-full font-medium transition-all shadow-md flex items-center gap-1">
                     📢 Share Telegram
                 </a>
@@ -60,7 +60,7 @@
             </div>
         </div>
 
-        <!-- Feature 1: F&O Sentiments Section -->
+        <!-- F&O Sentiments Section -->
         <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 mb-8 shadow-xl">
             <h3 class="text-lg font-bold text-gray-200 mb-4">⚡ FII Derivatives (F&O) Sentiments</h3>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
@@ -88,7 +88,7 @@
             </div>
         </div>
 
-        <!-- Feature 2: Risk & Position Sizing Calculator -->
+        <!-- Risk & Position Sizing Calculator -->
         <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 mb-8 shadow-xl">
             <h3 class="text-lg font-bold text-gray-200 mb-4">🧮 Live Risk & Position Sizing Calculator</h3>
             <p class="text-xs text-gray-400 mb-4">Calculate exact risk amount and suggested quantity based on your stop-loss.</p>
@@ -123,25 +123,91 @@
             </div>
         </div>
 
-        <!-- Feature 3: Sector-wise Institutional Activity -->
+        <!-- DETAILED SECTOR-WISE FLOW & STOCK WATCHLIST -->
         <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 mb-8 shadow-xl">
-            <h3 class="text-lg font-bold text-gray-200 mb-4">🏭 Sector-wise Institutional Flow</h3>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-                <div class="bg-gray-800 p-4 rounded-xl border border-gray-700">
-                    <span class="text-xs text-gray-400">Banking & Financials</span>
-                    <p class="text-sm font-bold text-green-400 mt-1">+ ₹1,450 Cr (Bullish)</p>
+            <h3 class="text-lg font-bold text-gray-200 mb-4">🏭 Sector-wise Institutional Flow & Stock Watchlist</h3>
+            <p class="text-xs text-gray-400 mb-6">Sectors with institutional fund inflow/outflow alongside leading bullish & bearish stocks.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Sector 1: Banking & Financials -->
+                <div class="bg-gray-800 p-5 rounded-xl border border-gray-700">
+                    <div class="flex justify-between items-center mb-3">
+                        <h4 class="font-bold text-blue-400">Banking & Financial Services</h4>
+                        <span class="text-xs font-bold text-green-400 bg-green-900/40 px-2 py-1 rounded border border-green-800">+ ₹1,450 Cr (Bullish)</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3 text-xs mt-3 border-t border-gray-700 pt-3">
+                        <div>
+                            <span class="text-gray-400 font-semibold block mb-1">🟢 Bullish Stocks (Buy):</span>
+                            <span class="text-green-300 block">• HDFC Bank</span>
+                            <span class="text-green-300 block">• ICICI Bank</span>
+                            <span class="text-green-300 block">• Axis Bank</span>
+                        </div>
+                        <div>
+                            <span class="text-gray-400 font-semibold block mb-1">🔴 Bearish Stocks (Sell):</span>
+                            <span class="text-red-300 block">• Kotak Bank</span>
+                            <span class="text-red-300 block">• IndusInd Bank</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="bg-gray-800 p-4 rounded-xl border border-gray-700">
-                    <span class="text-xs text-gray-400">IT & Technology</span>
-                    <p class="text-sm font-bold text-red-400 mt-1">- ₹420 Cr (Bearish)</p>
+
+                <!-- Sector 2: IT & Technology -->
+                <div class="bg-gray-800 p-5 rounded-xl border border-gray-700">
+                    <div class="flex justify-between items-center mb-3">
+                        <h4 class="font-bold text-blue-400">IT & Technology</h4>
+                        <span class="text-xs font-bold text-red-400 bg-red-900/40 px-2 py-1 rounded border border-red-800">- ₹420 Cr (Bearish)</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3 text-xs mt-3 border-t border-gray-700 pt-3">
+                        <div>
+                            <span class="text-gray-400 font-semibold block mb-1">🟢 Bullish Stocks (Buy):</span>
+                            <span class="text-green-300 block">• Coforge</span>
+                            <span class="text-green-300 block">• Persistent</span>
+                        </div>
+                        <div>
+                            <span class="text-gray-400 font-semibold block mb-1">🔴 Bearish Stocks (Sell):</span>
+                            <span class="text-red-300 block">• TCS</span>
+                            <span class="text-red-300 block">• Infosys</span>
+                            <span class="text-red-300 block">• Wipro</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="bg-gray-800 p-4 rounded-xl border border-gray-700">
-                    <span class="text-xs text-gray-400">Auto & Ancillaries</span>
-                    <p class="text-sm font-bold text-green-400 mt-1">+ ₹310 Cr (Bullish)</p>
+
+                <!-- Sector 3: Auto & Ancillaries -->
+                <div class="bg-gray-800 p-5 rounded-xl border border-gray-700">
+                    <div class="flex justify-between items-center mb-3">
+                        <h4 class="font-bold text-blue-400">Auto & Ancillaries</h4>
+                        <span class="text-xs font-bold text-green-400 bg-green-900/40 px-2 py-1 rounded border border-green-800">+ ₹310 Cr (Bullish)</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3 text-xs mt-3 border-t border-gray-700 pt-3">
+                        <div>
+                            <span class="text-gray-400 font-semibold block mb-1">🟢 Bullish Stocks (Buy):</span>
+                            <span class="text-green-300 block">• Mahindra & Mahindra</span>
+                            <span class="text-green-300 block">• Maruti Suzuki</span>
+                        </div>
+                        <div>
+                            <span class="text-gray-400 font-semibold block mb-1">🔴 Bearish Stocks (Sell):</span>
+                            <span class="text-red-300 block">• Tata Motors</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="bg-gray-800 p-4 rounded-xl border border-gray-700">
-                    <span class="text-xs text-gray-400">Metal & Energy</span>
-                    <p class="text-sm font-bold text-red-400 mt-1">- ₹680 Cr (Bearish)</p>
+
+                <!-- Sector 4: Metal & Energy -->
+                <div class="bg-gray-800 p-5 rounded-xl border border-gray-700">
+                    <div class="flex justify-between items-center mb-3">
+                        <h4 class="font-bold text-blue-400">Metal, Oil & Gas</h4>
+                        <span class="text-xs font-bold text-red-400 bg-red-900/40 px-2 py-1 rounded border border-red-800">- ₹680 Cr (Bearish)</span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3 text-xs mt-3 border-t border-gray-700 pt-3">
+                        <div>
+                            <span class="text-gray-400 font-semibold block mb-1">🟢 Bullish Stocks (Buy):</span>
+                            <span class="text-green-300 block">• Tata Steel</span>
+                        </div>
+                        <div>
+                            <span class="text-gray-400 font-semibold block mb-1">🔴 Bearish Stocks (Sell):</span>
+                            <span class="text-red-300 block">• Reliance Industries</span>
+                            <span class="text-red-300 block">• ONGC</span>
+                            <span class="text-red-300 block">• Hindalco</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -179,13 +245,13 @@
                 <div class="bg-gray-800 p-4 rounded-xl border border-green-900/50">
                     <h4 class="font-bold text-green-400 mb-2">🟢 Bullish / Buy Setup</h4>
                     <p class="text-gray-300 text-xs leading-relaxed">
-                        Jab <strong>FII Net Positive</strong> ho aur chart par price <strong>20 EMA ke upar</strong> sustain karte hue lagataar <strong>Swing Highs break</strong> kar raha ho, tab Long (Buy) side ki position ke liye plan karein.
+                        Jab <strong>FII Net Positive</strong> ho aur chart par price <strong>20 EMA ke upar</strong> sustain karte hue lagataار <strong>Swing Highs break</strong> kar raha ho, tab Long (Buy) side ki position ke liye plan karein.
                     </p>
                 </div>
                 <div class="bg-gray-800 p-4 rounded-xl border border-red-900/50">
                     <h4 class="font-bold text-red-400 mb-2">🔴 Bearish / Sell Setup</h4>
                     <p class="text-gray-300 text-xs leading-relaxed">
-                        Jab <strong>FII Net Negative / Selling</strong> me ho aur price <strong>20 EMA ke niche</strong> jaakar lagataar <strong>Swing Lows break</strong> karta ja raha ho, tab Short (Sell) side ke mauke dekhein.
+                        Jab <strong>FII Net Negative / Selling</strong> me ho aur price <strong>20 EMA ke niche</strong> jaakar lagataار <strong>Swing Lows break</strong> karta ja raha ho, tab Short (Sell) side ke mauke dekhein.
                     </p>
                 </div>
                 <div class="bg-gray-800 p-4 rounded-xl border border-yellow-900/50">
