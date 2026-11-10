@@ -59,123 +59,10 @@
                     <span class="text-xs text-gray-400 font-bold uppercase block">INDIA VIX (FEAR)</span>
                     <div class="flex items-center gap-2 mt-0.5">
                         <h4 class="text-lg font-extrabold text-yellow-400">13.45</h4>
-                        <span class="text-[10px] font-bold text-green-300 bg-green-900/50 px-2 py-0.5 rounded border border-green-700">🟢 Stable</span>
+                        <span class="text-[10px] font-bold text-green-300 bg-green-900/50 px-2 py-0.5 rounded border border-green-700">🟢 Stable / Smooth</span>
                     </div>
                 </div>
                 <span class="text-xs font-bold text-red-400 bg-red-900/40 px-2 py-1 rounded border border-red-800">-0.35 (-2.5%)</span>
-            </div>
-        </div>
-
-        <!-- Live Status Notification Banner (Replaces Pop-up Alert) -->
-        <div id="status-banner" class="hidden bg-blue-900/60 border border-blue-600 text-blue-200 px-4 py-2.5 rounded-xl mb-4 text-xs font-semibold flex items-center justify-between shadow-lg transition-all">
-            <span id="banner-text">Screener activated successfully.</span>
-            <span onclick="document.getElementById('status-banner').classList.add('hidden')" class="cursor-pointer text-blue-400 hover:text-white font-bold">✕</span>
-        </div>
-
-        <!-- CLICKABLE ACTIVE TOOL & SCREENER CARDS -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-            <!-- Card 1: Stock Screener -->
-            <div onclick="activateCard('Stock Screener')" class="bg-gray-900 border border-gray-800 p-5 rounded-2xl shadow-xl hover:border-blue-500 transition-all cursor-pointer group">
-                <div class="flex items-center gap-3 mb-3">
-                    <div class="w-10 h-10 rounded-xl bg-blue-950 border border-blue-800 flex items-center justify-center text-blue-400 text-lg font-bold group-hover:scale-110 transition-transform">📊</div>
-                    <h3 class="text-base font-bold text-blue-400">Stock Screener (Click to View)</h3>
-                </div>
-                <p class="text-xs text-gray-400 leading-relaxed mb-3">
-                    Screen Indian F&O stocks using powerful price, volume, and institutional flow filters.
-                </p>
-                <span class="inline-block bg-blue-950/80 text-blue-300 text-[11px] font-semibold px-2.5 py-1 rounded-lg border border-blue-900">
-                    📈 Click to Show All Stocks
-                </span>
-            </div>
-
-            <!-- Card 2: Intraday Screener -->
-            <div onclick="activateCard('Intraday Screener')" class="bg-gray-900 border border-gray-800 p-5 rounded-2xl shadow-xl hover:border-green-500 transition-all cursor-pointer group">
-                <div class="flex items-center gap-3 mb-3">
-                    <div class="w-10 h-10 rounded-xl bg-green-950 border border-green-800 flex items-center justify-center text-green-400 text-lg font-bold group-hover:scale-110 transition-transform">📈</div>
-                    <h3 class="text-base font-bold text-green-400">Intraday Screener (Click to View)</h3>
-                </div>
-                <p class="text-xs text-gray-400 leading-relaxed mb-3">
-                    Find the best intraday trading opportunities and momentum setups in seconds.
-                </p>
-                <span class="inline-block bg-green-950/80 text-green-300 text-[11px] font-semibold px-2.5 py-1 rounded-lg border border-green-900">
-                    ⚡ Filter Long Builtup Only
-                </span>
-            </div>
-
-            <!-- Card 3: Stock Scanners -->
-            <div onclick="activateCard('Stock Scanners')" class="bg-gray-900 border border-gray-800 p-5 rounded-2xl shadow-xl hover:border-purple-500 transition-all cursor-pointer group">
-                <div class="flex items-center gap-3 mb-3">
-                    <div class="w-10 h-10 rounded-xl bg-purple-950 border border-purple-800 flex items-center justify-center text-purple-400 text-lg font-bold group-hover:scale-110 transition-transform">📑</div>
-                    <h3 class="text-base font-bold text-purple-400">Stock Scanners (Click to View)</h3>
-                </div>
-                <p class="text-xs text-gray-400 leading-relaxed mb-3">
-                    Scan thousands of stocks to discover breakout, long buildup, and short coverage trades.
-                </p>
-                <span class="inline-block bg-purple-950/80 text-purple-300 text-[11px] font-semibold px-2.5 py-1 rounded-lg border border-purple-900">
-                    🔍 Filter Short Builtup Only
-                </span>
-            </div>
-
-            <!-- Card 4: Chart Screener -->
-            <div onclick="activateCard('Chart Screener')" class="bg-gray-900 border border-gray-800 p-5 rounded-2xl shadow-xl hover:border-pink-500 transition-all cursor-pointer group">
-                <div class="flex items-center gap-3 mb-3">
-                    <div class="w-10 h-10 rounded-xl bg-pink-950 border border-pink-800 flex items-center justify-center text-pink-400 text-lg font-bold group-hover:scale-110 transition-transform">📉</div>
-                    <h3 class="text-base font-bold text-pink-400">Chart Screener (Click to View)</h3>
-                </div>
-                <p class="text-xs text-gray-400 leading-relaxed mb-3">
-                    Discover stocks using 20 EMA swing patterns, technical analysis, and price action rules.
-                </p>
-                <span class="inline-block bg-pink-950/80 text-pink-300 text-[11px] font-semibold px-2.5 py-1 rounded-lg border border-pink-900">
-                    🎯 Show Strategy Guide
-                </span>
-            </div>
-        </div>
-
-        <!-- AI Trade Ideas & Strategy Hub -->
-        <div class="bg-gradient-to-r from-blue-950 via-gray-900 to-indigo-950 border border-blue-800/60 rounded-2xl p-6 mb-6 shadow-2xl relative">
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-3 mb-4 border-b border-blue-900/50 pb-3">
-                <div class="flex items-center gap-2">
-                    <span class="bg-blue-600 text-white text-xs px-3 py-1 rounded-full font-bold uppercase tracking-wider animate-pulse">💡 AI Index-Wise Trade Ideas</span>
-                    <h3 class="text-base font-extrabold text-white">Actionable Strategy Hub</h3>
-                </div>
-                <span class="text-xs bg-green-900/60 text-green-300 px-3 py-1 rounded-lg border border-green-700 font-bold">
-                    Market Sentiment: Bullish Bias
-                </span>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
-                <div class="bg-gray-800/80 p-4 rounded-xl border border-blue-900/60 shadow">
-                    <div class="flex items-center justify-between mb-2">
-                        <strong class="text-blue-400 text-sm">📈 NIFTY 50 Setup</strong>
-                        <span class="bg-blue-900/50 text-blue-300 px-2 py-0.5 rounded text-[10px]">PCR: 1.24 (Bullish)</span>
-                    </div>
-                    <p class="text-gray-300 leading-relaxed">
-                        <strong>Action:</strong> Buy on Dips / CE Buy.<br>
-                        <strong>Logic:</strong> High Put OI (3.04 Cr) and PCR 1.24 indicate strong support near Max Pain (24,300). Look for long entries near 20 EMA.
-                    </p>
-                </div>
-
-                <div class="bg-gray-800/80 p-4 rounded-xl border border-indigo-900/60 shadow">
-                    <div class="flex items-center justify-between mb-2">
-                        <strong class="text-indigo-400 text-sm">🏦 BANK NIFTY Setup</strong>
-                        <span class="bg-yellow-900/50 text-yellow-300 px-2 py-0.5 rounded text-[10px]">PCR: 1.08 (Neutral)</span>
-                    </div>
-                    <p class="text-gray-300 leading-relaxed">
-                        <strong>Action:</strong> Range-bound / Momentum Breakout.<br>
-                        <strong>Logic:</strong> PCR is neutral (1.08). Wait for price to break 52,000 Max Pain zone or previous swing high before taking aggressive directional trade.
-                    </p>
-                </div>
-
-                <div class="bg-gray-800/80 p-4 rounded-xl border border-purple-900/60 shadow">
-                    <div class="flex items-center justify-between mb-2">
-                        <strong class="text-purple-400 text-sm">🎯 FINNIFTY & Hedging</strong>
-                        <span class="bg-purple-900/50 text-purple-300 px-2 py-0.5 rounded text-[10px]">Expiry Focus</span>
-                    </div>
-                    <p class="text-gray-300 leading-relaxed">
-                        <strong>Action:</strong> Careful / Hedging Preferred.<br>
-                        <strong>Logic:</strong> Finnifty PCR is 0.95 (Bearish bias). Due to low VIX (13.45), avoid naked selling; use spread or iron condor if trading expiry.
-                    </p>
-                </div>
             </div>
         </div>
 
@@ -312,28 +199,25 @@
             </div>
         </div>
 
-        <!-- F&O Stock Built-up & Trend Scanner Table -->
+        <!-- F&O Stock Built-up & Trend Scanner Table with Index & Buildup Filters -->
         <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 mb-8 shadow-xl">
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 gap-4">
                 <div>
                     <h3 class="text-lg font-bold text-gray-200">🔍 F&O Stock Built-up & Trend Scanner</h3>
-                    <p class="text-xs text-gray-400 mt-0.5">Filter by Index and Buildup status.</p>
+                    <p class="text-xs text-gray-400 mt-0.5">Filter by Index (Nifty 50, Bank Nifty) and Buildup status.</p>
                 </div>
+                <!-- Search Box -->
                 <div class="w-full md:w-64">
                     <input type="text" id="stock-search" onkeyup="filterStocks()" placeholder="Search stock symbol..." class="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-blue-500">
                 </div>
             </div>
 
-            <!-- Multi-Index Filter Bar -->
+            <!-- Index Filter Bar -->
             <div class="flex flex-wrap items-center gap-2 mb-3 bg-gray-950 p-2.5 rounded-xl border border-gray-800 text-xs font-bold">
                 <span class="text-gray-400 mr-2 text-[11px] uppercase">Select Index:</span>
                 <button onclick="filterByIndex('ALL')" id="idx-all" class="bg-blue-600 text-white px-3 py-1.5 rounded-lg transition-all cursor-pointer shadow">All F&O</button>
                 <button onclick="filterByIndex('NIFTY50')" id="idx-nifty" class="bg-gray-800 text-gray-300 hover:text-white px-3 py-1.5 rounded-lg border border-gray-700 transition-all cursor-pointer">Nifty 50</button>
                 <button onclick="filterByIndex('BANKNIFTY')" id="idx-bank" class="bg-gray-800 text-gray-300 hover:text-white px-3 py-1.5 rounded-lg border border-gray-700 transition-all cursor-pointer">Bank Nifty</button>
-                <button onclick="filterByIndex('FINNIFTY')" id="idx-fin" class="bg-gray-800 text-gray-300 hover:text-white px-3 py-1.5 rounded-lg border border-gray-700 transition-all cursor-pointer">FinNifty</button>
-                <button onclick="filterByIndex('IT')" id="idx-it" class="bg-gray-800 text-gray-300 hover:text-white px-3 py-1.5 rounded-lg border border-gray-700 transition-all cursor-pointer">Nifty IT</button>
-                <button onclick="filterByIndex('AUTO')" id="idx-auto" class="bg-gray-800 text-gray-300 hover:text-white px-3 py-1.5 rounded-lg border border-gray-700 transition-all cursor-pointer">Auto</button>
-                <button onclick="filterByIndex('PHARMA')" id="idx-pharma" class="bg-gray-800 text-gray-300 hover:text-white px-3 py-1.5 rounded-lg border border-gray-700 transition-all cursor-pointer">Pharma</button>
             </div>
 
             <!-- Buildup Filter Buttons Bar -->
@@ -361,7 +245,9 @@
                             <th class="py-3 px-4 font-bold">Expiry</th>
                         </tr>
                     </thead>
-                    <tbody id="stock-table-body" class="divide-y divide-gray-800"></tbody>
+                    <tbody id="stock-table-body" class="divide-y divide-gray-800">
+                        <!-- Data populated via JS -->
+                    </tbody>
                 </table>
             </div>
         </div>
@@ -535,21 +421,22 @@
         }
         window.calculateRisk = calculateRisk;
 
+        // Expanded F&O Stock List categorized by Index
         const stockData = [
             { symbol: "RELIANCE", index: "NIFTY50", buildup: "Long Builtup", price: 1280.50, change: 18.50, pctChange: "1.47%", oi: "4,25,00,000", oiChange: "+12,50,000", vol: "1,25,00,000", expiry: "26-Nov-26" },
-            { symbol: "TCS", index: "IT", buildup: "Short Unwind", price: 4120.00, change: -15.00, pctChange: "-0.36%", oi: "1,10,00,000", oiChange: "-3,20,000", vol: "45,00,000", expiry: "26-Nov-26" },
+            { symbol: "TCS", index: "NIFTY50", buildup: "Short Unwind", price: 4120.00, change: -15.00, pctChange: "-0.36%", oi: "1,10,00,000", oiChange: "-3,20,000", vol: "45,00,000", expiry: "26-Nov-26" },
             { symbol: "HDFCBANK", index: "BANKNIFTY", buildup: "Long Builtup", price: 1750.25, change: 22.10, pctChange: "1.28%", oi: "6,50,00,000", oiChange: "+25,00,000", vol: "2,10,00,000", expiry: "26-Nov-26" },
             { symbol: "ICICIBANK", index: "BANKNIFTY", buildup: "Short Cover", price: 1240.80, change: 15.30, pctChange: "1.25%", oi: "5,10,00,000", oiChange: "-14,00,000", vol: "1,80,00,000", expiry: "26-Nov-26" },
-            { symbol: "INFY", index: "IT", buildup: "Short Builtup", price: 1890.10, change: -24.50, pctChange: "-1.28%", oi: "2,40,00,000", oiChange: "+8,50,000", vol: "95,00,000", expiry: "26-Nov-26" },
+            { symbol: "INFY", index: "NIFTY50", buildup: "Short Builtup", price: 1890.10, change: -24.50, pctChange: "-1.28%", oi: "2,40,00,000", oiChange: "+8,50,000", vol: "95,00,000", expiry: "26-Nov-26" },
             { symbol: "SBIN", index: "BANKNIFTY", buildup: "Long Builtup", price: 830.40, change: 12.60, pctChange: "1.54%", oi: "4,80,00,000", oiChange: "+19,00,000", vol: "1,60,00,000", expiry: "26-Nov-26" },
-            { symbol: "SBICARD", index: "FINNIFTY", buildup: "Long Unwind", price: 740.00, change: -5.20, pctChange: "-0.70%", oi: "1,15,00,000", oiChange: "-1,10,000", vol: "30,00,000", expiry: "26-Nov-26" },
-            { symbol: "BAJFINANCE", index: "FINNIFTY", buildup: "Long Builtup", price: 7200.50, change: 95.00, pctChange: "1.34%", oi: "1,85,00,000", oiChange: "+7,40,000", vol: "55,00,000", expiry: "26-Nov-26" },
-            { symbol: "TATAMOTORS", index: "AUTO", buildup: "Long Builtup", price: 780.20, change: 25.40, pctChange: "3.37%", oi: "7,20,00,000", oiChange: "+42,00,000", vol: "3,10,00,000", expiry: "26-Nov-26" },
-            { symbol: "M&M", index: "AUTO", buildup: "Short Cover", price: 2950.00, change: 42.10, pctChange: "1.45%", oi: "2,30,00,000", oiChange: "-6,50,000", vol: "90,00,000", expiry: "26-Nov-26" },
-            { symbol: "SUNPHARMA", index: "PHARMA", buildup: "Long Builtup", price: 1820.00, change: 21.00, pctChange: "1.17%", oi: "1,95,00,000", oiChange: "+5,20,000", vol: "65,00,000", expiry: "26-Nov-26" },
-            { symbol: "DRREDDY", index: "PHARMA", buildup: "Short Builtup", price: 1310.50, change: -18.20, pctChange: "-1.37%", oi: "85,00,000", oiChange: "+3,10,00,000", vol: "25,00,000", expiry: "26-Nov-26" },
-            { symbol: "WIPRO", index: "IT", buildup: "Long Unwind", price: 560.00, change: -4.50, pctChange: "-0.80%", oi: "1,40,00,000", oiChange: "-2,30,000", vol: "50,00,000", expiry: "26-Nov-26" },
-            { symbol: "MARUTI", index: "AUTO", buildup: "Short Builtup", price: 12450.00, change: -120.00, pctChange: "-0.95%", oi: "90,00,000", oiChange: "+3,40,000", vol: "35,00,000", expiry: "26-Nov-26" }
+            { symbol: "BHARTIARTL", index: "NIFTY50", buildup: "Long Unwind", price: 1650.00, change: -8.00, pctChange: "-0.48%", oi: "1,90,00,000", oiChange: "-2,10,000", vol: "60,00,000", expiry: "26-Nov-26" },
+            { symbol: "KOTAKBANK", index: "BANKNIFTY", buildup: "Short Builtup", price: 1780.00, change: -12.00, pctChange: "-0.67%", oi: "2,10,00,000", oiChange: "+4,50,000", vol: "70,00,000", expiry: "26-Nov-26" },
+            { symbol: "ITC", index: "NIFTY50", buildup: "Short Cover", price: 485.50, change: 3.50, pctChange: "0.73%", oi: "3,10,00,000", oiChange: "-5,00,000", vol: "90,00,000", expiry: "26-Nov-26" },
+            { symbol: "AXISBANK", index: "BANKNIFTY", buildup: "Long Builtup", price: 1150.20, change: 19.40, pctChange: "1.72%", oi: "3,40,00,000", oiChange: "+11,00,000", vol: "1,15,00,000", expiry: "26-Nov-26" },
+            { symbol: "LT", index: "NIFTY50", buildup: "Short Builtup", price: 3550.00, change: -45.00, pctChange: "-1.25%", oi: "1,20,00,000", oiChange: "+6,20,000", vol: "50,00,000", expiry: "26-Nov-26" },
+            { symbol: "HINDUNILVR", index: "NIFTY50", buildup: "Long Unwind", price: 2650.00, change: -10.00, pctChange: "-0.38%", oi: "95,00,000", oiChange: "-1,50,000", vol: "40,00,000", expiry: "26-Nov-26" },
+            { symbol: "PNB", index: "BANKNIFTY", buildup: "Long Builtup", price: 105.50, change: 2.80, pctChange: "2.72%", oi: "8,50,00,000", oiChange: "+35,00,000", vol: "2,50,00,000", expiry: "26-Nov-26" },
+            { symbol: "TATAMOTORS", index: "NIFTY50", buildup: "Long Builtup", price: 780.20, change: 25.40, pctChange: "3.37%", oi: "7,20,00,000", oiChange: "+42,00,000", vol: "3,10,00,000", expiry: "26-Nov-26" }
         ];
 
         let currentIndexFilter = 'ALL';
@@ -595,47 +482,11 @@
             });
         }
 
-        // Smooth notification instead of annoying alert box
-        function showNotification(message) {
-            const banner = document.getElementById('status-banner');
-            const text = document.getElementById('banner-text');
-            text.innerText = message;
-            banner.classList.remove('hidden');
-            setTimeout(() => {
-                banner.classList.add('hidden');
-            }, 3000); // Auto hide after 3 seconds
-        }
-
-        function activateCard(cardName) {
-            if(cardName === 'Stock Screener') {
-                filterByIndex('ALL');
-                filterByBuildup('ALL');
-                showNotification("📊 Stock Screener Activated: Showing all F&O stocks.");
-            } else if(cardName === 'Intraday Screener') {
-                filterByBuildup('Long Builtup');
-                showNotification("📈 Intraday Screener Activated: Filtered for 'Long Builtup' momentum stocks.");
-            } else if(cardName === 'Stock Scanners') {
-                filterByBuildup('Short Builtup');
-                showNotification("📑 Stock Scanner Activated: Filtered for 'Short Builtup' breakdown stocks.");
-            } else if(cardName === 'Chart Screener') {
-                window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-                showNotification("📉 Chart Screener Activated: Scrolled down to Strategy & 20 EMA Guide.");
-            }
-        }
-        window.activateCard = activateCard;
-
         function filterByIndex(idx) {
             currentIndexFilter = idx;
-            const indices = ['all', 'nifty', 'bank', 'fin', 'it', 'auto', 'pharma'];
-            indices.forEach(i => {
-                const btn = document.getElementById('idx-' + i);
-                if(btn) btn.className = "bg-gray-800 text-gray-300 hover:text-white px-3 py-1.5 rounded-lg border border-gray-700 transition-all cursor-pointer";
-            });
-
-            const activeBtnMap = { 'ALL': 'idx-all', 'NIFTY50': 'idx-nifty', 'BANKNIFTY': 'idx-bank', 'FINNIFTY': 'idx-fin', 'IT': 'idx-it', 'AUTO': 'idx-auto', 'PHARMA': 'idx-pharma' };
-            if(activeBtnMap[idx]) {
-                document.getElementById(activeBtnMap[idx]).className = "bg-blue-600 text-white px-3 py-1.5 rounded-lg shadow cursor-pointer";
-            }
+            document.getElementById('idx-all').className = idx === 'ALL' ? "bg-blue-600 text-white px-3 py-1.5 rounded-lg shadow cursor-pointer" : "bg-gray-800 text-gray-300 px-3 py-1.5 rounded-lg border border-gray-700 cursor-pointer";
+            document.getElementById('idx-nifty').className = idx === 'NIFTY50' ? "bg-blue-600 text-white px-3 py-1.5 rounded-lg shadow cursor-pointer" : "bg-gray-800 text-gray-300 px-3 py-1.5 rounded-lg border border-gray-700 cursor-pointer";
+            document.getElementById('idx-bank').className = idx === 'BANKNIFTY' ? "bg-blue-600 text-white px-3 py-1.5 rounded-lg shadow cursor-pointer" : "bg-gray-800 text-gray-300 px-3 py-1.5 rounded-lg border border-gray-700 cursor-pointer";
             renderStockTable(stockData);
         }
 
@@ -653,6 +504,7 @@
             renderStockTable(stockData);
         }
 
+        // Initial render
         renderStockTable(stockData);
 
         const historicalData = [
