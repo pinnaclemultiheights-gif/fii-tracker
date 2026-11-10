@@ -65,7 +65,7 @@
         </div>
 
         <!-- Historical Data Table -->
-        <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 shadow-xl overflow-hidden">
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 mb-8 shadow-xl overflow-hidden">
             <h3 class="text-lg font-bold text-gray-200 mb-4">📋 Historical Trading Data (Cash Segment)</h3>
             <div class="overflow-x-auto">
                 <table class="w-full text-left text-sm text-gray-300">
@@ -78,9 +78,37 @@
                         </tr>
                     </thead>
                     <tbody id="table-body" class="divide-y divide-gray-800">
-                        <!-- Dynamic rows will be inserted here -->
+                        <!-- Dynamic rows -->
                     </tbody>
                 </table>
+            </div>
+        </div>
+
+        <!-- Strategy & Decision Guide Section -->
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 mb-8 shadow-xl">
+            <h3 class="text-lg font-bold text-gray-200 mb-4">💡 FII Flow + 20 EMA Trading Strategy Guide</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                <!-- Buy Setup -->
+                <div class="bg-gray-800 p-4 rounded-xl border border-green-900/50">
+                    <h4 class="font-bold text-green-400 mb-2">🟢 Bullish / Buy Setup</h4>
+                    <p class="text-gray-300 text-xs leading-relaxed">
+                        Jab <strong>FII Net Positive</strong> ho aur chart par price <strong>20 EMA ke upar</strong> sustain karte hue lagataar <strong>Swing Highs break</strong> kar raha ho, tab Long (Buy) side ki position ke liye plan karein.
+                    </p>
+                </div>
+                <!-- Sell Setup -->
+                <div class="bg-gray-800 p-4 rounded-xl border border-red-900/50">
+                    <h4 class="font-bold text-red-400 mb-2">🔴 Bearish / Sell Setup</h4>
+                    <p class="text-gray-300 text-xs leading-relaxed">
+                        Jab <strong>FII Net Negative / Selling</strong> me ho aur price <strong>20 EMA ke niche</strong> jaakar lagataar <strong>Swing Lows break</strong> karta ja raha ho, tab Short (Sell) side ke mauke dekhein.
+                    </p>
+                </div>
+                <!-- Exit / Reversal -->
+                <div class="bg-gray-800 p-4 rounded-xl border border-yellow-900/50">
+                    <h4 class="font-bold text-yellow-400 mb-2">⚠️ Exit & Reversal</h4>
+                    <p class="text-gray-300 text-xs leading-relaxed">
+                        Agar price 20 EMA ko cross karke opposite direction me signal de ya FII data ke against market move kare, toh apni current position se <strong>Exit</strong> karein ya position change karein.
+                    </p>
+                </div>
             </div>
         </div>
 
@@ -92,7 +120,6 @@
 
     <!-- JavaScript logic -->
     <script>
-        // Sample historical data structure (Aap ise Python script ya API se automate kar sakte hain)
         const historicalData = [
             { date: "09-Nov-2026", fiiNet: 7212.22, diiNet: -7172.53 },
             { date: "08-Nov-2026", fiiNet: -0.25, diiNet: 39.69 },
@@ -103,10 +130,8 @@
             { date: "02-Nov-2026", fiiNet: 3114.68, diiNet: -392.20 }
         ];
 
-        // Populate Date and Summary
         document.getElementById("current-date").innerText = "Latest Session: " + historicalData[0].date;
 
-        // Populate Table
         const tableBody = document.getElementById("table-body");
         historicalData.forEach(row => {
             const combined = row.fiiNet + row.diiNet;
@@ -120,7 +145,6 @@
             tableBody.appendChild(tr);
         });
 
-        // Render Chart
         const ctx = document.getElementById('flowChart').getContext('2d');
         new Chart(ctx, {
             type: 'bar',
