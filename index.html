@@ -110,7 +110,42 @@
             </div>
         </div>
 
-        <!-- F&O Stock Built-up & Trend Scanner Table with Hover Chart Popup -->
+        <!-- OPTIONS DASHBOARD -->
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 mb-8 shadow-xl">
+            <div class="mb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-2">
+                <div>
+                    <h3 class="text-lg font-bold text-gray-200">📊 Nifty, Bank Nifty & Finnifty Option Dashboard</h3>
+                    <p class="text-xs text-gray-400 mt-0.5">Real-time Open Interest (OI), PCR, and Max Pain positioning.</p>
+                </div>
+                <span class="text-xs bg-emerald-900/40 text-emerald-300 px-3 py-1 rounded-lg border border-emerald-800 font-semibold animate-pulse">⚡ Live Data Active</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-gray-800 p-5 rounded-xl border border-gray-700 shadow-lg">
+                    <h4 class="font-bold text-blue-400 text-sm mb-3">NIFTY 50</h4>
+                    <div class="space-y-2 text-xs text-gray-300">
+                        <div class="flex justify-between"><span>PCR:</span> <strong class="text-green-400">1.24 (Bullish)</strong></div>
+                        <div class="flex justify-between"><span>Max Pain:</span> <strong class="text-blue-400">24,300</strong></div>
+                    </div>
+                </div>
+                <div class="bg-gray-800 p-5 rounded-xl border border-gray-700 shadow-lg">
+                    <h4 class="font-bold text-indigo-400 text-sm mb-3">BANK NIFTY</h4>
+                    <div class="space-y-2 text-xs text-gray-300">
+                        <div class="flex justify-between"><span>PCR:</span> <strong class="text-yellow-400">1.08 (Neutral)</strong></div>
+                        <div class="flex justify-between"><span>Max Pain:</span> <strong class="text-blue-400">52,000</strong></div>
+                    </div>
+                </div>
+                <div class="bg-gray-800 p-5 rounded-xl border border-gray-700 shadow-lg">
+                    <h4 class="font-bold text-purple-400 text-sm mb-3">FINNIFTY</h4>
+                    <div class="space-y-2 text-xs text-gray-300">
+                        <div class="flex justify-between"><span>PCR:</span> <strong class="text-red-400">0.95 (Bearish)</strong></div>
+                        <div class="flex justify-between"><span>Max Pain:</span> <strong class="text-blue-400">23,400</strong></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- F&O Stock Built-up & Trend Scanner Table with Hover Chart Icon -->
         <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 mb-8 shadow-xl">
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 gap-4">
                 <div>
@@ -142,6 +177,58 @@
             </div>
         </div>
 
+        <!-- Summary Cards (Cash Segment) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <div class="bg-gray-900 border border-gray-800 p-6 rounded-2xl shadow-xl">
+                <h2 class="text-xs font-bold text-gray-400 uppercase tracking-wider">FII Net Cash Flow</h2>
+                <div class="flex items-baseline mt-3">
+                    <span class="text-3xl md:text-4xl font-extrabold text-green-400">+ ₹7,212.22 Cr</span>
+                </div>
+            </div>
+            <div class="bg-gray-900 border border-gray-800 p-6 rounded-2xl shadow-xl">
+                <h2 class="text-xs font-bold text-gray-400 uppercase tracking-wider">DII Net Cash Flow</h2>
+                <div class="flex items-baseline mt-3">
+                    <span class="text-3xl md:text-4xl font-extrabold text-red-400">- ₹7,172.53 Cr</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Risk & Position Sizing Calculator -->
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 mb-8 shadow-xl">
+            <h3 class="text-lg font-bold text-gray-200 mb-4">🧮 Live Risk & Position Sizing Calculator</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                <div>
+                    <label class="block text-xs text-gray-400 mb-1">Total Capital (₹)</label>
+                    <input type="number" id="calc-capital" value="100000" class="w-full bg-gray-800 border border-gray-700 rounded-lg p-2.5 text-sm text-white focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs text-gray-400 mb-1">Risk per Trade (%)</label>
+                    <input type="number" id="calc-risk-pct" value="1" step="0.1" class="w-full bg-gray-800 border border-gray-700 rounded-lg p-2.5 text-sm text-white focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs text-gray-400 mb-1">Stop-Loss Points (₹)</label>
+                    <input type="number" id="calc-sl" value="20" class="w-full bg-gray-800 border border-gray-700 rounded-lg p-2.5 text-sm text-white focus:outline-none">
+                </div>
+            </div>
+            <button onclick="calculateRisk()" class="bg-blue-600 hover:bg-blue-500 text-white font-medium text-xs px-4 py-2.5 rounded-lg transition-all shadow-md cursor-pointer">
+                Calculate Position Size
+            </button>
+            <div id="calc-result" class="mt-4 p-4 bg-gray-800 border border-gray-700 rounded-xl hidden text-sm">
+                <div class="grid grid-cols-2 gap-4">
+                    <div><span class="text-xs text-gray-400">Max Risk Amount:</span> <p id="res-risk-amt" class="text-base font-bold text-red-400">₹0</p></div>
+                    <div><span class="text-xs text-gray-400">Suggested Quantity:</span> <p id="res-qty" class="text-base font-bold text-green-400">0 Units</p></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chart Section -->
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 mb-8 shadow-xl">
+            <h3 class="text-lg font-bold text-gray-200 mb-4">📈 Recent Net Flows Trend (FII vs DII)</h3>
+            <div class="relative h-72 w-full">
+                <canvas id="flowChart"></canvas>
+            </div>
+        </div>
+
         <!-- Footer -->
         <footer class="text-center text-xs text-gray-500 mt-8 py-4 border-t border-gray-900">
             Built for traders & investors. Data source: NSE / BSE institutional reports.
@@ -151,6 +238,18 @@
     <!-- JavaScript logic -->
     <script>
         document.getElementById("current-date").innerText = "Latest Session: 10-Nov-2026";
+
+        function calculateRisk() {
+            const capital = parseFloat(document.getElementById('calc-capital').value) || 0;
+            const riskPct = parseFloat(document.getElementById('calc-risk-pct').value) || 0;
+            const slPoints = parseFloat(document.getElementById('calc-sl').value) || 1;
+            const riskAmount = (capital * riskPct) / 100;
+            const quantity = Math.floor(riskAmount / slPoints);
+            document.getElementById('res-risk-amt').innerText = "₹" + riskAmount.toLocaleString('en-IN', {maximumFractionDigits: 2});
+            document.getElementById('res-qty').innerText = quantity.toLocaleString('en-IN') + " Units / Shares";
+            document.getElementById('calc-result').classList.remove('hidden');
+        }
+        window.calculateRisk = calculateRisk;
 
         const stockData = [
             { symbol: "RELIANCE", index: "NIFTY50", buildup: "Long Builtup", price: 1280.50, change: 18.50, pctChange: "1.47%", oi: "4,25,00,000", oiChange: "+12,50,000", vol: "1,25,00,000", expiry: "26-Nov-26" },
@@ -172,7 +271,6 @@
         function renderStockTable(data) {
             const tbody = document.getElementById("stock-table-body");
             tbody.innerHTML = "";
-            
             const query = document.getElementById("stock-search").value.toLowerCase();
             const filtered = data.filter(item => item.symbol.toLowerCase().includes(query));
 
@@ -192,10 +290,8 @@
                 tr.innerHTML = `
                     <td class="py-3 px-4 font-bold text-white flex items-center gap-2">
                         <span>${item.symbol}</span>
-                        <!-- HOVER CHART ICON WITH POPUP TOOLTIP -->
                         <div class="relative group/tooltip inline-block cursor-pointer">
                             <span class="text-blue-400 hover:text-blue-300 text-sm">📈</span>
-                            <!-- Popup Tooltip Box -->
                             <div class="absolute left-6 bottom-0 w-64 bg-gray-900 border border-blue-500/60 rounded-xl p-4 shadow-2xl hidden group-hover/tooltip:block z-30 text-xs">
                                 <div class="flex justify-between items-center mb-2 border-b border-gray-800 pb-1">
                                     <strong class="text-white">${item.symbol}</strong>
@@ -205,9 +301,6 @@
                                     <div class="flex justify-between"><span>Price:</span> <strong class="text-white">₹${item.price}</strong></div>
                                     <div class="flex justify-between"><span>Buildup:</span> <strong class="text-green-400">${item.buildup}</strong></div>
                                     <div class="flex justify-between"><span>OI Change:</span> <strong class="text-yellow-400">${item.oiChange}</strong></div>
-                                    <div class="mt-2 pt-2 border-t border-gray-800 text-[10px] text-gray-400 text-center">
-                                        💡 20 EMA Swing Momentum Active
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -225,16 +318,13 @@
             });
         }
 
-        function filterStocks() {
-            renderStockTable(stockData);
-        }
+        function filterStocks() { renderStockTable(stockData); }
 
         function openScreenerModal(type) {
             const modal = document.getElementById('screener-modal');
             const modalTitle = document.getElementById('modal-title');
             const modalBody = document.getElementById('modal-table-body');
             modalBody.innerHTML = "";
-
             let filteredList = type === 'Intraday Screener' ? stockData.filter(i => i.buildup === 'Long Builtup') : stockData;
             modalTitle.innerText = type === 'Intraday Screener' ? "📈 Intraday Screener: Long Builtup" : "📊 All F&O Stocks List";
 
@@ -252,11 +342,24 @@
             modal.classList.remove('hidden');
         }
 
-        function closeScreenerModal() {
-            document.getElementById('screener-modal').classList.add('hidden');
-        }
+        function closeScreenerModal() { document.getElementById('screener-modal').classList.add('hidden'); }
+        window.openScreenerModal = openScreenerModal;
+        window.closeScreenerModal = closeScreenerModal;
 
         renderStockTable(stockData);
+
+        const ctx = document.getElementById('flowChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ["04-Nov", "05-Nov", "06-Nov", "09-Nov", "10-Nov"],
+                datasets: [
+                    { label: 'FII Net (Cr)', data: [7284, 14974, 13749, 7212, 1250], backgroundColor: 'rgba(74, 222, 128, 0.7)' },
+                    { label: 'DII Net (Cr)', data: [-3712, -10444, -5968, -7172, -450], backgroundColor: 'rgba(248, 113, 113, 0.7)' }
+                ]
+            },
+            options: { responsive: true, maintainAspectRatio: false }
+        });
     </script>
 </body>
 </html>
