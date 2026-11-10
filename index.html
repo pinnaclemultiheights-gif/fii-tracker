@@ -203,12 +203,12 @@
             </div>
         </div>
 
-        <!-- NEW FEATURE: F&O Stock Built-up & Trend Scanner Table -->
+        <!-- F&O Stock Built-up & Trend Scanner Table with Filter Buttons -->
         <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 mb-8 shadow-xl">
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 gap-4">
                 <div>
                     <h3 class="text-lg font-bold text-gray-200">🔍 F&O Stock Built-up & Trend Scanner</h3>
-                    <p class="text-xs text-gray-400 mt-0.5">Track Long/Short Buildup, Price Change, Open Interest (OI) & Volume[cite: 4].</p>
+                    <p class="text-xs text-gray-400 mt-0.5">Track Long/Short Buildup, Price Change, Open Interest (OI) & Volume.</p>
                 </div>
                 <!-- Search Box -->
                 <div class="w-full md:w-64">
@@ -216,22 +216,32 @@
                 </div>
             </div>
 
+            <!-- Buildup Filter Buttons Bar -->
+            <div class="flex flex-wrap items-center gap-2 mb-4 bg-gray-950 p-3 rounded-xl border border-gray-800 text-xs font-bold">
+                <button onclick="filterByBuildup('ALL')" id="btn-all" class="bg-indigo-600 text-white px-3 py-1.5 rounded-lg transition-all cursor-pointer shadow">ALL FUT</button>
+                <button onclick="filterByBuildup('Long Builtup')" id="btn-long" class="bg-gray-800 hover:bg-green-700 text-green-400 hover:text-white px-3 py-1.5 rounded-lg border border-green-800 transition-all cursor-pointer">LONG BUILTUP</button>
+                <button onclick="filterByBuildup('Short Builtup')" id="btn-short" class="bg-gray-800 hover:bg-red-700 text-red-400 hover:text-white px-3 py-1.5 rounded-lg border border-red-800 transition-all cursor-pointer">SHORT BUILTUP</button>
+                <button onclick="filterByBuildup('Long Unwind')" id="btn-unwind" class="bg-gray-800 hover:bg-amber-700 text-amber-400 hover:text-white px-3 py-1.5 rounded-lg border border-amber-800 transition-all cursor-pointer">LONG UNWIND</button>
+                <button onclick="filterByBuildup('Short Cover')" id="btn-cover" class="bg-gray-800 hover:bg-blue-700 text-blue-400 hover:text-white px-3 py-1.5 rounded-lg border border-blue-800 transition-all cursor-pointer">SHORT COVER</button>
+            </div>
+
             <div class="overflow-x-auto">
                 <table class="w-full text-left text-xs text-gray-300">
                     <thead class="bg-purple-950/80 text-purple-200 uppercase tracking-wider border-b border-purple-900">
                         <tr>
-                            <th class="py-3 px-4 font-bold">Symbol[cite: 4]</th>
-                            <th class="py-3 px-4 font-bold">Builtup[cite: 4]</th>
-                            <th class="py-3 px-4 font-bold">Price (₹)[cite: 4]</th>
-                            <th class="py-3 px-4 font-bold">Change (%)[cite: 4]</th>
-                            <th class="py-3 px-4 font-bold">OI[cite: 4]</th>
-                            <th class="py-3 px-4 font-bold">OI Change %[cite: 4]</th>
-                            <th class="py-3 px-4 font-bold">Volume[cite: 4]</th>
-                            <th class="py-3 px-4 font-bold">Expiry[cite: 4]</th>
+                            <th class="py-3 px-4 font-bold">Symbol</th>
+                            <th class="py-3 px-4 font-bold">Builtup</th>
+                            <th class="py-3 px-4 font-bold">Price (₹)</th>
+                            <th class="py-3 px-4 font-bold">Change (%)</th>
+                            <th class="py-3 px-4 font-bold">OI</th>
+                            <th class="py-3 px-4 font-bold">OI Change</th>
+                            <th class="py-3 px-4 font-bold">OI Change %</th>
+                            <th class="py-3 px-4 font-bold">Volume</th>
+                            <th class="py-3 px-4 font-bold">Expiry</th>
                         </tr>
                     </thead>
                     <tbody id="stock-table-body" class="divide-y divide-gray-800">
-                        <!-- Data will be populated via JS -->
+                        <!-- Data populated via JS -->
                     </tbody>
                 </table>
             </div>
@@ -406,40 +416,54 @@
         }
         window.calculateRisk = calculateRisk;
 
-        // F&O Stock Built-up Data
+        // F&O Stock Built-up Data (Cleaned)
         const stockData = [
-            { symbol: "360ONE[cite: 4]", buildup: "Long Unwind[cite: 4]", price: 1141.20, change: 4.05, pctChange: "0.36%", oi: "46,94,000", oiChange: "-98,500", oiChangePct: "-2.06%", vol: "3,96,500", expiry: "26-Nov-26" },
-            { symbol: "ABB[cite: 4]", buildup: "Short Builtup[cite: 4]", price: 6907.00, change: 1.50, pctChange: "0.02%", oi: "21,75,625", oiChange: "84,500", oiChangePct: "4.04%", vol: "9,01,250", expiry: "26-Nov-26" },
-            { symbol: "ABCAPITAL[cite: 4]", buildup: "Long Unwind[cite: 4]", price: 401.00, change: 3.20, pctChange: "0.80%", oi: "2,93,12,050", oiChange: "-10,54,000", oiChangePct: "-3.47%", vol: "48,67,000", expiry: "26-Nov-26" },
-            { symbol: "ADANIENSOL[cite: 4]", buildup: "Long Unwind[cite: 4]", price: 1448.00, change: -7.40, pctChange: "-0.51%", oi: "21,15,900", oiChange: "11,677", oiChangePct: "0.55%", oiChangePct: "0.55%", vol: "10,56,375", expiry: "26-Nov-26" },
-            { symbol: "ADANIENT[cite: 4]", buildup: "Long Unwind[cite: 4]", price: 2704.00, change: -33.20, pctChange: "-1.21%", oi: "1,68,13,926", oiChange: "84,357", oiChangePct: "0.50%", vol: "9,22,674", expiry: "26-Nov-26" },
-            { symbol: "ADANIGREEN[cite: 4]", buildup: "Short Cover[cite: 4]", price: 1451.00, change: 26.70, pctChange: "1.87%", oi: "1,97,82,000", oiChange: "-1,90,200", oiChangePct: "-0.95%", vol: "16,21,200", expiry: "26-Nov-26" },
-            { symbol: "ADANIPORTS[cite: 4]", buildup: "Long Unwind[cite: 4]", price: 1942.10, change: -16.10, pctChange: "-0.82%", oi: "1,35,75,500", oiChange: "99,275", oiChangePct: "0.74%", vol: "13,97,450", expiry: "26-Nov-26" },
-            { symbol: "ALKEM[cite: 4]", buildup: "Long Unwind[cite: 4]", price: 5382.00, change: 48.50, pctChange: "0.91%", oi: "16,35,625", oiChange: "-17,000", oiChangePct: "-1.03%", vol: "1,95,875", expiry: "26-Nov-26" },
-            { symbol: "AMBER[cite: 4]", buildup: "Short Builtup[cite: 4]", price: 6234.50, change: -89.50, pctChange: "-1.42%", oi: "9,04,200", oiChange: "18,100", oiChangePct: "2.04%", vol: "5,54,100", expiry: "26-Nov-26" },
-            { symbol: "ANANDRATHI[cite: 4]", buildup: "Long Unwind[cite: 4]", price: 2370.00, change: -1.40, pctChange: "-0.06%", oi: "41,55,250", oiChange: "-41,250", oiChangePct: "-0.98%", vol: "2,21,000", expiry: "26-Nov-26" },
-            { symbol: "ANGELONE[cite: 4]", buildup: "Short Cover[cite: 4]", price: 338.60, change: 4.95, pctChange: "1.48%", oi: "36,23,250", oiChange: "-1,27,500", oiChangePct: "-0.35%", vol: "59,20,000", expiry: "26-Nov-26" },
-            { symbol: "APLAPOLLO[cite: 4]", buildup: "Long Unwind[cite: 4]", price: 2180.00, change: -6.30, pctChange: "-0.29%", oi: "13,29,650", oiChange: "-1,96,000", oiChangePct: "-1.45%", vol: "5,68,050", expiry: "26-Nov-26" },
-            { symbol: "APOLLOHOSP[cite: 4]", buildup: "Short Builtup[cite: 4]", price: 8496.50, change: 45.00, pctChange: "0.53%", oi: "16,12,125", oiChange: "54,200", oiChangePct: "3.48%", vol: "4,12,000", expiry: "26-Nov-26" }
+            { symbol: "360ONE", buildup: "Long Unwind", price: 1141.20, change: 4.05, pctChange: "0.36%", oi: "46,94,000", oiChange: "-98,500", oiChangePct: "-2.06%", vol: "3,96,500", expiry: "26-Nov-26" },
+            { symbol: "ABB", buildup: "Short Builtup", price: 6907.00, change: 1.50, pctChange: "0.02%", oi: "21,75,625", oiChange: "84,500", oiChangePct: "4.04%", vol: "9,01,250", expiry: "26-Nov-26" },
+            { symbol: "ABCAPITAL", buildup: "Long Unwind", price: 401.00, change: 3.20, pctChange: "0.80%", oi: "2,93,12,050", oiChange: "-10,54,000", oiChangePct: "-3.47%", vol: "48,67,000", expiry: "26-Nov-26" },
+            { symbol: "ADANIENSOL", buildup: "Long Unwind", price: 1448.00, change: -7.40, pctChange: "-0.51%", oi: "21,15,900", oiChange: "11,677", oiChangePct: "0.55%", vol: "10,56,375", expiry: "26-Nov-26" },
+            { symbol: "ADANIENT", buildup: "Long Builtup", price: 2704.00, change: 33.20, pctChange: "1.21%", oi: "1,68,13,926", oiChange: "84,357", oiChangePct: "0.50%", vol: "9,22,674", expiry: "26-Nov-26" },
+            { symbol: "ADANIGREEN", buildup: "Short Cover", price: 1451.00, change: 26.70, pctChange: "1.87%", oi: "1,97,82,000", oiChange: "-1,90,200", oiChangePct: "-0.95%", vol: "16,21,200", expiry: "26-Nov-26" },
+            { symbol: "ADANIPORTS", buildup: "Long Unwind", price: 1942.10, change: -16.10, pctChange: "-0.82%", oi: "1,35,75,500", oiChange: "99,275", oiChangePct: "0.74%", vol: "13,97,450", expiry: "26-Nov-26" },
+            { symbol: "ALKEM", buildup: "Long Builtup", price: 5382.00, change: 48.50, pctChange: "0.91%", oi: "16,35,625", oiChange: "17,000", oiChangePct: "1.03%", vol: "1,95,875", expiry: "26-Nov-26" },
+            { symbol: "AMBER", buildup: "Short Builtup", price: 6234.50, change: -89.50, pctChange: "-1.42%", oi: "9,04,200", oiChange: "18,100", oiChangePct: "2.04%", vol: "5,54,100", expiry: "26-Nov-26" },
+            { symbol: "ANANDRATHI", buildup: "Long Unwind", price: 2370.00, change: -1.40, pctChange: "-0.06%", oi: "41,55,250", oiChange: "-41,250", oiChangePct: "-0.98%", vol: "2,21,000", expiry: "26-Nov-26" },
+            { symbol: "ANGELONE", buildup: "Short Cover", price: 338.60, change: 4.95, pctChange: "1.48%", oi: "36,23,250", oiChange: "-1,27,500", oiChangePct: "-0.35%", vol: "59,20,000", expiry: "26-Nov-26" },
+            { symbol: "APLAPOLLO", buildup: "Long Unwind", price: 2180.00, change: -6.30, pctChange: "-0.29%", oi: "13,29,650", oiChange: "-1,96,000", oiChangePct: "-1.45%", vol: "5,68,050", expiry: "26-Nov-26" },
+            { symbol: "APOLLOHOSP", buildup: "Short Builtup", price: 8496.50, change: 45.00, pctChange: "0.53%", oi: "16,12,125", oiChange: "54,200", oiChangePct: "3.48%", vol: "4,12,000", expiry: "26-Nov-26" }
         ];
+
+        let currentFilter = 'ALL';
 
         function renderStockTable(data) {
             const tbody = document.getElementById("stock-table-body");
             tbody.innerHTML = "";
-            data.forEach(item => {
+            
+            const query = document.getElementById("stock-search").value.toLowerCase();
+            const filtered = data.filter(item => {
+                const matchesSearch = item.symbol.toLowerCase().includes(query);
+                const matchesBuildup = (currentFilter === 'ALL' || item.buildup === currentFilter);
+                return matchesSearch && matchesBuildup;
+            });
+
+            if(filtered.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="9" class="py-4 text-center text-gray-500">No matching stocks found.</td></tr>`;
+                return;
+            }
+
+            filtered.forEach(item => {
                 let badgeClass = "bg-gray-700 text-gray-200";
-                if(item.buildup.includes("Short Builtup")) badgeClass = "bg-red-600 text-white";
-                else if(item.buildup.includes("Long Unwind")) badgeClass = "bg-amber-600 text-white";
-                else if(item.buildup.includes("Short Cover")) badgeClass = "bg-blue-600 text-white";
-                else if(item.buildup.includes("Long Builtup")) badgeClass = "bg-green-600 text-white";
+                if(item.buildup === "Short Builtup") badgeClass = "bg-red-600 text-white";
+                else if(item.buildup === "Long Unwind") badgeClass = "bg-amber-600 text-white";
+                else if(item.buildup === "Short Cover") badgeClass = "bg-blue-600 text-white";
+                else if(item.buildup === "Long Builtup") badgeClass = "bg-green-600 text-white";
 
                 const tr = document.createElement("tr");
                 tr.innerHTML = `
                     <td class="py-3 px-4 font-bold text-white">${item.symbol}</td>
-                    <td class="py-3 px-4"><span class="px-2 py-1 rounded text-[10px] font-bold ${badgeClass}">${item.buildup}</span></td>
+                    <td class="py-3 px-4"><span class="px-2.5 py-1 rounded text-[10px] font-bold ${badgeClass}">${item.buildup}</span></td>
                     <td class="py-3 px-4 font-semibold">${item.price.toFixed(2)}</td>
-                    <td class="py-3 px-4 font-bold ${item.change >= 0 ? 'text-green-400' : 'text-red-400'}">${item.change >= 0 ? '+' : ''}${item.change}</td>
-                    <td class="py-3 px-4 ${item.change >= 0 ? 'text-green-400' : 'text-red-400'}">${item.pctChange}</td>
+                    <td class="py-3 px-4 font-bold ${item.change >= 0 ? 'text-green-400' : 'text-red-400'}">${item.change >= 0 ? '+' : ''}${item.change} (${item.pctChange})</td>
                     <td class="py-3 px-4 text-gray-200">${item.oi}</td>
                     <td class="py-3 px-4 font-bold ${item.oiChange.startsWith('-') ? 'text-yellow-400' : 'text-green-400'}">${item.oiChange}</td>
                     <td class="py-3 px-4">${item.oiChangePct}</td>
@@ -450,10 +474,28 @@
             });
         }
 
+        function filterByBuildup(type) {
+            currentFilter = type;
+            
+            // Reset button active styles
+            document.getElementById('btn-all').className = "bg-gray-800 text-gray-300 px-3 py-1.5 rounded-lg transition-all cursor-pointer";
+            document.getElementById('btn-long').className = "bg-gray-800 text-green-400 px-3 py-1.5 rounded-lg border border-green-800 transition-all cursor-pointer";
+            document.getElementById('btn-short').className = "bg-gray-800 text-red-400 px-3 py-1.5 rounded-lg border border-red-800 transition-all cursor-pointer";
+            document.getElementById('btn-unwind').className = "bg-gray-800 text-amber-400 px-3 py-1.5 rounded-lg border border-amber-800 transition-all cursor-pointer";
+            document.getElementById('btn-cover').className = "bg-gray-800 text-blue-400 px-3 py-1.5 rounded-lg border border-blue-800 transition-all cursor-pointer";
+
+            // Highlight clicked button
+            if(type === 'ALL') document.getElementById('btn-all').className = "bg-indigo-600 text-white px-3 py-1.5 rounded-lg shadow cursor-pointer";
+            if(type === 'Long Builtup') document.getElementById('btn-long').className = "bg-green-600 text-white px-3 py-1.5 rounded-lg shadow cursor-pointer";
+            if(type === 'Short Builtup') document.getElementById('btn-short').className = "bg-red-600 text-white px-3 py-1.5 rounded-lg shadow cursor-pointer";
+            if(type === 'Long Unwind') document.getElementById('btn-unwind').className = "bg-amber-600 text-white px-3 py-1.5 rounded-lg shadow cursor-pointer";
+            if(type === 'Short Cover') document.getElementById('btn-cover').className = "bg-blue-600 text-white px-3 py-1.5 rounded-lg shadow cursor-pointer";
+
+            renderStockTable(stockData);
+        }
+
         function filterStocks() {
-            const query = document.getElementById("stock-search").value.toLowerCase();
-            const filtered = stockData.filter(s => s.symbol.toLowerCase().includes(query));
-            renderStockTable(filtered);
+            renderStockTable(stockData);
         }
 
         // Initial render
