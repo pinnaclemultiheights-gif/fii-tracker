@@ -66,6 +66,12 @@
             </div>
         </div>
 
+        <!-- Live Status Notification Banner (Replaces Pop-up Alert) -->
+        <div id="status-banner" class="hidden bg-blue-900/60 border border-blue-600 text-blue-200 px-4 py-2.5 rounded-xl mb-4 text-xs font-semibold flex items-center justify-between shadow-lg transition-all">
+            <span id="banner-text">Screener activated successfully.</span>
+            <span onclick="document.getElementById('status-banner').classList.add('hidden')" class="cursor-pointer text-blue-400 hover:text-white font-bold">✕</span>
+        </div>
+
         <!-- CLICKABLE ACTIVE TOOL & SCREENER CARDS -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
             <!-- Card 1: Stock Screener -->
@@ -589,21 +595,31 @@
             });
         }
 
-        // Function to make screener cards interactive & active
+        // Smooth notification instead of annoying alert box
+        function showNotification(message) {
+            const banner = document.getElementById('status-banner');
+            const text = document.getElementById('banner-text');
+            text.innerText = message;
+            banner.classList.remove('hidden');
+            setTimeout(() => {
+                banner.classList.add('hidden');
+            }, 3000); // Auto hide after 3 seconds
+        }
+
         function activateCard(cardName) {
             if(cardName === 'Stock Screener') {
                 filterByIndex('ALL');
                 filterByBuildup('ALL');
-                alert("📊 Stock Screener Activated: Showing all F&O stocks.");
+                showNotification("📊 Stock Screener Activated: Showing all F&O stocks.");
             } else if(cardName === 'Intraday Screener') {
                 filterByBuildup('Long Builtup');
-                alert("📈 Intraday Screener Activated: Filtered for 'Long Builtup' momentum stocks.");
+                showNotification("📈 Intraday Screener Activated: Filtered for 'Long Builtup' momentum stocks.");
             } else if(cardName === 'Stock Scanners') {
                 filterByBuildup('Short Builtup');
-                alert("📑 Stock Scanner Activated: Filtered for 'Short Builtup' breakdown stocks.");
+                showNotification("📑 Stock Scanner Activated: Filtered for 'Short Builtup' breakdown stocks.");
             } else if(cardName === 'Chart Screener') {
                 window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-                alert("📉 Chart Screener Activated: Scrolled down to Strategy & 20 EMA Guide.");
+                showNotification("📉 Chart Screener Activated: Scrolled down to Strategy & 20 EMA Guide.");
             }
         }
         window.activateCard = activateCard;
