@@ -44,7 +44,7 @@
                 </span>
             </div>
             <p class="text-xs md:text-sm text-gray-300 leading-relaxed mb-4">
-                <strong>Analysis:</strong> FII cash net positive inflow, strong Nifty advance-decline ratio, and higher PCR suggest continuing upside momentum. Look for long entries near supports.
+                <strong>Analysis:</strong> FII cash net positive inflow, strong advance-decline ratio, and higher PCR suggest continuing upside momentum. Look for long entries near supports.
             </p>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs pt-3 border-t border-gray-800">
                 <div><span class="text-gray-400">Trend Strength:</span> <strong class="text-green-400">Moderate Bullish</strong></div>
@@ -73,18 +73,18 @@
             </div>
         </div>
 
-        <!-- NEW FEATURE: Nifty, Bank Nifty & Finnifty Option Dashboard -->
+        <!-- WORKING OPTIONS DASHBOARD -->
         <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 mb-8 shadow-xl">
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
                 <div>
                     <h3 class="text-lg font-bold text-gray-200">📊 Nifty, Bank Nifty & Finnifty Option Dashboard</h3>
                     <p class="text-xs text-gray-400 mt-0.5">Real-time Open Interest (OI), PCR, and institutional strike positioning.</p>
                 </div>
-                <!-- Index Switcher Tabs Simulation -->
+                <!-- Working Index Switcher Tabs -->
                 <div class="flex gap-2 bg-gray-800 p-1 rounded-xl border border-gray-700 text-xs">
-                    <button class="bg-blue-600 text-white px-3 py-1.5 rounded-lg font-bold">NIFTY</button>
-                    <button class="text-gray-400 hover:text-white px-3 py-1.5 rounded-lg font-medium">BANKNIFTY</button>
-                    <button class="text-gray-400 hover:text-white px-3 py-1.5 rounded-lg font-medium">FINNIFTY</button>
+                    <button id="btn-nifty" onclick="switchIndex('NIFTY')" class="bg-blue-600 text-white px-3 py-1.5 rounded-lg font-bold transition-all cursor-pointer">NIFTY</button>
+                    <button id="btn-banknifty" onclick="switchIndex('BANKNIFTY')" class="text-gray-400 hover:text-white px-3 py-1.5 rounded-lg font-medium transition-all cursor-pointer">BANKNIFTY</button>
+                    <button id="btn-finnifty" onclick="switchIndex('FINNIFTY')" class="text-gray-400 hover:text-white px-3 py-1.5 rounded-lg font-medium transition-all cursor-pointer">FINNIFTY</button>
                 </div>
             </div>
 
@@ -92,19 +92,19 @@
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
                 <div class="bg-gray-800 p-4 rounded-xl border border-gray-700">
                     <span class="text-xs text-gray-400">Put-Call Ratio (PCR)</span>
-                    <h4 class="text-xl font-extrabold text-green-400 mt-1">1.24 <span class="text-[10px] text-gray-300 font-normal">(Bullish)</span></h4>
+                    <h4 id="stat-pcr" class="text-xl font-extrabold text-green-400 mt-1">1.24 <span class="text-[10px] text-gray-300 font-normal">(Bullish)</span></h4>
                 </div>
                 <div class="bg-gray-800 p-4 rounded-xl border border-gray-700">
                     <span class="text-xs text-gray-400">Total Call OI</span>
-                    <h4 class="text-xl font-extrabold text-red-400 mt-1">2.45 Cr</h4>
+                    <h4 id="stat-call-oi" class="text-xl font-extrabold text-red-400 mt-1">2.45 Cr</h4>
                 </div>
                 <div class="bg-gray-800 p-4 rounded-xl border border-gray-700">
                     <span class="text-xs text-gray-400">Total Put OI</span>
-                    <h4 class="text-xl font-extrabold text-green-400 mt-1">3.04 Cr</h4>
+                    <h4 id="stat-put-oi" class="text-xl font-extrabold text-green-400 mt-1">3.04 Cr</h4>
                 </div>
                 <div class="bg-gray-800 p-4 rounded-xl border border-gray-700">
                     <span class="text-xs text-gray-400">Max Pain Strike</span>
-                    <h4 class="text-xl font-extrabold text-blue-400 mt-1">24,300</h4>
+                    <h4 id="stat-max-pain" class="text-xl font-extrabold text-blue-400 mt-1">24,300</h4>
                 </div>
             </div>
 
@@ -113,7 +113,7 @@
                 <!-- Top Call Strikes (Resistance) -->
                 <div class="bg-gray-800 p-4 rounded-xl border border-red-900/40">
                     <h4 class="font-bold text-red-400 mb-3 uppercase tracking-wider">🔴 Top Call Strikes (Resistance / Writers)</h4>
-                    <div class="space-y-2">
+                    <div id="call-strikes-list" class="space-y-2">
                         <div class="flex justify-between items-center border-b border-gray-700 pb-2">
                             <div><strong class="text-gray-200">24,500 CE</strong> <span class="text-gray-400 text-[10px]">(Resistance)</span></div>
                             <span class="text-red-400 font-bold">OI: 68.5 Lakh (+12%)</span>
@@ -132,7 +132,7 @@
                 <!-- Top Put Strikes (Support) -->
                 <div class="bg-gray-800 p-4 rounded-xl border border-green-900/40">
                     <h4 class="font-bold text-green-400 mb-3 uppercase tracking-wider">🟢 Top Put Strikes (Support / Writers)</h4>
-                    <div class="space-y-2">
+                    <div id="put-strikes-list" class="space-y-2">
                         <div class="flex justify-between items-center border-b border-gray-700 pb-2">
                             <div><strong class="text-gray-200">24,300 PE</strong> <span class="text-gray-400 text-[10px]">(Strong Support)</span></div>
                             <span class="text-green-400 font-bold">OI: 82.1 Lakh (+25%)</span>
@@ -227,7 +227,7 @@
                     <input type="number" id="calc-sl" value="20" class="w-full bg-gray-800 border border-gray-700 rounded-lg p-2.5 text-sm text-white focus:outline-none focus:border-blue-500">
                 </div>
             </div>
-            <button onclick="calculateRisk()" class="bg-blue-600 hover:bg-blue-500 text-white font-medium text-xs px-4 py-2.5 rounded-lg transition-all shadow-md">
+            <button onclick="calculateRisk()" class="bg-blue-600 hover:bg-blue-500 text-white font-medium text-xs px-4 py-2.5 rounded-lg transition-all shadow-md cursor-pointer">
                 Calculate Position Size
             </button>
             <div id="calc-result" class="mt-4 p-4 bg-gray-800 border border-gray-700 rounded-xl hidden text-sm">
@@ -277,19 +277,19 @@
                 <div class="bg-gray-800 p-4 rounded-xl border border-green-900/50">
                     <h4 class="font-bold text-green-400 mb-2">🟢 Index Buy / Long Setup</h4>
                     <p class="text-gray-300 text-xs leading-relaxed">
-                        Jab FII Net Positive ho aur <strong>Nifty / Bank Nifty</strong> price <strong>20 EMA ke upar</strong> sustain karte hue lagataar <strong>Swing Highs break</strong> kare, tab CE (Call) ya Long Futures buy plan karein.
+                        Jab FII Net Positive ho aur Index price <strong>20 EMA ke upar</strong> sustain karte hue lagataar <strong>Swing Highs break</strong> kare, tab CE (Call) buy plan karein.
                     </p>
                 </div>
                 <div class="bg-gray-800 p-4 rounded-xl border border-red-900/50">
                     <h4 class="font-bold text-red-400 mb-2">🔴 Index Sell / Short Setup</h4>
                     <p class="text-gray-300 text-xs leading-relaxed">
-                        Jab FII Net Negative ho aur Index price <strong>20 EMA ke niche</strong> jaakar lagataar <strong>Swing Lows break</strong> karta jaye, tab PE (Put) ya Short Futures sell plan karein.
+                        Jab FII Net Negative ho aur Index price <strong>20 EMA ke niche</strong> jaakar lagataar <strong>Swing Lows break</strong> karta jaye, tab PE (Put) sell plan karein.
                     </p>
                 </div>
                 <div class="bg-gray-800 p-4 rounded-xl border border-yellow-900/50">
                     <h4 class="font-bold text-yellow-400 mb-2">⚠️ Reversal & Exit Rule</h4>
                     <p class="text-gray-300 text-xs leading-relaxed">
-                        Agar Index price 20 EMA ko cross karke opposite direction me swing break de, toh turant apni current index position se <strong>Exit</strong> karein ya reverse position lein.
+                        Agar Index price 20 EMA ko cross karke opposite direction me swing break de, toh turant position se <strong>Exit</strong> karein.
                     </p>
                 </div>
             </div>
@@ -305,6 +305,90 @@
     <script>
         document.getElementById("current-date").innerText = "Latest Session: 10-Nov-2026";
 
+        // Option Data for Switcher
+        const optionData = {
+            "NIFTY": {
+                pcr: "1.24 (Bullish)",
+                callOi: "2.45 Cr",
+                putOi: "3.04 Cr",
+                maxPain: "24,300",
+                calls: [
+                    { strike: "24,500 CE", tag: "Resistance", oi: "68.5 Lakh (+12%)" },
+                    { strike: "24,400 CE", tag: "Immediate", oi: "54.2 Lakh (+8%)" },
+                    { strike: "24,600 CE", tag: "Strong", oi: "45.1 Lakh (-2%)" }
+                ],
+                puts: [
+                    { strike: "24,300 PE", tag: "Strong Support", oi: "82.1 Lakh (+25%)" },
+                    { strike: "24,200 PE", tag: "Major Support", oi: "71.4 Lakh (+15%)" },
+                    { strike: "24,100 PE", tag: "Base", oi: "50.3 Lakh (+5%)" }
+                ]
+            },
+            "BANKNIFTY": {
+                pcr: "1.08 (Neutral)",
+                callOi: "1.85 Cr",
+                putOi: "2.00 Cr",
+                maxPain: "52,000",
+                calls: [
+                    { strike: "52,500 CE", tag: "Resistance", oi: "42.0 Lakh (+14%)" },
+                    { strike: "52,200 CE", tag: "Immediate", oi: "38.5 Lakh (+5%)" },
+                    { strike: "53,000 CE", tag: "Strong", oi: "60.1 Lakh (+10%)" }
+                ],
+                puts: [
+                    { strike: "52,000 PE", tag: "Strong Support", oi: "65.2 Lakh (+20%)" },
+                    { strike: "51,800 PE", tag: "Major Support", oi: "50.1 Lakh (+12%)" },
+                    { strike: "51,500 PE", tag: "Base", oi: "40.0 Lakh (+3%)" }
+                ]
+            },
+            "FINNIFTY": {
+                pcr: "0.95 (Bearish Bias)",
+                callOi: "95 Lakh",
+                putOi: "90 Lakh",
+                maxPain: "23,400",
+                calls: [
+                    { strike: "23,600 CE", tag: "Resistance", oi: "22.5 Lakh (+18%)" },
+                    { strike: "23,500 CE", tag: "Immediate", oi: "19.0 Lakh (+9%)" },
+                    { strike: "23,700 CE", tag: "Strong", oi: "30.1 Lakh (+4%)" }
+                ],
+                puts: [
+                    { strike: "23,400 PE", tag: "Strong Support", oi: "25.0 Lakh (+10%)" },
+                    { strike: "23,300 PE", tag: "Major Support", oi: "21.2 Lakh (+6%)" },
+                    { strike: "23,200 PE", tag: "Base", oi: "15.0 Lakh (+2%)" }
+                ]
+            }
+        };
+
+        // Explicitly exposing function globally
+        function switchIndex(indexName) {
+            document.getElementById('btn-nifty').className = indexName === 'NIFTY' ? "bg-blue-600 text-white px-3 py-1.5 rounded-lg font-bold transition-all cursor-pointer" : "text-gray-400 hover:text-white px-3 py-1.5 rounded-lg font-medium transition-all cursor-pointer";
+            document.getElementById('btn-banknifty').className = indexName === 'BANKNIFTY' ? "bg-blue-600 text-white px-3 py-1.5 rounded-lg font-bold transition-all cursor-pointer" : "text-gray-400 hover:text-white px-3 py-1.5 rounded-lg font-medium transition-all cursor-pointer";
+            document.getElementById('btn-finnifty').className = indexName === 'FINNIFTY' ? "bg-blue-600 text-white px-3 py-1.5 rounded-lg font-bold transition-all cursor-pointer" : "text-gray-400 hover:text-white px-3 py-1.5 rounded-lg font-medium transition-all cursor-pointer";
+
+            const data = optionData[indexName];
+            document.getElementById('stat-pcr').innerHTML = data.pcr;
+            document.getElementById('stat-call-oi').innerText = data.callOi;
+            document.getElementById('stat-put-oi').innerText = data.putOi;
+            document.getElementById('stat-max-pain').innerText = data.maxPain;
+
+            let callHtml = '';
+            data.calls.forEach(item => {
+                callHtml += `<div class="flex justify-between items-center border-b border-gray-700 pb-2">
+                    <div><strong class="text-gray-200">${item.strike}</strong> <span class="text-gray-400 text-[10px]">(${item.tag})</span></div>
+                    <span class="text-red-400 font-bold">OI: ${item.oi}</span>
+                </div>`;
+            });
+            document.getElementById('call-strikes-list').innerHTML = callHtml;
+
+            let putHtml = '';
+            data.puts.forEach(item => {
+                putHtml += `<div class="flex justify-between items-center border-b border-gray-700 pb-2">
+                    <div><strong class="text-gray-200">${item.strike}</strong> <span class="text-gray-400 text-[10px]">(${item.tag})</span></div>
+                    <span class="text-green-400 font-bold">OI: ${item.oi}</span>
+                </div>`;
+            });
+            document.getElementById('put-strikes-list').innerHTML = putHtml;
+        }
+        window.switchIndex = switchIndex;
+
         function calculateRisk() {
             const capital = parseFloat(document.getElementById('calc-capital').value) || 0;
             const riskPct = parseFloat(document.getElementById('calc-risk-pct').value) || 0;
@@ -317,6 +401,7 @@
             document.getElementById('res-qty').innerText = quantity.toLocaleString('en-IN') + " Units / Shares";
             document.getElementById('calc-result').classList.remove('hidden');
         }
+        window.calculateRisk = calculateRisk;
 
         const historicalData = [
             { date: "10-Nov-2026", fiiNet: 1250.50, diiNet: -450.20 },
