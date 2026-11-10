@@ -31,8 +31,8 @@
             </div>
         </header>
 
-        <!-- NEW FEATURE 1: Global Markets & VIX Fear Meter Bar -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+        <!-- Global Markets & VIX Fear Meter Bar (Updated with Volatility Status) -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
             <!-- GIFT Nifty -->
             <div class="bg-gray-900 border border-gray-800 p-3.5 rounded-xl shadow-lg flex justify-between items-center">
                 <div>
@@ -57,11 +57,14 @@
                 </div>
                 <span class="text-xs font-bold text-green-400 bg-green-900/40 px-2 py-0.5 rounded border border-green-800">+95.4 (+0.50%)</span>
             </div>
-            <!-- India VIX (Fear Meter) -->
+            <!-- India VIX (Fear Meter with Volatility Status) -->
             <div class="bg-gray-900 border border-gray-800 p-3.5 rounded-xl shadow-lg flex justify-between items-center">
                 <div>
-                    <span class="text-[10px] text-gray-400 font-bold uppercase">India VIX (Fear)</span>
-                    <h4 class="text-base font-extrabold text-yellow-400 mt-0.5">13.45</h4>
+                    <div class="flex items-center gap-2">
+                        <span class="text-[10px] text-gray-400 font-bold uppercase">India VIX (Fear)</span>
+                        <span class="text-[10px] font-bold text-green-400 bg-green-900/30 px-1.5 py-0.5 rounded border border-green-800">🟢 Stable / Smooth</span>
+                    </div>
+                    <h4 class="text-base font-extrabold text-yellow-400 mt-0.5">13.45 <span class="text-xs font-normal text-gray-400">(Low Volatility)</span></h4>
                 </div>
                 <span class="text-xs font-bold text-red-400 bg-red-900/40 px-2 py-0.5 rounded border border-red-800">-0.35 (-2.53%)</span>
             </div>
@@ -80,7 +83,7 @@
                 </span>
             </div>
             <p class="text-xs md:text-sm text-gray-300 leading-relaxed mb-4">
-                <strong>Analysis:</strong> FII cash net positive inflow, positive GIFT Nifty cues, low VIX (13.45) indicating stability, and higher PCR suggest continuing upside momentum.
+                <strong>Analysis:</strong> FII cash net positive inflow, positive GIFT Nifty cues, low VIX (13.45) indicating a smooth and stable trend, and higher PCR suggest continuing upside momentum.
             </p>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs pt-3 border-t border-gray-800">
                 <div><span class="text-gray-400">Trend Strength:</span> <strong class="text-green-400">Moderate Bullish</strong></div>
@@ -375,52 +378,4 @@
         ];
 
         const tableBody = document.getElementById("table-body");
-        historicalData.forEach(row => {
-            const combined = row.fiiNet + row.diiNet;
-            const tr = document.createElement("tr");
-            tr.innerHTML = `
-                <td class="py-3 px-4 font-medium text-gray-200">${row.date}</td>
-                <td class="py-3 px-4 font-bold ${row.fiiNet >= 0 ? 'text-green-400' : 'text-red-400'}">${row.fiiNet >= 0 ? '+' : ''}₹${row.fiiNet.toLocaleString()} Cr</td>
-                <td class="py-3 px-4 font-bold ${row.diiNet >= 0 ? 'text-green-400' : 'text-red-400'}">${row.diiNet >= 0 ? '+' : ''}₹${row.diiNet.toLocaleString()} Cr</td>
-                <td class="py-3 px-4 font-bold ${combined >= 0 ? 'text-blue-400' : 'text-yellow-400'}">${combined >= 0 ? '+' : ''}₹${combined.toLocaleString()} Cr</td>
-            `;
-            tableBody.appendChild(tr);
-        });
-
-        const ctx = document.getElementById('flowChart').getContext('2d');
-        new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: historicalData.map(item => item.date).reverse(),
-                datasets: [
-                    {
-                        label: 'FII Net (Cr)',
-                        data: historicalData.map(item => item.fiiNet).reverse(),
-                        backgroundColor: 'rgba(74, 222, 128, 0.7)',
-                        borderColor: 'rgb(74, 222, 128)',
-                        borderWidth: 1
-                    },
-                    {
-                        label: 'DII Net (Cr)',
-                        data: historicalData.map(item => item.diiNet).reverse(),
-                        backgroundColor: 'rgba(248, 113, 113, 0.7)',
-                        borderColor: 'rgb(248, 113, 113)',
-                        borderWidth: 1
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    x: { ticks: { color: '#9ca3af' }, grid: { color: '#374151' } },
-                    y: { ticks: { color: '#9ca3af' }, grid: { color: '#374151' } }
-                },
-                plugins: {
-                    legend: { labels: { color: '#e5e7eb' } }
-                }
-            }
-        });
-    </script>
-</body>
-</html>
+        historicalData.forEach
