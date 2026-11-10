@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FII & DII Institutional Trading Terminal</title>
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body class="bg-gray-950 text-gray-100 font-sans min-h-screen p-4 md:p-8">
@@ -16,160 +18,732 @@
                 <h1 class="text-2xl md:text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-500">
                     📊 FII & DII Institutional Trading Terminal
                 </h1>
-                <p class="text-sm text-gray-400 mt-1">AI-Powered Options, Global Cues & Cash Flow Tracker</p>
+                <p class="text-sm text-gray-400 mt-1">AI-Powered Options, Global Cues, Index & Cash Flow Tracker</p>
             </div>
             <div class="mt-4 md:mt-0 flex items-center gap-3">
-                <span id="current-date" class="bg-gray-800 text-xs px-3 py-1.5 rounded-full border border-gray-700 font-medium text-blue-300">Loading...</span>
-                <a href="https://t.me/share/url?url=https://pinnaclemultiheights-gif.github.io/fii-tracker/" target="_blank" class="bg-blue-600 hover:bg-blue-500 text-white text-xs px-3 py-1.5 rounded-full font-medium shadow-md">📢 Telegram</a>
+                <span id="current-date" class="bg-gray-800 text-xs px-3 py-1.5 rounded-full border border-gray-700 font-medium text-blue-300">
+                    Loading Date...
+                </span>
+                <!-- Telegram Share Button -->
+                <a href="https://t.me/share/url?url=https://pinnaclemultiheights-gif.github.io/fii-tracker/&text=Check%20out%20today's%20Global%20Terminal%20Updates!" target="_blank" class="bg-blue-600 hover:bg-blue-500 text-white text-xs px-3 py-1.5 rounded-full font-medium transition-all shadow-md flex items-center gap-1">
+                    📢 Share Telegram
+                </a>
             </div>
         </header>
 
-        <!-- Global Markets & VIX Bar -->
+        <!-- Global Markets & VIX Fear Meter Bar -->
         <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-            <div class="bg-gray-900 border border-gray-800 p-4 rounded-xl shadow flex justify-between items-center">
-                <div><span class="text-xs text-gray-400 font-bold">GIFT NIFTY</span><h4 class="text-lg font-extrabold text-white">24,420.00</h4></div>
-                <span class="text-xs font-bold text-green-400 bg-green-900/40 px-2 py-1 rounded">+65.0 (+0.27%)</span>
-            </div>
-            <div class="bg-gray-900 border border-gray-800 p-4 rounded-xl shadow flex justify-between items-center">
-                <div><span class="text-xs text-gray-400 font-bold">Dow Futures</span><h4 class="text-lg font-extrabold text-white">43,910.50</h4></div>
-                <span class="text-xs font-bold text-green-400 bg-green-900/40 px-2 py-1 rounded">+120.0 (+0.27%)</span>
-            </div>
-            <div class="bg-gray-900 border border-gray-800 p-4 rounded-xl shadow flex justify-between items-center">
-                <div><span class="text-xs text-gray-400 font-bold">Nasdaq Futures</span><h4 class="text-lg font-extrabold text-white">19,150.20</h4></div>
-                <span class="text-xs font-bold text-green-400 bg-green-900/40 px-2 py-1 rounded">+95.4 (+0.50%)</span>
-            </div>
-            <div class="bg-gray-900 border border-gray-800 p-4 rounded-xl shadow flex justify-between items-center">
-                <div><span class="text-xs text-gray-400 font-bold">INDIA VIX</span><h4 class="text-lg font-extrabold text-yellow-400">13.45</h4></div>
-                <span class="text-xs font-bold text-red-400 bg-red-900/40 px-2 py-1 rounded">-0.35 (-2.5%)</span>
-            </div>
-        </div>
-
-        <!-- Screener Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-            <div onclick="openScreenerModal('Stock Screener')" class="bg-gray-900 border border-gray-800 p-5 rounded-2xl shadow hover:border-blue-500 cursor-pointer">
-                <h3 class="text-base font-bold text-blue-400 mb-1">📊 Stock Screener</h3>
-                <p class="text-xs text-gray-400">Screen F&O stocks using volume and institutional flows.</p>
-            </div>
-            <div onclick="openScreenerModal('Intraday Screener')" class="bg-gray-900 border border-gray-800 p-5 rounded-2xl shadow hover:border-green-500 cursor-pointer">
-                <h3 class="text-base font-bold text-green-400 mb-1">📈 Intraday Screener</h3>
-                <p class="text-xs text-gray-400">Find best intraday momentum setups.</p>
-            </div>
-        </div>
-
-        <!-- Stock Chart Modal -->
-        <div id="chart-modal" class="fixed inset-0 bg-black/85 z-50 hidden flex items-center justify-center p-4">
-            <div class="bg-gray-900 border border-gray-700 rounded-2xl w-full max-w-4xl p-5 shadow-2xl relative">
-                <div class="flex justify-between items-center mb-4 border-b border-gray-800 pb-3">
-                    <h3 id="chart-stock-title" class="text-lg font-extrabold text-white uppercase">STOCK</h3>
-                    <button onclick="closeChartModal()" class="bg-red-600 text-white px-3 py-1 rounded text-xs font-bold cursor-pointer">✕ Close</button>
+            <div class="bg-gray-900 border border-gray-800 p-4 rounded-xl shadow-lg flex justify-between items-center">
+                <div>
+                    <span class="text-xs text-gray-400 font-bold uppercase">GIFT NIFTY</span>
+                    <h4 class="text-lg font-extrabold text-white mt-0.5">24,420.00</h4>
                 </div>
-                <div class="relative h-72 w-full bg-gray-950 p-2 rounded-xl"><canvas id="stockCanvasChart"></canvas></div>
+                <span class="text-xs font-bold text-green-400 bg-green-900/40 px-2 py-1 rounded border border-green-800">+65.0 (+0.27%)</span>
+            </div>
+            <div class="bg-gray-900 border border-gray-800 p-4 rounded-xl shadow-lg flex justify-between items-center">
+                <div>
+                    <span class="text-xs text-gray-400 font-bold uppercase">Dow Futures</span>
+                    <h4 class="text-lg font-extrabold text-white mt-0.5">43,910.50</h4>
+                </div>
+                <span class="text-xs font-bold text-green-400 bg-green-900/40 px-2 py-1 rounded border border-green-800">+120.0 (+0.27%)</span>
+            </div>
+            <div class="bg-gray-900 border border-gray-800 p-4 rounded-xl shadow-lg flex justify-between items-center">
+                <div>
+                    <span class="text-xs text-gray-400 font-bold uppercase">Nasdaq Futures</span>
+                    <h4 class="text-lg font-extrabold text-white mt-0.5">19,150.20</h4>
+                </div>
+                <span class="text-xs font-bold text-green-400 bg-green-900/40 px-2 py-1 rounded border border-green-800">+95.4 (+0.50%)</span>
+            </div>
+            <div class="bg-gray-900 border border-gray-800 p-4 rounded-xl shadow-lg flex justify-between items-center">
+                <div>
+                    <span class="text-xs text-gray-400 font-bold uppercase block">INDIA VIX (FEAR)</span>
+                    <div class="flex items-center gap-2 mt-0.5">
+                        <h4 class="text-lg font-extrabold text-yellow-400">13.45</h4>
+                        <span class="text-[10px] font-bold text-green-300 bg-green-900/50 px-2 py-0.5 rounded border border-green-700">🟢 Stable</span>
+                    </div>
+                </div>
+                <span class="text-xs font-bold text-red-400 bg-red-900/40 px-2 py-1 rounded border border-red-800">-0.35 (-2.5%)</span>
             </div>
         </div>
 
-        <!-- Screener List Modal -->
-        <div id="screener-modal" class="fixed inset-0 bg-black/80 z-50 hidden flex items-center justify-center p-4">
+        <!-- CLICKABLE TOOL & SCREENER CARDS (Opens Stock List Popup) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            <div onclick="openScreenerModal('Stock Screener')" class="bg-gray-900 border border-gray-800 p-5 rounded-2xl shadow-xl hover:border-blue-500 transition-all cursor-pointer group">
+                <div class="flex items-center gap-3 mb-3">
+                    <div class="w-10 h-10 rounded-xl bg-blue-950 border border-blue-800 flex items-center justify-center text-blue-400 text-lg font-bold group-hover:scale-110 transition-transform">📊</div>
+                    <h3 class="text-base font-bold text-blue-400">Stock Screener (Click for List)</h3>
+                </div>
+                <p class="text-xs text-gray-400 leading-relaxed mb-3">
+                    Screen Indian F&O stocks using powerful price, volume, and institutional flow filters.
+                </p>
+                <span class="inline-block bg-blue-950/80 text-blue-300 text-[11px] font-semibold px-2.5 py-1 rounded-lg border border-blue-900">
+                    📈 View All F&O Stocks Popup
+                </span>
+            </div>
+
+            <div onclick="openScreenerModal('Intraday Screener')" class="bg-gray-900 border border-gray-800 p-5 rounded-2xl shadow-xl hover:border-green-500 transition-all cursor-pointer group">
+                <div class="flex items-center gap-3 mb-3">
+                    <div class="w-10 h-10 rounded-xl bg-green-950 border border-green-800 flex items-center justify-center text-green-400 text-lg font-bold group-hover:scale-110 transition-transform">📈</div>
+                    <h3 class="text-base font-bold text-green-400">Intraday Screener (Click for List)</h3>
+                </div>
+                <p class="text-xs text-gray-400 leading-relaxed mb-3">
+                    Find the best intraday trading opportunities and momentum setups in seconds.
+                </p>
+                <span class="inline-block bg-green-950/80 text-green-300 text-[11px] font-semibold px-2.5 py-1 rounded-lg border border-green-900">
+                    ⚡ View Long Builtup Popup
+                </span>
+            </div>
+
+            <div onclick="openScreenerModal('Stock Scanners')" class="bg-gray-900 border border-gray-800 p-5 rounded-2xl shadow-xl hover:border-purple-500 transition-all cursor-pointer group">
+                <div class="flex items-center gap-3 mb-3">
+                    <div class="w-10 h-10 rounded-xl bg-purple-950 border border-purple-800 flex items-center justify-center text-purple-400 text-lg font-bold group-hover:scale-110 transition-transform">📑</div>
+                    <h3 class="text-base font-bold text-purple-400">Stock Scanners (Click for List)</h3>
+                </div>
+                <p class="text-xs text-gray-400 leading-relaxed mb-3">
+                    Scan thousands of stocks to discover breakout, long buildup, and short coverage trades.
+                </p>
+                <span class="inline-block bg-purple-950/80 text-purple-300 text-[11px] font-semibold px-2.5 py-1 rounded-lg border border-purple-900">
+                    🔍 View Short Builtup Popup
+                </span>
+            </div>
+
+            <div onclick="openScreenerModal('Chart Screener')" class="bg-gray-900 border border-gray-800 p-5 rounded-2xl shadow-xl hover:border-pink-500 transition-all cursor-pointer group">
+                <div class="flex items-center gap-3 mb-3">
+                    <div class="w-10 h-10 rounded-xl bg-pink-950 border border-pink-800 flex items-center justify-center text-pink-400 text-lg font-bold group-hover:scale-110 transition-transform">📉</div>
+                    <h3 class="text-base font-bold text-pink-400">Chart Screener (Click for List)</h3>
+                </div>
+                <p class="text-xs text-gray-400 leading-relaxed mb-3">
+                    Discover stocks using 20 EMA swing patterns, technical analysis, and price action rules.
+                </p>
+                <span class="inline-block bg-pink-950/80 text-pink-300 text-[11px] font-semibold px-2.5 py-1 rounded-lg border border-pink-900">
+                    🎯 View Momentum Gainers Popup
+                </span>
+            </div>
+        </div>
+
+        <!-- STOCK LIST POPUP MODAL (Hidden by default) -->
+        <div id="screener-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
             <div class="bg-gray-900 border border-gray-800 rounded-2xl w-full max-w-2xl p-6 shadow-2xl relative">
                 <div class="flex justify-between items-center mb-4 border-b border-gray-800 pb-3">
-                    <h3 id="modal-title" class="text-lg font-extrabold text-blue-400">Screener List</h3>
-                    <button onclick="closeScreenerModal()" class="bg-gray-800 text-gray-300 px-3 py-1 rounded text-xs font-bold cursor-pointer">✕ Close</button>
+                    <h3 id="modal-title" class="text-lg font-extrabold text-blue-400">Screener Stocks List</h3>
+                    <button onclick="closeScreenerModal()" class="text-gray-400 hover:text-white text-lg font-bold bg-gray-800 px-3 py-1 rounded-lg cursor-pointer">✕ Close</button>
                 </div>
                 <div class="overflow-x-auto max-h-96">
                     <table class="w-full text-left text-xs text-gray-300">
                         <thead class="bg-gray-800 text-gray-400 uppercase">
-                            <tr><th class="p-2">Symbol</th><th class="p-2">Index</th><th class="p-2">Buildup</th><th class="p-2">Price</th><th class="p-2">Change</th></tr>
+                            <tr>
+                                <th class="py-2.5 px-3">Symbol</th>
+                                <th class="py-2.5 px-3">Index</th>
+                                <th class="py-2.5 px-3">Buildup</th>
+                                <th class="py-2.5 px-3">Price (₹)</th>
+                                <th class="py-2.5 px-3">Change (%)</th>
+                            </tr>
                         </thead>
-                        <tbody id="modal-table-body"></tbody>
+                        <tbody id="modal-table-body" class="divide-y divide-gray-800">
+                            <!-- Populated via JS -->
+                        </tbody>
                     </table>
                 </div>
             </div>
         </div>
 
-        <!-- F&O Table -->
-        <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 mb-8 shadow">
-            <div class="flex flex-col md:flex-row justify-between items-center mb-4 gap-4">
-                <h3 class="text-lg font-bold text-gray-200">🔍 F&O Stock Trend Scanner</h3>
-                <input type="text" id="stock-search" onkeyup="filterStocks()" placeholder="Search symbol..." class="bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-xs text-white">
+        <!-- AI Trade Ideas & Strategy Hub -->
+        <div class="bg-gradient-to-r from-blue-950 via-gray-900 to-indigo-950 border border-blue-800/60 rounded-2xl p-6 mb-6 shadow-2xl relative">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-3 mb-4 border-b border-blue-900/50 pb-3">
+                <div class="flex items-center gap-2">
+                    <span class="bg-blue-600 text-white text-xs px-3 py-1 rounded-full font-bold uppercase tracking-wider animate-pulse">💡 AI Index-Wise Trade Ideas</span>
+                    <h3 class="text-base font-extrabold text-white">Actionable Strategy Hub</h3>
+                </div>
+                <span class="text-xs bg-green-900/60 text-green-300 px-3 py-1 rounded-lg border border-green-700 font-bold">
+                    Market Sentiment: Bullish Bias
+                </span>
             </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                <div class="bg-gray-800/80 p-4 rounded-xl border border-blue-900/60 shadow">
+                    <div class="flex items-center justify-between mb-2">
+                        <strong class="text-blue-400 text-sm">📈 NIFTY 50 Setup</strong>
+                        <span class="bg-blue-900/50 text-blue-300 px-2 py-0.5 rounded text-[10px]">PCR: 1.24 (Bullish)</span>
+                    </div>
+                    <p class="text-gray-300 leading-relaxed">
+                        <strong>Action:</strong> Buy on Dips / CE Buy.<br>
+                        <strong>Logic:</strong> High Put OI (3.04 Cr) and PCR 1.24 indicate strong support near Max Pain (24,300). Look for long entries near 20 EMA.
+                    </p>
+                </div>
+
+                <div class="bg-gray-800/80 p-4 rounded-xl border border-indigo-900/60 shadow">
+                    <div class="flex items-center justify-between mb-2">
+                        <strong class="text-indigo-400 text-sm">🏦 BANK NIFTY Setup</strong>
+                        <span class="bg-yellow-900/50 text-yellow-300 px-2 py-0.5 rounded text-[10px]">PCR: 1.08 (Neutral)</span>
+                    </div>
+                    <p class="text-gray-300 leading-relaxed">
+                        <strong>Action:</strong> Range-bound / Momentum Breakout.<br>
+                        <strong>Logic:</strong> PCR is neutral (1.08). Wait for price to break 52,000 Max Pain zone or previous swing high before taking aggressive directional trade.
+                    </p>
+                </div>
+
+                <div class="bg-gray-800/80 p-4 rounded-xl border border-purple-900/60 shadow">
+                    <div class="flex items-center justify-between mb-2">
+                        <strong class="text-purple-400 text-sm">🎯 FINNIFTY & Hedging</strong>
+                        <span class="bg-purple-900/50 text-purple-300 px-2 py-0.5 rounded text-[10px]">Expiry Focus</span>
+                    </div>
+                    <p class="text-gray-300 leading-relaxed">
+                        <strong>Action:</strong> Careful / Hedging Preferred.<br>
+                        <strong>Logic:</strong> Finnifty PCR is 0.95 (Bearish bias). Due to low VIX (13.45), avoid naked selling; use spread or iron condor if trading expiry.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- AI-Based Live Trade Signal Box -->
+        <div class="bg-gradient-to-r from-indigo-950 via-gray-900 to-gray-900 border border-indigo-900/60 rounded-2xl p-6 mb-6 shadow-2xl relative overflow-hidden">
+            <div class="absolute top-0 right-0 p-4 opacity-10 text-6xl font-bold text-indigo-400">AI</div>
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-4">
+                <div class="flex items-center gap-3">
+                    <span class="bg-indigo-600 text-white text-xs px-3 py-1 rounded-full font-bold uppercase tracking-wider animate-pulse">🤖 AI Smart Signal</span>
+                    <h3 class="text-base font-extrabold text-white">Live Institutional Bias & Action</h3>
+                </div>
+                <span class="text-xs bg-green-900/60 text-green-300 px-3 py-1.5 rounded-xl border border-green-700 font-bold">
+                    🟢 BUY ON DIPS (BULLISH MOMENTUM)
+                </span>
+            </div>
+            <p class="text-xs md:text-sm text-gray-300 leading-relaxed mb-4">
+                <strong>Analysis:</strong> FII cash net positive inflow, positive GIFT Nifty cues, low VIX (13.45) indicating a smooth and stable trend, and higher PCR suggest continuing upside momentum.
+            </p>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs pt-3 border-t border-gray-800">
+                <div><span class="text-gray-400">Trend Strength:</span> <strong class="text-green-400">Moderate Bullish</strong></div>
+                <div><span class="text-gray-400">Recommended Setup:</span> <strong class="text-blue-400">Buy near 20 EMA</strong></div>
+                <div><span class="text-gray-400">Stop-Loss Zone:</span> <strong class="text-red-400">Below Swing Low</strong></div>
+                <div><span class="text-gray-400">Accuracy Index:</span> <strong class="text-yellow-400">78% (High Confidence)</strong></div>
+            </div>
+        </div>
+
+        <!-- Market Status & Today's Expiry Banner -->
+        <div class="bg-gradient-to-r from-gray-900 to-gray-900 border border-gray-800 p-4 rounded-xl mb-6 shadow-xl flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-3">
+                <span class="relative flex h-3 w-3">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-400 opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-3 w-3 bg-yellow-500"></span>
+                </span>
+                <div>
+                    <span class="text-xs text-gray-400 uppercase tracking-wider font-semibold">Market Status:</span>
+                    <span class="text-sm font-bold text-yellow-400 ml-1">MARKET CLOSED / HOLIDAY</span>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-2 bg-gray-800/80 px-4 py-2 rounded-lg border border-gray-700">
+                <span class="text-xs text-yellow-400 font-bold uppercase">🎯 Today's Expiry:</span>
+                <span class="text-sm font-extrabold text-white">FINNIFTY (Weekly Expiry)</span>
+            </div>
+        </div>
+
+        <!-- OPTIONS DASHBOARD -->
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 mb-8 shadow-xl">
+            <div class="mb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-2">
+                <div>
+                    <h3 class="text-lg font-bold text-gray-200">📊 Nifty, Bank Nifty & Finnifty Option Dashboard</h3>
+                    <p class="text-xs text-gray-400 mt-0.5">Real-time Open Interest (OI), OI Change, PCR, and Max Pain positioning.</p>
+                </div>
+                <span class="text-xs bg-emerald-900/40 text-emerald-300 px-3 py-1 rounded-lg border border-emerald-800 font-semibold animate-pulse">⚡ Live OI Change Tracking Active</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- NIFTY CARD -->
+                <div class="bg-gray-800 p-5 rounded-xl border border-gray-700 shadow-lg">
+                    <div class="flex justify-between items-center mb-4 border-b border-gray-700 pb-3">
+                        <h4 class="font-bold text-blue-400 text-sm">NIFTY 50</h4>
+                        <span class="text-[10px] bg-blue-900/50 text-blue-300 px-2 py-0.5 rounded border border-blue-700">Live Data</span>
+                    </div>
+                    <div class="space-y-3 text-xs">
+                        <div class="flex justify-between items-center bg-gray-900/50 p-2 rounded-lg">
+                            <span class="text-gray-400">Put-Call Ratio (PCR):</span>
+                            <strong class="text-green-400">1.24 (Bullish)</strong>
+                        </div>
+                        <div class="flex justify-between items-center bg-gray-900/50 p-2 rounded-lg">
+                            <span class="text-gray-400">Total Call OI & Change:</span>
+                            <span class="text-right"><strong class="text-red-400 block">2.45 Cr</strong><span class="text-[10px] text-green-400 font-bold">+12.4 Lakh</span></span>
+                        </div>
+                        <div class="flex justify-between items-center bg-gray-900/50 p-2 rounded-lg">
+                            <span class="text-gray-400">Total Put OI & Change:</span>
+                            <span class="text-right"><strong class="text-green-400 block">3.04 Cr</strong><span class="text-[10px] text-green-400 font-bold">+28.5 Lakh</span></span>
+                        </div>
+                        <div class="flex justify-between items-center bg-gray-900/50 p-2 rounded-lg">
+                            <span class="text-gray-400">Max Pain Strike:</span>
+                            <strong class="text-blue-400">24,300</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BANK NIFTY CARD -->
+                <div class="bg-gray-800 p-5 rounded-xl border border-gray-700 shadow-lg">
+                    <div class="flex justify-between items-center mb-4 border-b border-gray-700 pb-3">
+                        <h4 class="font-bold text-indigo-400 text-sm">BANK NIFTY</h4>
+                        <span class="text-[10px] bg-indigo-900/50 text-indigo-300 px-2 py-0.5 rounded border border-indigo-700">Live Data</span>
+                    </div>
+                    <div class="space-y-3 text-xs">
+                        <div class="flex justify-between items-center bg-gray-900/50 p-2 rounded-lg">
+                            <span class="text-gray-400">Put-Call Ratio (PCR):</span>
+                            <strong class="text-yellow-400">1.08 (Neutral)</strong>
+                        </div>
+                        <div class="flex justify-between items-center bg-gray-900/50 p-2 rounded-lg">
+                            <span class="text-gray-400">Total Call OI & Change:</span>
+                            <span class="text-right"><strong class="text-red-400 block">1.85 Cr</strong><span class="text-[10px] text-red-400 font-bold">+8.2 Lakh</span></span>
+                        </div>
+                        <div class="flex justify-between items-center bg-gray-900/50 p-2 rounded-lg">
+                            <span class="text-gray-400">Total Put OI & Change:</span>
+                            <span class="text-right"><strong class="text-green-400 block">2.00 Cr</strong><span class="text-[10px] text-green-400 font-bold">+14.1 Lakh</span></span>
+                        </div>
+                        <div class="flex justify-between items-center bg-gray-900/50 p-2 rounded-lg">
+                            <span class="text-gray-400">Max Pain Strike:</span>
+                            <strong class="text-blue-400">52,000</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FINNIFTY CARD -->
+                <div class="bg-gray-800 p-5 rounded-xl border border-gray-700 shadow-lg">
+                    <div class="flex justify-between items-center mb-4 border-b border-gray-700 pb-3">
+                        <h4 class="font-bold text-purple-400 text-sm">FINNIFTY</h4>
+                        <span class="text-[10px] bg-purple-900/50 text-purple-300 px-2 py-0.5 rounded border border-purple-700">Live Data</span>
+                    </div>
+                    <div class="space-y-3 text-xs">
+                        <div class="flex justify-between items-center bg-gray-900/50 p-2 rounded-lg">
+                            <span class="text-gray-400">Put-Call Ratio (PCR):</span>
+                            <strong class="text-red-400">0.95 (Bearish Bias)</strong>
+                        </div>
+                        <div class="flex justify-between items-center bg-gray-900/50 p-2 rounded-lg">
+                            <span class="text-gray-400">Total Call OI & Change:</span>
+                            <span class="text-right"><strong class="text-red-400 block">95 Lakh</strong><span class="text-[10px] text-red-400 font-bold">+5.4 Lakh</span></span>
+                        </div>
+                        <div class="flex justify-between items-center bg-gray-900/50 p-2 rounded-lg">
+                            <span class="text-gray-400">Total Put OI & Change:</span>
+                            <span class="text-right"><strong class="text-green-400 block">90 Lakh</strong><span class="text-[10px] text-yellow-400 font-bold">-2.1 Lakh</span></span>
+                        </div>
+                        <div class="flex justify-between items-center bg-gray-900/50 p-2 rounded-lg">
+                            <span class="text-gray-400">Max Pain Strike:</span>
+                            <strong class="text-blue-400">23,400</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- F&O Stock Built-up & Trend Scanner Table -->
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 mb-8 shadow-xl">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 gap-4">
+                <div>
+                    <h3 class="text-lg font-bold text-gray-200">🔍 F&O Stock Built-up & Trend Scanner</h3>
+                    <p class="text-xs text-gray-400 mt-0.5">Filter by Index and Buildup status.</p>
+                </div>
+                <div class="w-full md:w-64">
+                    <input type="text" id="stock-search" onkeyup="filterStocks()" placeholder="Search stock symbol..." class="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-blue-500">
+                </div>
+            </div>
+
+            <!-- Multi-Index Filter Bar -->
+            <div class="flex flex-wrap items-center gap-2 mb-3 bg-gray-950 p-2.5 rounded-xl border border-gray-800 text-xs font-bold">
+                <span class="text-gray-400 mr-2 text-[11px] uppercase">Select Index:</span>
+                <button onclick="filterByIndex('ALL')" id="idx-all" class="bg-blue-600 text-white px-3 py-1.5 rounded-lg transition-all cursor-pointer shadow">All F&O</button>
+                <button onclick="filterByIndex('NIFTY50')" id="idx-nifty" class="bg-gray-800 text-gray-300 hover:text-white px-3 py-1.5 rounded-lg border border-gray-700 transition-all cursor-pointer">Nifty 50</button>
+                <button onclick="filterByIndex('BANKNIFTY')" id="idx-bank" class="bg-gray-800 text-gray-300 hover:text-white px-3 py-1.5 rounded-lg border border-gray-700 transition-all cursor-pointer">Bank Nifty</button>
+                <button onclick="filterByIndex('FINNIFTY')" id="idx-fin" class="bg-gray-800 text-gray-300 hover:text-white px-3 py-1.5 rounded-lg border border-gray-700 transition-all cursor-pointer">FinNifty</button>
+                <button onclick="filterByIndex('IT')" id="idx-it" class="bg-gray-800 text-gray-300 hover:text-white px-3 py-1.5 rounded-lg border border-gray-700 transition-all cursor-pointer">Nifty IT</button>
+                <button onclick="filterByIndex('AUTO')" id="idx-auto" class="bg-gray-800 text-gray-300 hover:text-white px-3 py-1.5 rounded-lg border border-gray-700 transition-all cursor-pointer">Auto</button>
+                <button onclick="filterByIndex('PHARMA')" id="idx-pharma" class="bg-gray-800 text-gray-300 hover:text-white px-3 py-1.5 rounded-lg border border-gray-700 transition-all cursor-pointer">Pharma</button>
+            </div>
+
+            <!-- Buildup Filter Buttons Bar -->
+            <div class="flex flex-wrap items-center gap-2 mb-4 bg-gray-950 p-3 rounded-xl border border-gray-800 text-xs font-bold">
+                <span class="text-gray-400 mr-2 text-[11px] uppercase">Buildup:</span>
+                <button onclick="filterByBuildup('ALL')" id="btn-all" class="bg-indigo-600 text-white px-3 py-1.5 rounded-lg transition-all cursor-pointer shadow">ALL</button>
+                <button onclick="filterByBuildup('Long Builtup')" id="btn-long" class="bg-gray-800 text-green-400 hover:bg-green-700 hover:text-white px-3 py-1.5 rounded-lg border border-green-800 transition-all cursor-pointer">LONG BUILTUP</button>
+                <button onclick="filterByBuildup('Short Builtup')" id="btn-short" class="bg-gray-800 text-red-400 hover:bg-red-700 hover:text-white px-3 py-1.5 rounded-lg border border-red-800 transition-all cursor-pointer">SHORT BUILTUP</button>
+                <button onclick="filterByBuildup('Long Unwind')" id="btn-unwind" class="bg-gray-800 text-amber-400 hover:bg-amber-700 hover:text-white px-3 py-1.5 rounded-lg border border-amber-800 transition-all cursor-pointer">LONG UNWIND</button>
+                <button onclick="filterByBuildup('Short Cover')" id="btn-cover" class="bg-gray-800 text-blue-400 hover:bg-blue-700 hover:text-white px-3 py-1.5 rounded-lg border border-blue-800 transition-all cursor-pointer">SHORT COVER</button>
+            </div>
+
             <div class="overflow-x-auto">
                 <table class="w-full text-left text-xs text-gray-300">
-                    <thead class="bg-purple-950 text-purple-200 uppercase border-b border-purple-900">
-                        <tr><th class="p-3">Symbol</th><th class="p-3">Index</th><th class="p-3">Buildup</th><th class="p-3">Price</th><th class="p-3">Change</th><th class="p-3">OI</th><th class="p-3">Volume</th></tr>
+                    <thead class="bg-purple-950/80 text-purple-200 uppercase tracking-wider border-b border-purple-900">
+                        <tr>
+                            <th class="py-3 px-4 font-bold">Symbol</th>
+                            <th class="py-3 px-4 font-bold">Index</th>
+                            <th class="py-3 px-4 font-bold">Builtup</th>
+                            <th class="py-3 px-4 font-bold">Price (₹)</th>
+                            <th class="py-3 px-4 font-bold">Change (%)</th>
+                            <th class="py-3 px-4 font-bold">OI</th>
+                            <th class="py-3 px-4 font-bold">OI Change</th>
+                            <th class="py-3 px-4 font-bold">Volume</th>
+                            <th class="py-3 px-4 font-bold">Expiry</th>
+                        </tr>
                     </thead>
                     <tbody id="stock-table-body" class="divide-y divide-gray-800"></tbody>
                 </table>
             </div>
         </div>
 
+        <!-- Major Indices Support Bar -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+            <div class="bg-gray-900 border border-gray-800 p-4 rounded-xl shadow-lg flex justify-between items-center">
+                <div>
+                    <span class="text-xs text-gray-400 font-semibold">NIFTY 50</span>
+                    <h4 class="text-lg font-extrabold text-white mt-0.5">24,350.25</h4>
+                </div>
+                <span class="text-xs font-bold text-green-400 bg-green-900/40 px-2 py-1 rounded border border-green-800">+145.20 (+0.60%)</span>
+            </div>
+            <div class="bg-gray-900 border border-gray-800 p-4 rounded-xl shadow-lg flex justify-between items-center">
+                <div>
+                    <span class="text-xs text-gray-400 font-semibold">BANK NIFTY</span>
+                    <h4 class="text-lg font-extrabold text-white mt-0.5">52,110.80</h4>
+                </div>
+                <span class="text-xs font-bold text-green-400 bg-green-900/40 px-2 py-1 rounded border border-green-800">+380.50 (+0.73%)</span>
+            </div>
+            <div class="bg-gray-900 border border-gray-800 p-4 rounded-xl shadow-lg flex justify-between items-center">
+                <div>
+                    <span class="text-xs text-gray-400 font-semibold">FINNIFTY</span>
+                    <h4 class="text-lg font-extrabold text-white mt-0.5">23,420.10</h4>
+                </div>
+                <span class="text-xs font-bold text-green-400 bg-green-900/40 px-2 py-1 rounded border border-green-800">+110.30 (+0.47%)</span>
+            </div>
+            <div class="bg-gray-900 border border-gray-800 p-4 rounded-xl shadow-lg flex justify-between items-center">
+                <div>
+                    <span class="text-xs text-gray-400 font-semibold">SENSEX</span>
+                    <h4 class="text-lg font-extrabold text-white mt-0.5">80,150.40</h4>
+                </div>
+                <span class="text-xs font-bold text-green-400 bg-green-900/40 px-2 py-1 rounded border border-green-800">+410.10 (+0.51%)</span>
+            </div>
+        </div>
+
+        <!-- Summary Cards (Cash Segment) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <div class="bg-gray-900 border border-gray-800 p-6 rounded-2xl shadow-xl relative overflow-hidden">
+                <div class="absolute top-0 right-0 p-4 opacity-10 text-4xl font-bold">FII</div>
+                <h2 class="text-xs font-bold text-gray-400 uppercase tracking-wider">FII Net Cash Flow</h2>
+                <div class="flex items-baseline mt-3">
+                    <span id="fii-net-val" class="text-3xl md:text-4xl font-extrabold text-green-400">+ ₹7,212.22 Cr</span>
+                </div>
+                <div class="mt-4 flex justify-between text-xs text-gray-400 border-t border-gray-800 pt-3">
+                    <span>Buy: <strong id="fii-buy" class="text-gray-200">₹20,311.00 Cr</strong></span>
+                    <span>Sell: <strong id="fii-sell" class="text-gray-200">₹13,098.80 Cr</strong></span>
+                </div>
+            </div>
+
+            <div class="bg-gray-900 border border-gray-800 p-6 rounded-2xl shadow-xl relative overflow-hidden">
+                <div class="absolute top-0 right-0 p-4 opacity-10 text-4xl font-bold">DII</div>
+                <h2 class="text-xs font-bold text-gray-400 uppercase tracking-wider">DII Net Cash Flow</h2>
+                <div class="flex items-baseline mt-3">
+                    <span id="dii-net-val" class="text-3xl md:text-4xl font-extrabold text-red-400">- ₹7,172.53 Cr</span>
+                </div>
+                <div class="mt-4 flex justify-between text-xs text-gray-400 border-t border-gray-800 pt-3">
+                    <span>Buy: <strong id="dii-buy" class="text-gray-200">₹12,765.00 Cr</strong></span>
+                    <span>Sell: <strong id="dii-sell" class="text-gray-200">₹19,937.50 Cr</strong></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Risk & Position Sizing Calculator -->
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 mb-8 shadow-xl">
+            <h3 class="text-lg font-bold text-gray-200 mb-4">🧮 Live Risk & Position Sizing Calculator</h3>
+            <p class="text-xs text-gray-400 mb-4">Calculate exact risk amount and suggested quantity based on your stop-loss.</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                <div>
+                    <label class="block text-xs text-gray-400 mb-1">Total Capital (₹)</label>
+                    <input type="number" id="calc-capital" value="100000" class="w-full bg-gray-800 border border-gray-700 rounded-lg p-2.5 text-sm text-white focus:outline-none focus:border-blue-500">
+                </div>
+                <div>
+                    <label class="block text-xs text-gray-400 mb-1">Risk per Trade (%)</label>
+                    <input type="number" id="calc-risk-pct" value="1" step="0.1" class="w-full bg-gray-800 border border-gray-700 rounded-lg p-2.5 text-sm text-white focus:outline-none focus:border-blue-500">
+                </div>
+                <div>
+                    <label class="block text-xs text-gray-400 mb-1">Stop-Loss Points (₹)</label>
+                    <input type="number" id="calc-sl" value="20" class="w-full bg-gray-800 border border-gray-700 rounded-lg p-2.5 text-sm text-white focus:outline-none focus:border-blue-500">
+                </div>
+            </div>
+            <button onclick="calculateRisk()" class="bg-blue-600 hover:bg-blue-500 text-white font-medium text-xs px-4 py-2.5 rounded-lg transition-all shadow-md cursor-pointer">
+                Calculate Position Size
+            </button>
+            <div id="calc-result" class="mt-4 p-4 bg-gray-800 border border-gray-700 rounded-xl hidden text-sm">
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <span class="text-xs text-gray-400">Max Risk Amount:</span>
+                        <p id="res-risk-amt" class="text-base font-bold text-red-400">₹0</p>
+                    </div>
+                    <div>
+                        <span class="text-xs text-gray-400">Suggested Quantity / Lots:</span>
+                        <p id="res-qty" class="text-base font-bold text-green-400">0 Units</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chart Section -->
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 mb-8 shadow-xl">
+            <h3 class="text-lg font-bold text-gray-200 mb-4">📈 Recent Net Flows Trend (FII vs DII)</h3>
+            <div class="relative h-72 w-full">
+                <canvas id="flowChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Historical Data Table -->
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 mb-8 shadow-xl overflow-hidden">
+            <h3 class="text-lg font-bold text-gray-200 mb-4">📋 Historical Trading Data (Cash Segment)</h3>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-sm text-gray-300">
+                    <thead class="bg-gray-800 text-gray-400 uppercase text-xs tracking-wider">
+                        <tr>
+                            <th class="py-3 px-4">Date</th>
+                            <th class="py-3 px-4">FII Net (Cr)</th>
+                            <th class="py-3 px-4">DII Net (Cr)</th>
+                            <th class="py-3 px-4">Combined Net (Cr)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body" class="divide-y divide-gray-800"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Strategy & Decision Guide -->
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 mb-8 shadow-xl">
+            <h3 class="text-lg font-bold text-gray-200 mb-4">💡 FII Flow + Index 20 EMA Trading Strategy Guide</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                <div class="bg-gray-800 p-4 rounded-xl border border-green-900/50">
+                    <h4 class="font-bold text-green-400 mb-2">🟢 Index Buy / Long Setup</h4>
+                    <p class="text-gray-300 text-xs leading-relaxed">
+                        Jab FII Net Positive ho aur Index price <strong>20 EMA ke upar</strong> sustain karte hue lagataar <strong>Swing Highs break</strong> kare, tab CE (Call) buy plan karein.
+                    </p>
+                </div>
+                <div class="bg-gray-800 p-4 rounded-xl border border-red-900/50">
+                    <h4 class="font-bold text-red-400 mb-2">🔴 Index Sell / Short Setup</h4>
+                    <p class="text-gray-300 text-xs leading-relaxed">
+                        Jab FII Net Negative ho aur Index price <strong>20 EMA ke niche</strong> jaakar lagataar <strong>Swing Highs break</strong> karta jaye, tab PE (Put) sell plan karein.
+                    </p>
+                </div>
+                <div class="bg-gray-800 p-4 rounded-xl border border-yellow-900/50">
+                    <h4 class="font-bold text-yellow-400 mb-2">⚠️ Reversal & Exit Rule</h4>
+                    <p class="text-gray-300 text-xs leading-relaxed">
+                        Agar Index price 20 EMA ko cross karke opposite direction me swing break de, toh turant position se <strong>Exit</strong> karein.
+                    </p>
+                </div>
+            </div>
+        </div>
+
         <!-- Footer -->
-        <footer class="text-center text-xs text-gray-500 py-4 border-t border-gray-900">Built for traders & investors.</footer>
+        <footer class="text-center text-xs text-gray-500 mt-8 py-4 border-t border-gray-900">
+            Built for traders & investors. Data source: NSE / BSE institutional reports.
+        </footer>
     </div>
 
-    <!-- Script Logic -->
+    <!-- JavaScript logic -->
     <script>
         document.getElementById("current-date").innerText = "Latest Session: 10-Nov-2026";
 
+        function calculateRisk() {
+            const capital = parseFloat(document.getElementById('calc-capital').value) || 0;
+            const riskPct = parseFloat(document.getElementById('calc-risk-pct').value) || 0;
+            const slPoints = parseFloat(document.getElementById('calc-sl').value) || 1;
+
+            const riskAmount = (capital * riskPct) / 100;
+            const quantity = Math.floor(riskAmount / slPoints);
+
+            document.getElementById('res-risk-amt').innerText = "₹" + riskAmount.toLocaleString('en-IN', {maximumFractionDigits: 2});
+            document.getElementById('res-qty').innerText = quantity.toLocaleString('en-IN') + " Units / Shares";
+            document.getElementById('calc-result').classList.remove('hidden');
+        }
+        window.calculateRisk = calculateRisk;
+
         const stockData = [
-            { symbol: "RELIANCE", index: "NIFTY50", buildup: "Long Builtup", price: 1280.50, change: 18.50, pctChange: "1.47%", oi: "4.25 Cr", vol: "1.25 Cr" },
-            { symbol: "TCS", index: "IT", buildup: "Short Unwind", price: 4120.00, change: -15.00, pctChange: "-0.36%", oi: "1.10 Cr", vol: "45 Lakh" },
-            { symbol: "HDFCBANK", index: "BANKNIFTY", buildup: "Long Builtup", price: 1750.25, change: 22.10, pctChange: "1.28%", oi: "6.50 Cr", vol: "2.10 Cr" },
-            { symbol: "ICICIBANK", index: "BANKNIFTY", buildup: "Short Cover", price: 1240.80, change: 15.30, pctChange: "1.25%", oi: "5.10 Cr", vol: "1.80 Cr" },
-            { symbol: "INFY", index: "IT", buildup: "Short Builtup", price: 1890.10, change: -24.50, pctChange: "-1.28%", oi: "2.40 Cr", vol: "95 Lakh" }
+            { symbol: "RELIANCE", index: "NIFTY50", buildup: "Long Builtup", price: 1280.50, change: 18.50, pctChange: "1.47%", oi: "4,25,00,000", oiChange: "+12,50,000", vol: "1,25,00,000", expiry: "26-Nov-26" },
+            { symbol: "TCS", index: "IT", buildup: "Short Unwind", price: 4120.00, change: -15.00, pctChange: "-0.36%", oi: "1,10,00,000", oiChange: "-3,20,000", vol: "45,00,000", expiry: "26-Nov-26" },
+            { symbol: "HDFCBANK", index: "BANKNIFTY", buildup: "Long Builtup", price: 1750.25, change: 22.10, pctChange: "1.28%", oi: "6,50,00,000", oiChange: "+25,00,000", vol: "2,10,00,000", expiry: "26-Nov-26" },
+            { symbol: "ICICIBANK", index: "BANKNIFTY", buildup: "Short Cover", price: 1240.80, change: 15.30, pctChange: "1.25%", oi: "5,10,00,000", oiChange: "-14,00,000", vol: "1,80,00,000", expiry: "26-Nov-26" },
+            { symbol: "INFY", index: "IT", buildup: "Short Builtup", price: 1890.10, change: -24.50, pctChange: "-1.28%", oi: "2,40,00,000", oiChange: "+8,50,000", vol: "95,00,000", expiry: "26-Nov-26" },
+            { symbol: "SBIN", index: "BANKNIFTY", buildup: "Long Builtup", price: 830.40, change: 12.60, pctChange: "1.54%", oi: "4,80,00,000", oiChange: "+19,00,000", vol: "1,60,00,000", expiry: "26-Nov-26" },
+            { symbol: "SBICARD", index: "FINNIFTY", buildup: "Long Unwind", price: 740.00, change: -5.20, pctChange: "-0.70%", oi: "1,15,00,000", oiChange: "-1,10,000", vol: "30,00,000", expiry: "26-Nov-26" },
+            { symbol: "BAJFINANCE", index: "FINNIFTY", buildup: "Long Builtup", price: 7200.50, change: 95.00, pctChange: "1.34%", oi: "1,85,00,000", oiChange: "+7,40,000", vol: "55,00,000", expiry: "26-Nov-26" },
+            { symbol: "TATAMOTORS", index: "AUTO", buildup: "Long Builtup", price: 780.20, change: 25.40, pctChange: "3.37%", oi: "7,20,00,000", oiChange: "+42,00,000", vol: "3,10,00,000", expiry: "26-Nov-26" },
+            { symbol: "M&M", index: "AUTO", buildup: "Short Cover", price: 2950.00, change: 42.10, pctChange: "1.45%", oi: "2,30,00,000", oiChange: "-6,50,000", vol: "90,00,000", expiry: "26-Nov-26" },
+            { symbol: "SUNPHARMA", index: "PHARMA", buildup: "Long Builtup", price: 1820.00, change: 21.00, pctChange: "1.17%", oi: "1,95,00,000", oiChange: "+5,20,000", vol: "65,00,000", expiry: "26-Nov-26" },
+            { symbol: "DRREDDY", index: "PHARMA", buildup: "Short Builtup", price: 1310.50, change: -18.20, pctChange: "-1.37%", oi: "85,00,000", oiChange: "+3,10,00,000", vol: "25,00,000", expiry: "26-Nov-26" },
+            { symbol: "WIPRO", index: "IT", buildup: "Long Unwind", price: 560.00, change: -4.50, pctChange: "-0.80%", oi: "1,40,00,000", oiChange: "-2,30,000", vol: "50,00,000", expiry: "26-Nov-26" },
+            { symbol: "MARUTI", index: "AUTO", buildup: "Short Builtup", price: 12450.00, change: -120.00, pctChange: "-0.95%", oi: "90,00,000", oiChange: "+3,40,000", vol: "35,00,000", expiry: "26-Nov-26" }
         ];
 
-        let activeChartInstance = null;
-        function openChartModal(symbol, price) {
-            document.getElementById('chart-stock-title').innerText = symbol;
-            document.getElementById('chart-modal').classList.remove('hidden');
-            const ctx = document.getElementById('stockCanvasChart').getContext('2d');
-            if (activeChartInstance) activeChartInstance.destroy();
-            activeChartInstance = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: ['W1', 'W2', 'W3', 'W4', 'Current'],
-                    datasets: [{ label: 'Price', data: [price*0.9, price*0.95, price*0.92, price*0.98, price], borderColor: '#38bdf8', fill: true, backgroundColor: 'rgba(56, 189, 248, 0.1)' }]
-                },
-                options: { responsive: true, maintainAspectRatio: false }
-            });
-        }
-        function closeChartModal() { document.getElementById('chart-modal').classList.add('hidden'); }
-
-        function openScreenerModal(type) {
-            document.getElementById('modal-title').innerText = type;
-            const tbody = document.getElementById('modal-table-body');
-            tbody.innerHTML = "";
-            stockData.forEach(item => {
-                tbody.innerHTML += `<tr class="border-b border-gray-800"><td class="p-2 font-bold">${item.symbol}</td><td class="p-2 text-gray-400">${item.index}</td><td class="p-2 text-blue-300">${item.buildup}</td><td class="p-2">₹${item.price}</td><td class="p-2 text-green-400">${item.pctChange}</td></tr>`;
-            });
-            document.getElementById('screener-modal').classList.remove('hidden');
-        }
-        function closeScreenerModal() { document.getElementById('screener-modal').classList.add('hidden'); }
+        let currentIndexFilter = 'ALL';
+        let currentBuildupFilter = 'ALL';
 
         function renderStockTable(data) {
             const tbody = document.getElementById("stock-table-body");
             tbody.innerHTML = "";
+            
             const query = document.getElementById("stock-search").value.toLowerCase();
-            const filtered = data.filter(item => item.symbol.toLowerCase().includes(query));
+            const filtered = data.filter(item => {
+                const matchesSearch = item.symbol.toLowerCase().includes(query);
+                const matchesIndex = (currentIndexFilter === 'ALL' || item.index === currentIndexFilter);
+                const matchesBuildup = (currentBuildupFilter === 'ALL' || item.buildup === currentBuildupFilter);
+                return matchesSearch && matchesIndex && matchesBuildup;
+            });
+
+            if(filtered.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="9" class="py-4 text-center text-gray-500">No matching stocks found.</td></tr>`;
+                return;
+            }
 
             filtered.forEach(item => {
-                tbody.innerHTML += `
-                    <tr>
-                        <td class="p-3 font-bold flex items-center gap-2">
-                            <span>${item.symbol}</span>
-                            <button onclick="openChartModal('${item.symbol}', ${item.price})" class="bg-blue-950 text-blue-400 px-2 py-0.5 rounded border border-blue-800 text-[10px] cursor-pointer">📈 Chart</button>
-                        </td>
-                        <td class="p-3 text-gray-400">${item.index}</td>
-                        <td class="p-3"><span class="px-2 py-0.5 rounded text-[10px] font-bold bg-green-600 text-white">${item.buildup}</span></td>
-                        <td class="p-3">₹${item.price}</td>
-                        <td class="p-3 text-green-400 font-bold">${item.pctChange}</td>
-                        <td class="p-3">${item.oi}</td>
-                        <td class="p-3">${item.vol}</td>
-                    </tr>`;
+                let badgeClass = "bg-gray-700 text-gray-200";
+                if(item.buildup === "Short Builtup") badgeClass = "bg-red-600 text-white";
+                else if(item.buildup === "Long Unwind") badgeClass = "bg-amber-600 text-white";
+                else if(item.buildup === "Short Cover") badgeClass = "bg-blue-600 text-white";
+                else if(item.buildup === "Long Builtup") badgeClass = "bg-green-600 text-white";
+
+                const tr = document.createElement("tr");
+                tr.innerHTML = `
+                    <td class="py-3 px-4 font-bold text-white">${item.symbol}</td>
+                    <td class="py-3 px-4 text-gray-400 font-semibold">${item.index}</td>
+                    <td class="py-3 px-4"><span class="px-2.5 py-1 rounded text-[10px] font-bold ${badgeClass}">${item.buildup}</span></td>
+                    <td class="py-3 px-4 font-semibold">₹${item.price.toFixed(2)}</td>
+                    <td class="py-3 px-4 font-bold ${item.change >= 0 ? 'text-green-400' : 'text-red-400'}">${item.change >= 0 ? '+' : ''}${item.change} (${item.pctChange})</td>
+                    <td class="py-3 px-4 text-gray-200">${item.oi}</td>
+                    <td class="py-3 px-4 font-bold ${item.oiChange.startsWith('-') ? 'text-yellow-400' : 'text-green-400'}">${item.oiChange}</td>
+                    <td class="py-3 px-4 text-gray-300">${item.vol}</td>
+                    <td class="py-3 px-4 text-gray-400">${item.expiry}</td>
+                `;
+                tbody.appendChild(tr);
             });
         }
 
-        function filterStocks() { renderStockTable(stockData); }
+        // Open Modal with Filtered Stock List
+        function openScreenerModal(screenerType) {
+            const modal = document.getElementById('screener-modal');
+            const modalTitle = document.getElementById('modal-title');
+            const modalBody = document.getElementById('modal-table-body');
+            modalBody.innerHTML = "";
+
+            let filteredList = stockData;
+            if(screenerType === 'Stock Screener') {
+                modalTitle.innerText = "📊 Stock Screener: All F&O Stocks";
+                filteredList = stockData;
+            } else if(screenerType === 'Intraday Screener') {
+                modalTitle.innerText = "📈 Intraday Screener: Long Builtup Stocks";
+                filteredList = stockData.filter(i => i.buildup === 'Long Builtup');
+            } else if(screenerType === 'Stock Scanners') {
+                modalTitle.innerText = "📑 Stock Scanners: Short Builtup Stocks";
+                filteredList = stockData.filter(i => i.buildup === 'Short Builtup' || i.buildup === 'Long Unwind');
+            } else if(screenerType === 'Chart Screener') {
+                modalTitle.innerText = "📉 Chart Screener: Top Momentum Gainers";
+                filteredList = stockData.filter(i => i.change > 0);
+            }
+
+            if(filteredList.length === 0) {
+                modalBody.innerHTML = `<tr><td colspan="5" class="py-4 text-center text-gray-400">No stocks found for this criteria.</td></tr>`;
+            } else {
+                filteredList.forEach(item => {
+                    const tr = document.createElement("tr");
+                    tr.innerHTML = `
+                        <td class="py-2.5 px-3 font-bold text-white">${item.symbol}</td>
+                        <td class="py-2.5 px-3 text-gray-400">${item.index}</td>
+                        <td class="py-2.5 px-3 font-semibold text-blue-300">${item.buildup}</td>
+                        <td class="py-2.5 px-3 font-bold">₹${item.price.toFixed(2)}</td>
+                        <td class="py-2.5 px-3 font-bold ${item.change >= 0 ? 'text-green-400' : 'text-red-400'}">${item.change >= 0 ? '+' : ''}${item.change} (${item.pctChange})</td>
+                    `;
+                    modalBody.appendChild(tr);
+                });
+            }
+
+            modal.classList.remove('hidden');
+        }
+
+        function closeScreenerModal() {
+            document.getElementById('screener-modal').classList.add('hidden');
+        }
+        window.openScreenerModal = openScreenerModal;
+        window.closeScreenerModal = closeScreenerModal;
+
+        function filterByIndex(idx) {
+            currentIndexFilter = idx;
+            const indices = ['all', 'nifty', 'bank', 'fin', 'it', 'auto', 'pharma'];
+            indices.forEach(i => {
+                const btn = document.getElementById('idx-' + i);
+                if(btn) btn.className = "bg-gray-800 text-gray-300 hover:text-white px-3 py-1.5 rounded-lg border border-gray-700 transition-all cursor-pointer";
+            });
+
+            const activeBtnMap = { 'ALL': 'idx-all', 'NIFTY50': 'idx-nifty', 'BANKNIFTY': 'idx-bank', 'FINNIFTY': 'idx-fin', 'IT': 'idx-it', 'AUTO': 'idx-auto', 'PHARMA': 'idx-pharma' };
+            if(activeBtnMap[idx]) {
+                document.getElementById(activeBtnMap[idx]).className = "bg-blue-600 text-white px-3 py-1.5 rounded-lg shadow cursor-pointer";
+            }
+            renderStockTable(stockData);
+        }
+
+        function filterByBuildup(type) {
+            currentBuildupFilter = type;
+            document.getElementById('btn-all').className = type === 'ALL' ? "bg-indigo-600 text-white px-3 py-1.5 rounded-lg shadow cursor-pointer" : "bg-gray-800 text-gray-300 px-3 py-1.5 rounded-lg cursor-pointer";
+            document.getElementById('btn-long').className = type === 'Long Builtup' ? "bg-green-600 text-white px-3 py-1.5 rounded-lg shadow cursor-pointer" : "bg-gray-800 text-green-400 px-3 py-1.5 rounded-lg border border-green-800 cursor-pointer";
+            document.getElementById('btn-short').className = type === 'Short Builtup' ? "bg-red-600 text-white px-3 py-1.5 rounded-lg shadow cursor-pointer" : "bg-gray-800 text-red-400 px-3 py-1.5 rounded-lg border border-red-800 cursor-pointer";
+            document.getElementById('btn-unwind').className = type === 'Long Unwind' ? "bg-amber-600 text-white px-3 py-1.5 rounded-lg shadow cursor-pointer" : "bg-gray-800 text-amber-400 px-3 py-1.5 rounded-lg border border-amber-800 cursor-pointer";
+            document.getElementById('btn-cover').className = type === 'Short Cover' ? "bg-blue-600 text-white px-3 py-1.5 rounded-lg shadow cursor-pointer" : "bg-gray-800 text-blue-400 px-3 py-1.5 rounded-lg border border-blue-800 cursor-pointer";
+            renderStockTable(stockData);
+        }
+
+        function filterStocks() {
+            renderStockTable(stockData);
+        }
+
         renderStockTable(stockData);
+
+        const historicalData = [
+            { date: "10-Nov-2026", fiiNet: 1250.50, diiNet: -450.20 },
+            { date: "09-Nov-2026", fiiNet: 7212.22, diiNet: -7172.53 },
+            { date: "06-Nov-2026", fiiNet: 13749.82, diiNet: -5968.70 },
+            { date: "05-Nov-2026", fiiNet: 14974.68, diiNet: -10444.50 },
+            { date: "04-Nov-2026", fiiNet: 7284.03, diiNet: -3712.23 }
+        ];
+
+        const tableBody = document.getElementById("table-body");
+        historicalData.forEach(row => {
+            const combined = row.fiiNet + row.diiNet;
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+                <td class="py-3 px-4 font-medium text-gray-200">${row.date}</td>
+                <td class="py-3 px-4 font-bold ${row.fiiNet >= 0 ? 'text-green-400' : 'text-red-400'}">${row.fiiNet >= 0 ? '+' : ''}₹${row.fiiNet.toLocaleString()} Cr</td>
+                <td class="py-3 px-4 font-bold ${row.diiNet >= 0 ? 'text-green-400' : 'text-red-400'}">${row.diiNet >= 0 ? '+' : ''}₹${row.diiNet.toLocaleString()} Cr</td>
+                <td class="py-3 px-4 font-bold ${combined >= 0 ? 'text-blue-400' : 'text-yellow-400'}">${combined >= 0 ? '+' : ''}₹${combined.toLocaleString()} Cr</td>
+            `;
+            tableBody.appendChild(tr);
+        });
+
+        const ctx = document.getElementById('flowChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: historicalData.map(item => item.date).reverse(),
+                datasets: [
+                    {
+                        label: 'FII Net (Cr)',
+                        data: historicalData.map(item => item.fiiNet).reverse(),
+                        backgroundColor: 'rgba(74, 222, 128, 0.7)',
+                        borderColor: 'rgb(74, 222, 128)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'DII Net (Cr)',
+                        data: historicalData.map(item => item.diiNet).reverse(),
+                        backgroundColor: 'rgba(248, 113, 113, 0.7)',
+                        borderColor: 'rgb(248, 113, 113)',
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: { ticks: { color: '#9ca3af' }, grid: { color: '#374151' } },
+                    y: { ticks: { color: '#9ca3af' }, grid: { color: '#374151' } }
+                },
+                plugins: {
+                    legend: { labels: { color: '#e5e7eb' } }
+                }
+            }
+        });
     </script>
 </body>
 </html>
