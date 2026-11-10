@@ -199,12 +199,12 @@
             </div>
         </div>
 
-        <!-- F&O Stock Built-up & Trend Scanner Table with Index & Buildup Filters -->
+        <!-- F&O Stock Built-up & Trend Scanner Table with Multiple Index Filters -->
         <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 mb-8 shadow-xl">
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 gap-4">
                 <div>
                     <h3 class="text-lg font-bold text-gray-200">🔍 F&O Stock Built-up & Trend Scanner</h3>
-                    <p class="text-xs text-gray-400 mt-0.5">Filter by Index (Nifty 50, Bank Nifty) and Buildup status.</p>
+                    <p class="text-xs text-gray-400 mt-0.5">Filter by Index (Nifty 50, Bank Nifty, FinNifty, IT, Auto, Pharma) and Buildup status.</p>
                 </div>
                 <!-- Search Box -->
                 <div class="w-full md:w-64">
@@ -212,12 +212,16 @@
                 </div>
             </div>
 
-            <!-- Index Filter Bar -->
+            <!-- Multi-Index Filter Bar -->
             <div class="flex flex-wrap items-center gap-2 mb-3 bg-gray-950 p-2.5 rounded-xl border border-gray-800 text-xs font-bold">
                 <span class="text-gray-400 mr-2 text-[11px] uppercase">Select Index:</span>
                 <button onclick="filterByIndex('ALL')" id="idx-all" class="bg-blue-600 text-white px-3 py-1.5 rounded-lg transition-all cursor-pointer shadow">All F&O</button>
                 <button onclick="filterByIndex('NIFTY50')" id="idx-nifty" class="bg-gray-800 text-gray-300 hover:text-white px-3 py-1.5 rounded-lg border border-gray-700 transition-all cursor-pointer">Nifty 50</button>
                 <button onclick="filterByIndex('BANKNIFTY')" id="idx-bank" class="bg-gray-800 text-gray-300 hover:text-white px-3 py-1.5 rounded-lg border border-gray-700 transition-all cursor-pointer">Bank Nifty</button>
+                <button onclick="filterByIndex('FINNIFTY')" id="idx-fin" class="bg-gray-800 text-gray-300 hover:text-white px-3 py-1.5 rounded-lg border border-gray-700 transition-all cursor-pointer">FinNifty</button>
+                <button onclick="filterByIndex('IT')" id="idx-it" class="bg-gray-800 text-gray-300 hover:text-white px-3 py-1.5 rounded-lg border border-gray-700 transition-all cursor-pointer">Nifty IT</button>
+                <button onclick="filterByIndex('AUTO')" id="idx-auto" class="bg-gray-800 text-gray-300 hover:text-white px-3 py-1.5 rounded-lg border border-gray-700 transition-all cursor-pointer">Auto</button>
+                <button onclick="filterByIndex('PHARMA')" id="idx-pharma" class="bg-gray-800 text-gray-300 hover:text-white px-3 py-1.5 rounded-lg border border-gray-700 transition-all cursor-pointer">Pharma</button>
             </div>
 
             <!-- Buildup Filter Buttons Bar -->
@@ -421,22 +425,22 @@
         }
         window.calculateRisk = calculateRisk;
 
-        // Expanded F&O Stock List categorized by Index
+        // Expanded F&O Stock List across Multiple Indices (Nifty 50, Bank Nifty, FinNifty, IT, Auto, Pharma)
         const stockData = [
             { symbol: "RELIANCE", index: "NIFTY50", buildup: "Long Builtup", price: 1280.50, change: 18.50, pctChange: "1.47%", oi: "4,25,00,000", oiChange: "+12,50,000", vol: "1,25,00,000", expiry: "26-Nov-26" },
-            { symbol: "TCS", index: "NIFTY50", buildup: "Short Unwind", price: 4120.00, change: -15.00, pctChange: "-0.36%", oi: "1,10,00,000", oiChange: "-3,20,000", vol: "45,00,000", expiry: "26-Nov-26" },
+            { symbol: "TCS", index: "IT", buildup: "Short Unwind", price: 4120.00, change: -15.00, pctChange: "-0.36%", oi: "1,10,00,000", oiChange: "-3,20,000", vol: "45,00,000", expiry: "26-Nov-26" },
             { symbol: "HDFCBANK", index: "BANKNIFTY", buildup: "Long Builtup", price: 1750.25, change: 22.10, pctChange: "1.28%", oi: "6,50,00,000", oiChange: "+25,00,000", vol: "2,10,00,000", expiry: "26-Nov-26" },
             { symbol: "ICICIBANK", index: "BANKNIFTY", buildup: "Short Cover", price: 1240.80, change: 15.30, pctChange: "1.25%", oi: "5,10,00,000", oiChange: "-14,00,000", vol: "1,80,00,000", expiry: "26-Nov-26" },
-            { symbol: "INFY", index: "NIFTY50", buildup: "Short Builtup", price: 1890.10, change: -24.50, pctChange: "-1.28%", oi: "2,40,00,000", oiChange: "+8,50,000", vol: "95,00,000", expiry: "26-Nov-26" },
+            { symbol: "INFY", index: "IT", buildup: "Short Builtup", price: 1890.10, change: -24.50, pctChange: "-1.28%", oi: "2,40,00,000", oiChange: "+8,50,000", vol: "95,00,000", expiry: "26-Nov-26" },
             { symbol: "SBIN", index: "BANKNIFTY", buildup: "Long Builtup", price: 830.40, change: 12.60, pctChange: "1.54%", oi: "4,80,00,000", oiChange: "+19,00,000", vol: "1,60,00,000", expiry: "26-Nov-26" },
-            { symbol: "BHARTIARTL", index: "NIFTY50", buildup: "Long Unwind", price: 1650.00, change: -8.00, pctChange: "-0.48%", oi: "1,90,00,000", oiChange: "-2,10,000", vol: "60,00,000", expiry: "26-Nov-26" },
-            { symbol: "KOTAKBANK", index: "BANKNIFTY", buildup: "Short Builtup", price: 1780.00, change: -12.00, pctChange: "-0.67%", oi: "2,10,00,000", oiChange: "+4,50,000", vol: "70,00,000", expiry: "26-Nov-26" },
-            { symbol: "ITC", index: "NIFTY50", buildup: "Short Cover", price: 485.50, change: 3.50, pctChange: "0.73%", oi: "3,10,00,000", oiChange: "-5,00,000", vol: "90,00,000", expiry: "26-Nov-26" },
-            { symbol: "AXISBANK", index: "BANKNIFTY", buildup: "Long Builtup", price: 1150.20, change: 19.40, pctChange: "1.72%", oi: "3,40,00,000", oiChange: "+11,00,000", vol: "1,15,00,000", expiry: "26-Nov-26" },
-            { symbol: "LT", index: "NIFTY50", buildup: "Short Builtup", price: 3550.00, change: -45.00, pctChange: "-1.25%", oi: "1,20,00,000", oiChange: "+6,20,000", vol: "50,00,000", expiry: "26-Nov-26" },
-            { symbol: "HINDUNILVR", index: "NIFTY50", buildup: "Long Unwind", price: 2650.00, change: -10.00, pctChange: "-0.38%", oi: "95,00,000", oiChange: "-1,50,000", vol: "40,00,000", expiry: "26-Nov-26" },
-            { symbol: "PNB", index: "BANKNIFTY", buildup: "Long Builtup", price: 105.50, change: 2.80, pctChange: "2.72%", oi: "8,50,00,000", oiChange: "+35,00,000", vol: "2,50,00,000", expiry: "26-Nov-26" },
-            { symbol: "TATAMOTORS", index: "NIFTY50", buildup: "Long Builtup", price: 780.20, change: 25.40, pctChange: "3.37%", oi: "7,20,00,000", oiChange: "+42,00,000", vol: "3,10,00,000", expiry: "26-Nov-26" }
+            { symbol: "SBICARD", index: "FINNIFTY", buildup: "Long Unwind", price: 740.00, change: -5.20, pctChange: "-0.70%", oi: "1,15,00,000", oiChange: "-1,10,000", vol: "30,00,000", expiry: "26-Nov-26" },
+            { symbol: "BAJFINANCE", index: "FINNIFTY", buildup: "Long Builtup", price: 7200.50, change: 95.00, pctChange: "1.34%", oi: "1,85,00,000", oiChange: "+7,40,000", vol: "55,00,000", expiry: "26-Nov-26" },
+            { symbol: "TATAMOTORS", index: "AUTO", buildup: "Long Builtup", price: 780.20, change: 25.40, pctChange: "3.37%", oi: "7,20,00,000", oiChange: "+42,00,000", vol: "3,10,00,000", expiry: "26-Nov-26" },
+            { symbol: "M&M", index: "AUTO", buildup: "Short Cover", price: 2950.00, change: 42.10, pctChange: "1.45%", oi: "2,30,00,000", oiChange: "-6,50,000", vol: "90,00,000", expiry: "26-Nov-26" },
+            { symbol: "SUNPHARMA", index: "PHARMA", buildup: "Long Builtup", price: 1820.00, change: 21.00, pctChange: "1.17%", oi: "1,95,00,000", oiChange: "+5,20,000", vol: "65,00,000", expiry: "26-Nov-26" },
+            { symbol: "DRREDDY", index: "PHARMA", buildup: "Short Builtup", price: 1310.50, change: -18.20, pctChange: "-1.37%", oi: "85,00,000", oiChange: "+3,10,00,000", vol: "25,00,000", expiry: "26-Nov-26" },
+            { symbol: "WIPRO", index: "IT", buildup: "Long Unwind", price: 560.00, change: -4.50, pctChange: "-0.80%", oi: "1,40,00,000", oiChange: "-2,30,000", vol: "50,00,000", expiry: "26-Nov-26" },
+            { symbol: "MARUTI", index: "AUTO", buildup: "Short Builtup", price: 12450.00, change: -120.00, pctChange: "-0.95%", oi: "90,00,000", oiChange: "+3,40,000", vol: "35,00,000", expiry: "26-Nov-26" }
         ];
 
         let currentIndexFilter = 'ALL';
@@ -484,9 +488,16 @@
 
         function filterByIndex(idx) {
             currentIndexFilter = idx;
-            document.getElementById('idx-all').className = idx === 'ALL' ? "bg-blue-600 text-white px-3 py-1.5 rounded-lg shadow cursor-pointer" : "bg-gray-800 text-gray-300 px-3 py-1.5 rounded-lg border border-gray-700 cursor-pointer";
-            document.getElementById('idx-nifty').className = idx === 'NIFTY50' ? "bg-blue-600 text-white px-3 py-1.5 rounded-lg shadow cursor-pointer" : "bg-gray-800 text-gray-300 px-3 py-1.5 rounded-lg border border-gray-700 cursor-pointer";
-            document.getElementById('idx-bank').className = idx === 'BANKNIFTY' ? "bg-blue-600 text-white px-3 py-1.5 rounded-lg shadow cursor-pointer" : "bg-gray-800 text-gray-300 px-3 py-1.5 rounded-lg border border-gray-700 cursor-pointer";
+            const indices = ['all', 'nifty', 'bank', 'fin', 'it', 'auto', 'pharma'];
+            indices.forEach(i => {
+                const btn = document.getElementById('idx-' + i);
+                if(btn) btn.className = "bg-gray-800 text-gray-300 hover:text-white px-3 py-1.5 rounded-lg border border-gray-700 transition-all cursor-pointer";
+            });
+
+            const activeBtnMap = { 'ALL': 'idx-all', 'NIFTY50': 'idx-nifty', 'BANKNIFTY': 'idx-bank', 'FINNIFTY': 'idx-fin', 'IT': 'idx-it', 'AUTO': 'idx-auto', 'PHARMA': 'idx-pharma' };
+            if(activeBtnMap[idx]) {
+                document.getElementById(activeBtnMap[idx]).className = "bg-blue-600 text-white px-3 py-1.5 rounded-lg shadow cursor-pointer";
+            }
             renderStockTable(stockData);
         }
 
