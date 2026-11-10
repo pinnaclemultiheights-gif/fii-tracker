@@ -37,7 +37,7 @@
                 <button onclick="toggleTheme()" class="bg-gray-800 hover:bg-gray-700 text-gray-300 text-xs px-3 py-1.5 rounded-full border border-gray-700 font-medium cursor-pointer transition-all">
                     🌓 Theme
                 </button>
-                <!-- Telegram Broadcast / Formatter Button -->
+                <!-- Telegram Broadcast Button -->
                 <button onclick="openTelegramModal()" class="bg-blue-600 hover:bg-blue-500 text-white text-xs px-3 py-1.5 rounded-full font-medium transition-all shadow-md flex items-center gap-1 cursor-pointer">
                     📢 Telegram Bot
                 </button>
@@ -124,6 +124,34 @@
             </div>
         </div>
 
+        <!-- STOCK CHART POPUP MODAL (Like Screener.in) -->
+        <div id="chart-modal" class="fixed inset-0 bg-black/85 backdrop-blur-sm z-50 hidden flex items-center justify-center p-2 md:p-6">
+            <div class="bg-gray-900 border border-gray-700 rounded-2xl w-full max-w-5xl p-5 shadow-2xl relative flex flex-col max-h-[90vh]">
+                <div class="flex justify-between items-center mb-3 border-b border-gray-800 pb-3">
+                    <div class="flex items-center gap-3">
+                        <h3 id="chart-stock-title" class="text-lg font-extrabold text-white uppercase tracking-wide">STOCK</h3>
+                        <span class="bg-blue-600 text-white text-[10px] font-bold px-2.5 py-0.5 rounded">CHART</span>
+                        <span class="text-xs text-gray-400">Price & Volume</span>
+                    </div>
+                    <button onclick="closeChartModal()" class="text-gray-400 hover:text-white bg-red-600/80 hover:bg-red-600 text-white px-3 py-1 rounded-lg text-xs font-bold cursor-pointer transition-all">✕ Close</button>
+                </div>
+
+                <!-- Timeframe Selector Tabs -->
+                <div class="flex flex-wrap items-center gap-1.5 mb-4 bg-gray-950 p-2 rounded-xl border border-gray-800 text-xs">
+                    <button onclick="changeTimeframe('1M')" id="tf-1m" class="bg-blue-600 text-white px-3 py-1 rounded-md font-bold cursor-pointer">1M</button>
+                    <button onclick="changeTimeframe('3M')" id="tf-3m" class="bg-gray-800 text-gray-300 hover:text-white px-3 py-1 rounded-md cursor-pointer">3M</button>
+                    <button onclick="changeTimeframe('6M')" id="tf-6m" class="bg-gray-800 text-gray-300 hover:text-white px-3 py-1 rounded-md cursor-pointer">6M</button>
+                    <button onclick="changeTimeframe('1Y')" id="tf-1y" class="bg-gray-800 text-gray-300 hover:text-white px-3 py-1 rounded-md cursor-pointer">1Y</button>
+                    <button onclick="changeTimeframe('2Y')" id="tf-2y" class="bg-gray-800 text-gray-300 hover:text-white px-3 py-1 rounded-md cursor-pointer">2Y</button>
+                    <button onclick="changeTimeframe('MAX')" id="tf-max" class="bg-gray-800 text-gray-300 hover:text-white px-3 py-1 rounded-md cursor-pointer">MAX</button>
+                </div>
+
+                <div class="relative flex-grow w-full h-80 md:h-96 bg-gray-950 rounded-xl p-2 border border-gray-800">
+                    <canvas id="stockCanvasChart"></canvas>
+                </div>
+            </div>
+        </div>
+
         <!-- TELEGRAM BOT MESSAGE GENERATOR MODAL -->
         <div id="telegram-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
             <div class="bg-gray-900 border border-indigo-800 rounded-2xl w-full max-w-xl p-6 shadow-2xl relative">
@@ -131,7 +159,6 @@
                     <h3 class="text-lg font-extrabold text-indigo-400">📢 Telegram Broadcast Formatter</h3>
                     <button onclick="closeTelegramModal()" class="text-gray-400 hover:text-white text-lg font-bold bg-gray-800 px-3 py-1 rounded-lg cursor-pointer">✕ Close</button>
                 </div>
-                <p class="text-xs text-gray-400 mb-3">Copy this formatted institutional update to broadcast directly to your Telegram channel:</p>
                 <textarea id="tg-text-box" rows="7" class="w-full bg-gray-950 border border-gray-800 rounded-xl p-3 text-xs text-gray-200 font-mono focus:outline-none mb-3" readonly>
 🚀 *FII & DII INSTITUTIONAL UPDATE* 📊
 📅 Date: 10-Nov-2026
@@ -141,13 +168,9 @@
 
 💡 *Market Bias:* Bullish Momentum (Buy on Dips)
 🎯 *Top Setup:* Nifty 50 Support near Max Pain 24,300 (PCR: 1.24)
-⚠️ *VIX Status:* 13.45 (Stable Trend)
-
-#StockMarket #FII #Nifty #TradingTerminal
                 </textarea>
                 <div class="flex justify-end gap-2">
-                    <button onclick="copyTelegramText()" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs px-4 py-2 rounded-lg cursor-pointer transition-all">📋 Copy Message</button>
-                    <a id="tg-share-link" href="https://t.me/share/url?url=https://pinnaclemultiheights-gif.github.io/fii-tracker/" target="_blank" class="bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs px-4 py-2 rounded-lg cursor-pointer transition-all flex items-center gap-1">🚀 Share on Telegram</a>
+                    <button onclick="copyTelegramText()" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs px-4 py-2 rounded-lg cursor-pointer">📋 Copy Message</button>
                 </div>
             </div>
         </div>
@@ -166,132 +189,59 @@
             </div>
         </div>
 
-        <!-- AI Trade Ideas & Strategy Hub -->
-        <div class="bg-gradient-to-r from-blue-950 via-gray-900 to-indigo-950 border border-blue-800/60 rounded-2xl p-6 mb-6 shadow-2xl relative">
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-3 mb-4 border-b border-blue-900/50 pb-3">
-                <div class="flex items-center gap-2">
-                    <span class="bg-blue-600 text-white text-xs px-3 py-1 rounded-full font-bold uppercase tracking-wider animate-pulse">💡 AI Index-Wise Trade Ideas</span>
-                    <h3 class="text-base font-extrabold text-white">Actionable Strategy Hub</h3>
-                </div>
-                <span class="text-xs bg-green-900/60 text-green-300 px-3 py-1 rounded-lg border border-green-700 font-bold">Market Sentiment: Bullish Bias</span>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
-                <div class="bg-gray-800/80 p-4 rounded-xl border border-blue-900/60 shadow">
-                    <div class="flex items-center justify-between mb-2">
-                        <strong class="text-blue-400 text-sm">📈 NIFTY 50 Setup</strong>
-                        <span class="bg-blue-900/50 text-blue-300 px-2 py-0.5 rounded text-[10px]">PCR: 1.24 (Bullish)</span>
-                    </div>
-                    <p class="text-gray-300 leading-relaxed"><strong>Action:</strong> Buy on Dips / CE Buy.<br><strong>Logic:</strong> High Put OI (3.04 Cr) and PCR 1.24 indicate strong support near Max Pain (24,300).</p>
-                </div>
-                <div class="bg-gray-800/80 p-4 rounded-xl border border-indigo-900/60 shadow">
-                    <div class="flex items-center justify-between mb-2">
-                        <strong class="text-indigo-400 text-sm">🏦 BANK NIFTY Setup</strong>
-                        <span class="bg-yellow-900/50 text-yellow-300 px-2 py-0.5 rounded text-[10px]">PCR: 1.08 (Neutral)</span>
-                    </div>
-                    <p class="text-gray-300 leading-relaxed"><strong>Action:</strong> Range-bound / Momentum Breakout.<br><strong>Logic:</strong> PCR is neutral (1.08). Wait for price to break 52,000 Max Pain zone.</p>
-                </div>
-                <div class="bg-gray-800/80 p-4 rounded-xl border border-purple-900/60 shadow">
-                    <div class="flex items-center justify-between mb-2">
-                        <strong class="text-purple-400 text-sm">🎯 FINNIFTY & Hedging</strong>
-                        <span class="bg-purple-900/50 text-purple-300 px-2 py-0.5 rounded text-[10px]">Expiry Focus</span>
-                    </div>
-                    <p class="text-gray-300 leading-relaxed"><strong>Action:</strong> Careful / Hedging Preferred.<br><strong>Logic:</strong> Finnifty PCR is 0.95 (Bearish bias). Use spreads due to low VIX.</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- OPTIONS DASHBOARD (Clickable for OI Deep Dive) -->
+        <!-- OPTIONS DASHBOARD -->
         <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 mb-8 shadow-xl">
-            <div class="mb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-2">
-                <div>
-                    <h3 class="text-lg font-bold text-gray-200">📊 Nifty, Bank Nifty & Finnifty Option Dashboard</h3>
-                    <p class="text-xs text-gray-400 mt-0.5">Click any card below to view detailed Open Interest (OI) strike distribution chart.</p>
-                </div>
-                <span class="text-xs bg-emerald-900/40 text-emerald-300 px-3 py-1 rounded-lg border border-emerald-800 font-semibold animate-pulse">⚡ Live OI Tracking Active</span>
+            <div class="mb-6 flex justify-between items-center">
+                <h3 class="text-lg font-bold text-gray-200">📊 Nifty, Bank Nifty & Finnifty Option Dashboard</h3>
+                <span class="text-xs bg-emerald-900/40 text-emerald-300 px-3 py-1 rounded-lg border border-emerald-800 font-semibold">⚡ Click Cards for OI Chart</span>
             </div>
-
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- NIFTY CARD -->
                 <div onclick="openOiModal('NIFTY 50', '1.24', '24,300', '3.04 Cr', '2.45 Cr')" class="bg-gray-800 p-5 rounded-xl border border-gray-700 shadow-lg cursor-pointer hover:border-blue-500 transition-all">
-                    <div class="flex justify-between items-center mb-4 border-b border-gray-700 pb-3">
-                        <h4 class="font-bold text-blue-400 text-sm">NIFTY 50 🔍 Click for OI Chart</h4>
-                        <span class="text-[10px] bg-blue-900/50 text-blue-300 px-2 py-0.5 rounded border border-blue-700">PCR: 1.24</span>
-                    </div>
-                    <div class="space-y-3 text-xs">
-                        <div class="flex justify-between items-center bg-gray-900/50 p-2 rounded-lg"><span>Total Call OI:</span> <strong class="text-red-400">2.45 Cr</strong></div>
-                        <div class="flex justify-between items-center bg-gray-900/50 p-2 rounded-lg"><span>Total Put OI:</span> <strong class="text-green-400">3.04 Cr</strong></div>
-                        <div class="flex justify-between items-center bg-gray-900/50 p-2 rounded-lg"><span>Max Pain Strike:</span> <strong class="text-blue-400">24,300</strong></div>
-                    </div>
+                    <h4 class="font-bold text-blue-400 text-sm mb-3">NIFTY 50 (PCR: 1.24)</h4>
+                    <p class="text-xs text-gray-300">Max Pain: 24,300 | Put OI: 3.04 Cr</p>
                 </div>
-
-                <!-- BANK NIFTY CARD -->
                 <div onclick="openOiModal('BANK NIFTY', '1.08', '52,000', '2.00 Cr', '1.85 Cr')" class="bg-gray-800 p-5 rounded-xl border border-gray-700 shadow-lg cursor-pointer hover:border-indigo-500 transition-all">
-                    <div class="flex justify-between items-center mb-4 border-b border-gray-700 pb-3">
-                        <h4 class="font-bold text-indigo-400 text-sm">BANK NIFTY 🔍 Click for OI Chart</h4>
-                        <span class="text-[10px] bg-indigo-900/50 text-indigo-300 px-2 py-0.5 rounded border border-indigo-700">PCR: 1.08</span>
-                    </div>
-                    <div class="space-y-3 text-xs">
-                        <div class="flex justify-between items-center bg-gray-900/50 p-2 rounded-lg"><span>Total Call OI:</span> <strong class="text-red-400">1.85 Cr</strong></div>
-                        <div class="flex justify-between items-center bg-gray-900/50 p-2 rounded-lg"><span>Total Put OI:</span> <strong class="text-green-400">2.00 Cr</strong></div>
-                        <div class="flex justify-between items-center bg-gray-900/50 p-2 rounded-lg"><span>Max Pain Strike:</span> <strong class="text-blue-400">52,000</strong></div>
-                    </div>
+                    <h4 class="font-bold text-indigo-400 text-sm mb-3">BANK NIFTY (PCR: 1.08)</h4>
+                    <p class="text-xs text-gray-300">Max Pain: 52,000 | Put OI: 2.00 Cr</p>
                 </div>
-
-                <!-- FINNIFTY CARD -->
                 <div onclick="openOiModal('FINNIFTY', '0.95', '23,400', '90 Lakh', '95 Lakh')" class="bg-gray-800 p-5 rounded-xl border border-gray-700 shadow-lg cursor-pointer hover:border-purple-500 transition-all">
-                    <div class="flex justify-between items-center mb-4 border-b border-gray-700 pb-3">
-                        <h4 class="font-bold text-purple-400 text-sm">FINNIFTY 🔍 Click for OI Chart</h4>
-                        <span class="text-[10px] bg-purple-900/50 text-purple-300 px-2 py-0.5 rounded border border-purple-700">PCR: 0.95</span>
-                    </div>
-                    <div class="space-y-3 text-xs">
-                        <div class="flex justify-between items-center bg-gray-900/50 p-2 rounded-lg"><span>Total Call OI:</span> <strong class="text-red-400">95 Lakh</strong></div>
-                        <div class="flex justify-between items-center bg-gray-900/50 p-2 rounded-lg"><span>Total Put OI:</span> <strong class="text-green-400">90 Lakh</strong></div>
-                        <div class="flex justify-between items-center bg-gray-900/50 p-2 rounded-lg"><span>Max Pain Strike:</span> <strong class="text-blue-400">23,400</strong></div>
-                    </div>
+                    <h4 class="font-bold text-purple-400 text-sm mb-3">FINNIFTY (PCR: 0.95)</h4>
+                    <p class="text-xs text-gray-300">Max Pain: 23,400 | Put OI: 90 Lakh</p>
                 </div>
             </div>
         </div>
-
         <!-- F&O Stock Built-up & Trend Scanner Table -->
         <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 mb-8 shadow-xl">
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 gap-4">
-                <div>
-                    <h3 class="text-lg font-bold text-gray-200">🔍 F&O Stock Built-up & Trend Scanner</h3>
-                    <p class="text-xs text-gray-400 mt-0.5">Filter by Index and Buildup status.</p>
-                </div>
-                <div class="w-full md:w-64">
-                    <input type="text" id="stock-search" onkeyup="filterStocks()" placeholder="Search stock symbol..." class="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-blue-500">
-                </div>
+            <div class="flex flex-col md:flex-row justify-between items-center mb-4 gap-4">
+                <h3 class="text-lg font-bold text-gray-200">🔍 F&O Stock Built-up & Trend Scanner</h3>
+                <input type="text" id="stock-search" onkeyup="filterStocks()" placeholder="Search stock symbol..." class="w-full md:w-64 bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-xs text-white">
             </div>
 
             <!-- Multi-Index Filter Bar -->
             <div class="flex flex-wrap items-center gap-2 mb-3 bg-gray-950 p-2.5 rounded-xl border border-gray-800 text-xs font-bold">
-                <span class="text-gray-400 mr-2 text-[11px] uppercase">Select Index:</span>
-                <button onclick="filterByIndex('ALL')" id="idx-all" class="bg-blue-600 text-white px-3 py-1.5 rounded-lg transition-all cursor-pointer shadow">All F&O</button>
-                <button onclick="filterByIndex('NIFTY50')" id="idx-nifty" class="bg-gray-800 text-gray-300 hover:text-white px-3 py-1.5 rounded-lg border border-gray-700 transition-all cursor-pointer">Nifty 50</button>
-                <button onclick="filterByIndex('BANKNIFTY')" id="idx-bank" class="bg-gray-800 text-gray-300 hover:text-white px-3 py-1.5 rounded-lg border border-gray-700 transition-all cursor-pointer">Bank Nifty</button>
-                <button onclick="filterByIndex('FINNIFTY')" id="idx-fin" class="bg-gray-800 text-gray-300 hover:text-white px-3 py-1.5 rounded-lg border border-gray-700 transition-all cursor-pointer">FinNifty</button>
-                <button onclick="filterByIndex('IT')" id="idx-it" class="bg-gray-800 text-gray-300 hover:text-white px-3 py-1.5 rounded-lg border border-gray-700 transition-all cursor-pointer">Nifty IT</button>
-                <button onclick="filterByIndex('AUTO')" id="idx-auto" class="bg-gray-800 text-gray-300 hover:text-white px-3 py-1.5 rounded-lg border border-gray-700 transition-all cursor-pointer">Auto</button>
-                <button onclick="filterByIndex('PHARMA')" id="idx-pharma" class="bg-gray-800 text-gray-300 hover:text-white px-3 py-1.5 rounded-lg border border-gray-700 transition-all cursor-pointer">Pharma</button>
+                <span class="text-gray-400 mr-2 text-[11px] uppercase">Index:</span>
+                <button onclick="filterByIndex('ALL')" id="idx-all" class="bg-blue-600 text-white px-3 py-1.5 rounded-lg cursor-pointer">All F&O</button>
+                <button onclick="filterByIndex('NIFTY50')" id="idx-nifty" class="bg-gray-800 text-gray-300 px-3 py-1.5 rounded-lg border border-gray-700 cursor-pointer">Nifty 50</button>
+                <button onclick="filterByIndex('BANKNIFTY')" id="idx-bank" class="bg-gray-800 text-gray-300 px-3 py-1.5 rounded-lg border border-gray-700 cursor-pointer">Bank Nifty</button>
+                <button onclick="filterByIndex('FINNIFTY')" id="idx-fin" class="bg-gray-800 text-gray-300 px-3 py-1.5 rounded-lg border border-gray-700 cursor-pointer">FinNifty</button>
+                <button onclick="filterByIndex('IT')" id="idx-it" class="bg-gray-800 text-gray-300 px-3 py-1.5 rounded-lg border border-gray-700 cursor-pointer">Nifty IT</button>
+                <button onclick="filterByIndex('AUTO')" id="idx-auto" class="bg-gray-800 text-gray-300 px-3 py-1.5 rounded-lg border border-gray-700 cursor-pointer">Auto</button>
+                <button onclick="filterByIndex('PHARMA')" id="idx-pharma" class="bg-gray-800 text-gray-300 px-3 py-1.5 rounded-lg border border-gray-700 cursor-pointer">Pharma</button>
             </div>
 
             <!-- Buildup Filter Buttons Bar -->
             <div class="flex flex-wrap items-center gap-2 mb-4 bg-gray-950 p-3 rounded-xl border border-gray-800 text-xs font-bold">
                 <span class="text-gray-400 mr-2 text-[11px] uppercase">Buildup:</span>
-                <button onclick="filterByBuildup('ALL')" id="btn-all" class="bg-indigo-600 text-white px-3 py-1.5 rounded-lg transition-all cursor-pointer shadow">ALL</button>
-                <button onclick="filterByBuildup('Long Builtup')" id="btn-long" class="bg-gray-800 text-green-400 hover:bg-green-700 hover:text-white px-3 py-1.5 rounded-lg border border-green-800 transition-all cursor-pointer">LONG BUILTUP</button>
-                <button onclick="filterByBuildup('Short Builtup')" id="btn-short" class="bg-gray-800 text-red-400 hover:bg-red-700 hover:text-white px-3 py-1.5 rounded-lg border border-red-800 transition-all cursor-pointer">SHORT BUILTUP</button>
-                <button onclick="filterByBuildup('Long Unwind')" id="btn-unwind" class="bg-gray-800 text-amber-400 hover:bg-amber-700 hover:text-white px-3 py-1.5 rounded-lg border border-amber-800 transition-all cursor-pointer">LONG UNWIND</button>
-                <button onclick="filterByBuildup('Short Cover')" id="btn-cover" class="bg-gray-800 text-blue-400 hover:bg-blue-700 hover:text-white px-3 py-1.5 rounded-lg border border-blue-800 transition-all cursor-pointer">SHORT COVER</button>
+                <button onclick="filterByBuildup('ALL')" id="btn-all" class="bg-indigo-600 text-white px-3 py-1.5 rounded-lg cursor-pointer">ALL</button>
+                <button onclick="filterByBuildup('Long Builtup')" id="btn-long" class="bg-gray-800 text-green-400 px-3 py-1.5 rounded-lg border border-green-800 cursor-pointer">LONG</button>
+                <button onclick="filterByBuildup('Short Builtup')" id="btn-short" class="bg-gray-800 text-red-400 px-3 py-1.5 rounded-lg border border-red-800 cursor-pointer">SHORT</button>
             </div>
 
             <div class="overflow-x-auto">
                 <table class="w-full text-left text-xs text-gray-300">
                     <thead class="bg-purple-950/80 text-purple-200 uppercase tracking-wider border-b border-purple-900">
                         <tr>
-                            <th class="py-3 px-4 font-bold">Symbol</th>
+                            <th class="py-3 px-4 font-bold">Symbol & Chart</th>
                             <th class="py-3 px-4 font-bold">Index</th>
                             <th class="py-3 px-4 font-bold">Builtup</th>
                             <th class="py-3 px-4 font-bold">Price (₹)</th>
@@ -307,51 +257,15 @@
             </div>
         </div>
 
-        <!-- Summary Cards (Cash Segment) -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-            <div class="bg-gray-900 border border-gray-800 p-6 rounded-2xl shadow-xl relative overflow-hidden">
-                <div class="absolute top-0 right-0 p-4 opacity-10 text-4xl font-bold">FII</div>
-                <h2 class="text-xs font-bold text-gray-400 uppercase tracking-wider">FII Net Cash Flow</h2>
-                <div class="flex items-baseline mt-3">
-                    <span id="fii-net-val" class="text-3xl md:text-4xl font-extrabold text-green-400">+ ₹7,212.22 Cr</span>
-                </div>
-                <div class="mt-4 flex justify-between text-xs text-gray-400 border-t border-gray-800 pt-3">
-                    <span>Buy: <strong class="text-gray-200">₹20,311.00 Cr</strong></span>
-                    <span>Sell: <strong class="text-gray-200">₹13,098.80 Cr</strong></span>
-                </div>
-            </div>
-
-            <div class="bg-gray-900 border border-gray-800 p-6 rounded-2xl shadow-xl relative overflow-hidden">
-                <div class="absolute top-0 right-0 p-4 opacity-10 text-4xl font-bold">DII</div>
-                <h2 class="text-xs font-bold text-gray-400 uppercase tracking-wider">DII Net Cash Flow</h2>
-                <div class="flex items-baseline mt-3">
-                    <span id="dii-net-val" class="text-3xl md:text-4xl font-extrabold text-red-400">- ₹7,172.53 Cr</span>
-                </div>
-                <div class="mt-4 flex justify-between text-xs text-gray-400 border-t border-gray-800 pt-3">
-                    <span>Buy: <strong class="text-gray-200">₹12,765.00 Cr</strong></span>
-                    <span>Sell: <strong class="text-gray-200">₹19,937.50 Cr</strong></span>
-                </div>
-            </div>
-        </div>
-
         <!-- Risk & Position Sizing Calculator -->
         <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 mb-8 shadow-xl">
             <h3 class="text-lg font-bold text-gray-200 mb-4">🧮 Live Risk & Position Sizing Calculator</h3>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                <div>
-                    <label class="block text-xs text-gray-400 mb-1">Total Capital (₹)</label>
-                    <input type="number" id="calc-capital" value="100000" class="w-full bg-gray-800 border border-gray-700 rounded-lg p-2.5 text-sm text-white focus:outline-none focus:border-blue-500">
-                </div>
-                <div>
-                    <label class="block text-xs text-gray-400 mb-1">Risk per Trade (%)</label>
-                    <input type="number" id="calc-risk-pct" value="1" step="0.1" class="w-full bg-gray-800 border border-gray-700 rounded-lg p-2.5 text-sm text-white focus:outline-none focus:border-blue-500">
-                </div>
-                <div>
-                    <label class="block text-xs text-gray-400 mb-1">Stop-Loss Points (₹)</label>
-                    <input type="number" id="calc-sl" value="20" class="w-full bg-gray-800 border border-gray-700 rounded-lg p-2.5 text-sm text-white focus:outline-none focus:border-blue-500">
-                </div>
+                <div><label class="block text-xs text-gray-400 mb-1">Total Capital (₹)</label><input type="number" id="calc-capital" value="100000" class="w-full bg-gray-800 border border-gray-700 rounded-lg p-2.5 text-sm text-white"></div>
+                <div><label class="block text-xs text-gray-400 mb-1">Risk per Trade (%)</label><input type="number" id="calc-risk-pct" value="1" step="0.1" class="w-full bg-gray-800 border border-gray-700 rounded-lg p-2.5 text-sm text-white"></div>
+                <div><label class="block text-xs text-gray-400 mb-1">Stop-Loss Points (₹)</label><input type="number" id="calc-sl" value="20" class="w-full bg-gray-800 border border-gray-700 rounded-lg p-2.5 text-sm text-white"></div>
             </div>
-            <button onclick="calculateRisk()" class="bg-blue-600 hover:bg-blue-500 text-white font-medium text-xs px-4 py-2.5 rounded-lg transition-all shadow-md cursor-pointer">Calculate Position Size</button>
+            <button onclick="calculateRisk()" class="bg-blue-600 text-white font-medium text-xs px-4 py-2.5 rounded-lg cursor-pointer">Calculate Position Size</button>
             <div id="calc-result" class="mt-4 p-4 bg-gray-800 border border-gray-700 rounded-xl hidden text-sm">
                 <div class="grid grid-cols-2 gap-4">
                     <div><span class="text-xs text-gray-400">Max Risk Amount:</span> <p id="res-risk-amt" class="text-base font-bold text-red-400">₹0</p></div>
@@ -366,30 +280,16 @@
             <div class="relative h-72 w-full"><canvas id="flowChart"></canvas></div>
         </div>
 
-        <!-- Historical Data Table -->
-        <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 mb-8 shadow-xl overflow-hidden">
-            <h3 class="text-lg font-bold text-gray-200 mb-4">📋 Historical Trading Data (Cash Segment)</h3>
-            <div class="overflow-x-auto">
-                <table class="w-full text-left text-sm text-gray-300">
-                    <thead class="bg-gray-800 text-gray-400 uppercase text-xs tracking-wider">
-                        <tr><th class="py-3 px-4">Date</th><th class="py-3 px-4">FII Net (Cr)</th><th class="py-3 px-4">DII Net (Cr)</th><th class="py-3 px-4">Combined Net (Cr)</th></tr>
-                    </thead>
-                    <tbody id="table-body" class="divide-y divide-gray-800"></tbody>
-                </table>
-            </div>
-        </div>
-
         <!-- Footer -->
         <footer class="text-center text-xs text-gray-500 mt-8 py-4 border-t border-gray-900">
             Built for traders & investors. Data source: NSE / BSE institutional reports.
         </footer>
     </div>
 
-    <!-- JavaScript logic -->
+    <!-- JavaScript Logic -->
     <script>
         document.getElementById("current-date").innerText = "Latest Session: 10-Nov-2026";
 
-        // 1. Theme Switcher Logic
         function toggleTheme() {
             const body = document.getElementById('body-theme');
             if(body.classList.contains('bg-gray-950')) {
@@ -402,7 +302,6 @@
         }
         window.toggleTheme = toggleTheme;
 
-        // 2. Live Ticker Simulated Auto-Refresh Logic
         let liveTickerInterval = null;
         let isTickerActive = false;
         function toggleLiveTicker() {
@@ -410,22 +309,20 @@
             const btn = document.getElementById('ticker-btn');
             if(isTickerActive) {
                 btn.innerHTML = `<span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span> Live Ticker: ON`;
-                btn.className = "bg-emerald-600 border border-emerald-500 text-white text-xs px-3 py-1.5 rounded-full font-bold cursor-pointer flex items-center gap-1.5 transition-all shadow-lg";
+                btn.className = "bg-emerald-600 text-white text-xs px-3 py-1.5 rounded-full font-bold cursor-pointer flex items-center gap-1.5 shadow-lg";
                 liveTickerInterval = setInterval(() => {
                     const giftElem = document.getElementById('gift-val');
                     let currentVal = parseFloat(giftElem.innerText.replace(',', ''));
-                    let randomChange = (Math.random() - 0.48) * 10;
-                    giftElem.innerText = (currentVal + randomChange).toFixed(2);
+                    giftElem.innerText = (currentVal + ((Math.random() - 0.48) * 10)).toFixed(2);
                 }, 3000);
             } else {
                 btn.innerHTML = `<span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Live Ticker: OFF`;
-                btn.className = "bg-emerald-900/60 border border-emerald-700 text-emerald-300 text-xs px-3 py-1.5 rounded-full font-bold cursor-pointer flex items-center gap-1.5 transition-all";
+                btn.className = "bg-emerald-900/60 text-emerald-300 text-xs px-3 py-1.5 rounded-full font-bold cursor-pointer flex items-center gap-1.5";
                 clearInterval(liveTickerInterval);
             }
         }
         window.toggleLiveTicker = toggleLiveTicker;
 
-        // 3. Telegram Modal & Copy Logic
         function openTelegramModal() { document.getElementById('telegram-modal').classList.remove('hidden'); }
         function closeTelegramModal() { document.getElementById('telegram-modal').classList.add('hidden'); }
         function copyTelegramText() {
@@ -438,44 +335,61 @@
         window.closeTelegramModal = closeTelegramModal;
         window.copyTelegramText = copyTelegramText;
 
-        // 4. Open Interest (OI) Bar Chart Modal Logic
         let activeOiChart = null;
         function openOiModal(indexName, pcr, maxPain, putOi, callOi) {
             document.getElementById('oi-modal-title').innerText = `📊 ${indexName} - OI Strike Distribution`;
-            document.getElementById('oi-modal-desc').innerHTML = `<strong>Analysis:</strong> ${indexName} PCR is <strong>${pcr}</strong> with Max Pain at <strong>${maxPain}</strong>. Total Put OI stands at ${putOi} against Total Call OI of ${callOi}.`;
+            document.getElementById('oi-modal-desc').innerHTML = `<strong>Analysis:</strong> PCR is <strong>${pcr}</strong> with Max Pain at <strong>${maxPain}</strong>.`;
             document.getElementById('oi-modal').classList.remove('hidden');
-
             const ctx = document.getElementById('oiBarChart').getContext('2d');
             if(activeOiChart) activeOiChart.destroy();
-
             activeOiChart = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: ['Strike -300', 'Strike -200', 'Strike -100', 'Max Pain (' + maxPain + ')', 'Strike +100', 'Strike +200', 'Strike +300'],
+                    labels: ['Strike -200', 'Strike -100', 'Max Pain (' + maxPain + ')', 'Strike +100', 'Strike +200'],
                     datasets: [
-                        { label: 'Put OI (Support)', data: [40, 65, 90, 150, 80, 45, 20], backgroundColor: 'rgba(74, 222, 128, 0.7)' },
-                        { label: 'Call OI (Resistance)', data: [20, 40, 70, 130, 95, 60, 35], backgroundColor: 'rgba(248, 113, 113, 0.7)' }
+                        { label: 'Put OI', data: [65, 90, 150, 80, 45], backgroundColor: 'rgba(74, 222, 128, 0.7)' },
+                        { label: 'Call OI', data: [40, 70, 130, 95, 60], backgroundColor: 'rgba(248, 113, 113, 0.7)' }
                     ]
                 },
-                options: { responsive: true, maintainAspectRatio: false, scales: { x: { ticks: { color: '#9ca3af', font: {size: 9} } }, y: { ticks: { color: '#9ca3af' } } }, plugins: { legend: { labels: { color: '#e5e7eb', font: {size: 10} } } } }
+                options: { responsive: true, maintainAspectRatio: false }
             });
         }
         function closeOiModal() { document.getElementById('oi-modal').classList.add('hidden'); }
         window.openOiModal = openOiModal;
         window.closeOiModal = closeOiModal;
 
-        // Risk Calculator
-        function calculateRisk() {
-            const capital = parseFloat(document.getElementById('calc-capital').value) || 0;
-            const riskPct = parseFloat(document.getElementById('calc-risk-pct').value) || 0;
-            const slPoints = parseFloat(document.getElementById('calc-sl').value) || 1;
-            const riskAmount = (capital * riskPct) / 100;
-            const quantity = Math.floor(riskAmount / slPoints);
-            document.getElementById('res-risk-amt').innerText = "₹" + riskAmount.toLocaleString('en-IN', {maximumFractionDigits: 2});
-            document.getElementById('res-qty').innerText = quantity.toLocaleString('en-IN') + " Units / Shares";
-            document.getElementById('calc-result').classList.remove('hidden');
+        let activeChartInstance = null;
+        function openChartModal(symbol, basePrice) {
+            document.getElementById('chart-stock-title').innerText = symbol;
+            document.getElementById('chart-modal').classList.remove('hidden');
+            renderChartCanvas(basePrice, '1M');
         }
-        window.calculateRisk = calculateRisk;
+        function closeChartModal() {
+            document.getElementById('chart-modal').classList.add('hidden');
+            if (activeChartInstance) activeChartInstance.destroy();
+        }
+        window.openChartModal = openChartModal;
+        window.closeChartModal = closeChartModal;
+
+        function changeTimeframe(tf) {
+            const symbol = document.getElementById('chart-stock-title').innerText;
+            const stock = stockData.find(s => s.symbol === symbol) || { price: 2000 };
+            renderChartCanvas(stock.price, tf);
+        }
+        window.changeTimeframe = changeTimeframe;
+
+        function renderChartCanvas(basePrice, timeframe) {
+            const ctx = document.getElementById('stockCanvasChart').getContext('2d');
+            if (activeChartInstance) activeChartInstance.destroy();
+            activeChartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Current'],
+                    datasets: [{ label: 'Price (₹)', data: [basePrice*0.9, basePrice*0.95, basePrice*0.92, basePrice*0.98, basePrice], borderColor: '#38bdf8', fill: true, backgroundColor: 'rgba(56, 189, 248, 0.1)' }]
+                },
+                options: { responsive: true, maintainAspectRatio: false }
+            });
+        }
 
         const stockData = [
             { symbol: "RELIANCE", index: "NIFTY50", buildup: "Long Builtup", price: 1280.50, change: 18.50, pctChange: "1.47%", oi: "4,25,00,000", oiChange: "+12,50,000", vol: "1,25,00,000", expiry: "26-Nov-26" },
@@ -502,22 +416,21 @@
             });
 
             filtered.forEach(item => {
-                let badgeClass = "bg-gray-700 text-gray-200";
-                if(item.buildup === "Short Builtup") badgeClass = "bg-red-600 text-white";
-                else if(item.buildup === "Long Builtup") badgeClass = "bg-green-600 text-white";
-                else if(item.buildup === "Short Cover") badgeClass = "bg-blue-600 text-white";
-
+                let badgeClass = item.buildup === "Short Builtup" ? "bg-red-600 text-white" : "bg-green-600 text-white";
                 const tr = document.createElement("tr");
                 tr.innerHTML = `
-                    <td class="py-3 px-4 font-bold text-white">${item.symbol}</td>
-                    <td class="py-3 px-4 text-gray-400 font-semibold">${item.index}</td>
-                    <td class="py-3 px-4"><span class="px-2.5 py-1 rounded text-[10px] font-bold ${badgeClass}">${item.buildup}</span></td>
-                    <td class="py-3 px-4 font-semibold">₹${item.price.toFixed(2)}</td>
-                    <td class="py-3 px-4 font-bold ${item.change >= 0 ? 'text-green-400' : 'text-red-400'}">${item.change >= 0 ? '+' : ''}${item.change} (${item.pctChange})</td>
-                    <td class="py-3 px-4 text-gray-200">${item.oi}</td>
-                    <td class="py-3 px-4 font-bold ${item.oiChange.startsWith('-') ? 'text-yellow-400' : 'text-green-400'}">${item.oiChange}</td>
-                    <td class="py-3 px-4 text-gray-300">${item.vol}</td>
-                    <td class="py-3 px-4 text-gray-400">${item.expiry}</td>
+                    <td class="py-3 px-4 font-bold text-white flex items-center gap-2">
+                        <span>${item.symbol}</span>
+                        <button onclick="openChartModal('${item.symbol}', ${item.price})" class="text-blue-400 bg-blue-950/60 px-2 py-0.5 rounded border border-blue-800 text-[10px] cursor-pointer">📈 Chart</button>
+                    </td>
+                    <td class="py-3 px-4 text-gray-400">${item.index}</td>
+                    <td class="py-3 px-4"><span class="px-2 py-0.5 rounded text-[10px] font-bold ${badgeClass}">${item.buildup}</span></td>
+                    <td class="py-3 px-4">₹${item.price.toFixed(2)}</td>
+                    <td class="py-3 px-4 font-bold ${item.change >= 0 ? 'text-green-400' : 'text-red-400'}">${item.pctChange}</td>
+                    <td class="py-3 px-4">${item.oi}</td>
+                    <td class="py-3 px-4 text-green-400">${item.oiChange}</td>
+                    <td class="py-3 px-4">${item.vol}</td>
+                    <td class="py-3 px-4">${item.expiry}</td>
                 `;
                 tbody.appendChild(tr);
             });
@@ -527,24 +440,20 @@
         function filterByBuildup(type) { currentBuildupFilter = type; renderStockTable(stockData); }
         function filterStocks() { renderStockTable(stockData); }
 
-        function openScreenerModal(type) {
-            const modal = document.getElementById('screener-modal');
-            const modalBody = document.getElementById('modal-table-body');
-            modalBody.innerHTML = "";
-            stockData.forEach(item => {
-                const tr = document.createElement("tr");
-                tr.innerHTML = `<td class="py-2.5 px-3 font-bold text-white">${item.symbol}</td><td class="py-2.5 px-3 text-gray-400">${item.index}</td><td class="py-2.5 px-3 font-semibold text-blue-300">${item.buildup}</td><td class="py-2.5 px-3 font-bold">₹${item.price}</td><td class="py-2.5 px-3 font-bold text-green-400">${item.pctChange}</td>`;
-                modalBody.appendChild(tr);
-            });
-            modal.classList.remove('hidden');
+        function calculateRisk() {
+            const capital = parseFloat(document.getElementById('calc-capital').value) || 0;
+            const riskPct = parseFloat(document.getElementById('calc-risk-pct').value) || 0;
+            const slPoints = parseFloat(document.getElementById('calc-sl').value) || 1;
+            const riskAmount = (capital * riskPct) / 100;
+            const quantity = Math.floor(riskAmount / slPoints);
+            document.getElementById('res-risk-amt').innerText = "₹" + riskAmount.toLocaleString('en-IN');
+            document.getElementById('res-qty').innerText = quantity.toLocaleString('en-IN') + " Units";
+            document.getElementById('calc-result').classList.remove('hidden');
         }
-        function closeScreenerModal() { document.getElementById('screener-modal').classList.add('hidden'); }
-        window.openScreenerModal = openScreenerModal;
-        window.closeScreenerModal = closeScreenerModal;
+        window.calculateRisk = calculateRisk;
 
         renderStockTable(stockData);
 
-        // FII vs DII Trend Chart
         const ctxFlow = document.getElementById('flowChart').getContext('2d');
         new Chart(ctxFlow, {
             type: 'bar',
