@@ -73,80 +73,94 @@
             </div>
         </div>
 
-        <!-- WORKING OPTIONS DASHBOARD -->
+        <!-- OPTIONS DASHBOARD (3 Separate Index Cards: Nifty, BankNifty, Finnifty) -->
         <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 mb-8 shadow-xl">
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
-                <div>
-                    <h3 class="text-lg font-bold text-gray-200">📊 Nifty, Bank Nifty & Finnifty Option Dashboard</h3>
-                    <p class="text-xs text-gray-400 mt-0.5">Real-time Open Interest (OI), PCR, and institutional strike positioning.</p>
-                </div>
-                <!-- Working Index Switcher Tabs -->
-                <div class="flex gap-2 bg-gray-800 p-1 rounded-xl border border-gray-700 text-xs">
-                    <button id="btn-nifty" onclick="switchIndex('NIFTY')" class="bg-blue-600 text-white px-3 py-1.5 rounded-lg font-bold transition-all cursor-pointer">NIFTY</button>
-                    <button id="btn-banknifty" onclick="switchIndex('BANKNIFTY')" class="text-gray-400 hover:text-white px-3 py-1.5 rounded-lg font-medium transition-all cursor-pointer">BANKNIFTY</button>
-                    <button id="btn-finnifty" onclick="switchIndex('FINNIFTY')" class="text-gray-400 hover:text-white px-3 py-1.5 rounded-lg font-medium transition-all cursor-pointer">FINNIFTY</button>
-                </div>
+            <div class="mb-6">
+                <h3 class="text-lg font-bold text-gray-200">📊 Nifty, Bank Nifty & Finnifty Option Dashboard</h3>
+                <p class="text-xs text-gray-400 mt-0.5">Real-time Open Interest (OI), PCR, and institutional strike positioning across major indices.</p>
             </div>
 
-            <!-- Option Stats Cards -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-                <div class="bg-gray-800 p-4 rounded-xl border border-gray-700">
-                    <span class="text-xs text-gray-400">Put-Call Ratio (PCR)</span>
-                    <h4 id="stat-pcr" class="text-xl font-extrabold text-green-400 mt-1">1.24 <span class="text-[10px] text-gray-300 font-normal">(Bullish)</span></h4>
-                </div>
-                <div class="bg-gray-800 p-4 rounded-xl border border-gray-700">
-                    <span class="text-xs text-gray-400">Total Call OI</span>
-                    <h4 id="stat-call-oi" class="text-xl font-extrabold text-red-400 mt-1">2.45 Cr</h4>
-                </div>
-                <div class="bg-gray-800 p-4 rounded-xl border border-gray-700">
-                    <span class="text-xs text-gray-400">Total Put OI</span>
-                    <h4 id="stat-put-oi" class="text-xl font-extrabold text-green-400 mt-1">3.04 Cr</h4>
-                </div>
-                <div class="bg-gray-800 p-4 rounded-xl border border-gray-700">
-                    <span class="text-xs text-gray-400">Max Pain Strike</span>
-                    <h4 id="stat-max-pain" class="text-xl font-extrabold text-blue-400 mt-1">24,300</h4>
-                </div>
-            </div>
-
-            <!-- Strike Analysis Table -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs">
-                <!-- Top Call Strikes (Resistance) -->
-                <div class="bg-gray-800 p-4 rounded-xl border border-red-900/40">
-                    <h4 class="font-bold text-red-400 mb-3 uppercase tracking-wider">🔴 Top Call Strikes (Resistance / Writers)</h4>
-                    <div id="call-strikes-list" class="space-y-2">
-                        <div class="flex justify-between items-center border-b border-gray-700 pb-2">
-                            <div><strong class="text-gray-200">24,500 CE</strong> <span class="text-gray-400 text-[10px]">(Resistance)</span></div>
-                            <span class="text-red-400 font-bold">OI: 68.5 Lakh (+12%)</span>
+            <!-- 3 Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                
+                <!-- 1. NIFTY CARD -->
+                <div class="bg-gray-800 p-5 rounded-xl border border-gray-700 shadow-lg">
+                    <div class="flex justify-between items-center mb-4 border-b border-gray-700 pb-3">
+                        <h4 class="font-bold text-blue-400 text-sm">NIFTY 50</h4>
+                        <span class="text-[10px] bg-blue-900/50 text-blue-300 px-2 py-0.5 rounded border border-blue-700">Live Data</span>
+                    </div>
+                    <div class="space-y-3 text-xs">
+                        <div class="flex justify-between items-center bg-gray-900/50 p-2 rounded-lg">
+                            <span class="text-gray-400">Put-Call Ratio (PCR):</span>
+                            <strong class="text-green-400">1.24 (Bullish)</strong>
                         </div>
-                        <div class="flex justify-between items-center border-b border-gray-700 pb-2">
-                            <div><strong class="text-gray-200">24,400 CE</strong> <span class="text-gray-400 text-[10px]">(Immediate)</span></div>
-                            <span class="text-red-400 font-bold">OI: 54.2 Lakh (+8%)</span>
+                        <div class="flex justify-between items-center bg-gray-900/50 p-2 rounded-lg">
+                            <span class="text-gray-400">Total Call OI:</span>
+                            <strong class="text-red-400">2.45 Cr</strong>
                         </div>
-                        <div class="flex justify-between items-center">
-                            <div><strong class="text-gray-200">24,600 CE</strong> <span class="text-gray-400 text-[10px]">(Strong)</span></div>
-                            <span class="text-red-400 font-bold">OI: 45.1 Lakh (-2%)</span>
+                        <div class="flex justify-between items-center bg-gray-900/50 p-2 rounded-lg">
+                            <span class="text-gray-400">Total Put OI:</span>
+                            <strong class="text-green-400">3.04 Cr</strong>
+                        </div>
+                        <div class="flex justify-between items-center bg-gray-900/50 p-2 rounded-lg">
+                            <span class="text-gray-400">Max Pain Strike:</span>
+                            <strong class="text-blue-400">24,300</strong>
                         </div>
                     </div>
                 </div>
 
-                <!-- Top Put Strikes (Support) -->
-                <div class="bg-gray-800 p-4 rounded-xl border border-green-900/40">
-                    <h4 class="font-bold text-green-400 mb-3 uppercase tracking-wider">🟢 Top Put Strikes (Support / Writers)</h4>
-                    <div id="put-strikes-list" class="space-y-2">
-                        <div class="flex justify-between items-center border-b border-gray-700 pb-2">
-                            <div><strong class="text-gray-200">24,300 PE</strong> <span class="text-gray-400 text-[10px]">(Strong Support)</span></div>
-                            <span class="text-green-400 font-bold">OI: 82.1 Lakh (+25%)</span>
+                <!-- 2. BANK NIFTY CARD -->
+                <div class="bg-gray-800 p-5 rounded-xl border border-gray-700 shadow-lg">
+                    <div class="flex justify-between items-center mb-4 border-b border-gray-700 pb-3">
+                        <h4 class="font-bold text-indigo-400 text-sm">BANK NIFTY</h4>
+                        <span class="text-[10px] bg-indigo-900/50 text-indigo-300 px-2 py-0.5 rounded border border-indigo-700">Live Data</span>
+                    </div>
+                    <div class="space-y-3 text-xs">
+                        <div class="flex justify-between items-center bg-gray-900/50 p-2 rounded-lg">
+                            <span class="text-gray-400">Put-Call Ratio (PCR):</span>
+                            <strong class="text-yellow-400">1.08 (Neutral)</strong>
                         </div>
-                        <div class="flex justify-between items-center border-b border-gray-700 pb-2">
-                            <div><strong class="text-gray-200">24,200 PE</strong> <span class="text-gray-400 text-[10px]">(Major Support)</span></div>
-                            <span class="text-green-400 font-bold">OI: 71.4 Lakh (+15%)</span>
+                        <div class="flex justify-between items-center bg-gray-900/50 p-2 rounded-lg">
+                            <span class="text-gray-400">Total Call OI:</span>
+                            <strong class="text-red-400">1.85 Cr</strong>
                         </div>
-                        <div class="flex justify-between items-center">
-                            <div><strong class="text-gray-200">24,100 PE</strong> <span class="text-gray-400 text-[10px]">(Base)</span></div>
-                            <span class="text-green-400 font-bold">OI: 50.3 Lakh (+5%)</span>
+                        <div class="flex justify-between items-center bg-gray-900/50 p-2 rounded-lg">
+                            <span class="text-gray-400">Total Put OI:</span>
+                            <strong class="text-green-400">2.00 Cr</strong>
+                        </div>
+                        <div class="flex justify-between items-center bg-gray-900/50 p-2 rounded-lg">
+                            <span class="text-gray-400">Max Pain Strike:</span>
+                            <strong class="text-blue-400">52,000</strong>
                         </div>
                     </div>
                 </div>
+
+                <!-- 3. FINNIFTY CARD -->
+                <div class="bg-gray-800 p-5 rounded-xl border border-gray-700 shadow-lg">
+                    <div class="flex justify-between items-center mb-4 border-b border-gray-700 pb-3">
+                        <h4 class="font-bold text-purple-400 text-sm">FINNIFTY</h4>
+                        <span class="text-[10px] bg-purple-900/50 text-purple-300 px-2 py-0.5 rounded border border-purple-700">Live Data</span>
+                    </div>
+                    <div class="space-y-3 text-xs">
+                        <div class="flex justify-between items-center bg-gray-900/50 p-2 rounded-lg">
+                            <span class="text-gray-400">Put-Call Ratio (PCR):</span>
+                            <strong class="text-red-400">0.95 (Bearish Bias)</strong>
+                        </div>
+                        <div class="flex justify-between items-center bg-gray-900/50 p-2 rounded-lg">
+                            <span class="text-gray-400">Total Call OI:</span>
+                            <strong class="text-red-400">95 Lakh</strong>
+                        </div>
+                        <div class="flex justify-between items-center bg-gray-900/50 p-2 rounded-lg">
+                            <span class="text-gray-400">Total Put OI:</span>
+                            <strong class="text-green-400">90 Lakh</strong>
+                        </div>
+                        <div class="flex justify-between items-center bg-gray-900/50 p-2 rounded-lg">
+                            <span class="text-gray-400">Max Pain Strike:</span>
+                            <strong class="text-blue-400">23,400</strong>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
 
@@ -304,90 +318,6 @@
     <!-- JavaScript logic -->
     <script>
         document.getElementById("current-date").innerText = "Latest Session: 10-Nov-2026";
-
-        // Option Data for Switcher
-        const optionData = {
-            "NIFTY": {
-                pcr: "1.24 (Bullish)",
-                callOi: "2.45 Cr",
-                putOi: "3.04 Cr",
-                maxPain: "24,300",
-                calls: [
-                    { strike: "24,500 CE", tag: "Resistance", oi: "68.5 Lakh (+12%)" },
-                    { strike: "24,400 CE", tag: "Immediate", oi: "54.2 Lakh (+8%)" },
-                    { strike: "24,600 CE", tag: "Strong", oi: "45.1 Lakh (-2%)" }
-                ],
-                puts: [
-                    { strike: "24,300 PE", tag: "Strong Support", oi: "82.1 Lakh (+25%)" },
-                    { strike: "24,200 PE", tag: "Major Support", oi: "71.4 Lakh (+15%)" },
-                    { strike: "24,100 PE", tag: "Base", oi: "50.3 Lakh (+5%)" }
-                ]
-            },
-            "BANKNIFTY": {
-                pcr: "1.08 (Neutral)",
-                callOi: "1.85 Cr",
-                putOi: "2.00 Cr",
-                maxPain: "52,000",
-                calls: [
-                    { strike: "52,500 CE", tag: "Resistance", oi: "42.0 Lakh (+14%)" },
-                    { strike: "52,200 CE", tag: "Immediate", oi: "38.5 Lakh (+5%)" },
-                    { strike: "53,000 CE", tag: "Strong", oi: "60.1 Lakh (+10%)" }
-                ],
-                puts: [
-                    { strike: "52,000 PE", tag: "Strong Support", oi: "65.2 Lakh (+20%)" },
-                    { strike: "51,800 PE", tag: "Major Support", oi: "50.1 Lakh (+12%)" },
-                    { strike: "51,500 PE", tag: "Base", oi: "40.0 Lakh (+3%)" }
-                ]
-            },
-            "FINNIFTY": {
-                pcr: "0.95 (Bearish Bias)",
-                callOi: "95 Lakh",
-                putOi: "90 Lakh",
-                maxPain: "23,400",
-                calls: [
-                    { strike: "23,600 CE", tag: "Resistance", oi: "22.5 Lakh (+18%)" },
-                    { strike: "23,500 CE", tag: "Immediate", oi: "19.0 Lakh (+9%)" },
-                    { strike: "23,700 CE", tag: "Strong", oi: "30.1 Lakh (+4%)" }
-                ],
-                puts: [
-                    { strike: "23,400 PE", tag: "Strong Support", oi: "25.0 Lakh (+10%)" },
-                    { strike: "23,300 PE", tag: "Major Support", oi: "21.2 Lakh (+6%)" },
-                    { strike: "23,200 PE", tag: "Base", oi: "15.0 Lakh (+2%)" }
-                ]
-            }
-        };
-
-        // Explicitly exposing function globally
-        function switchIndex(indexName) {
-            document.getElementById('btn-nifty').className = indexName === 'NIFTY' ? "bg-blue-600 text-white px-3 py-1.5 rounded-lg font-bold transition-all cursor-pointer" : "text-gray-400 hover:text-white px-3 py-1.5 rounded-lg font-medium transition-all cursor-pointer";
-            document.getElementById('btn-banknifty').className = indexName === 'BANKNIFTY' ? "bg-blue-600 text-white px-3 py-1.5 rounded-lg font-bold transition-all cursor-pointer" : "text-gray-400 hover:text-white px-3 py-1.5 rounded-lg font-medium transition-all cursor-pointer";
-            document.getElementById('btn-finnifty').className = indexName === 'FINNIFTY' ? "bg-blue-600 text-white px-3 py-1.5 rounded-lg font-bold transition-all cursor-pointer" : "text-gray-400 hover:text-white px-3 py-1.5 rounded-lg font-medium transition-all cursor-pointer";
-
-            const data = optionData[indexName];
-            document.getElementById('stat-pcr').innerHTML = data.pcr;
-            document.getElementById('stat-call-oi').innerText = data.callOi;
-            document.getElementById('stat-put-oi').innerText = data.putOi;
-            document.getElementById('stat-max-pain').innerText = data.maxPain;
-
-            let callHtml = '';
-            data.calls.forEach(item => {
-                callHtml += `<div class="flex justify-between items-center border-b border-gray-700 pb-2">
-                    <div><strong class="text-gray-200">${item.strike}</strong> <span class="text-gray-400 text-[10px]">(${item.tag})</span></div>
-                    <span class="text-red-400 font-bold">OI: ${item.oi}</span>
-                </div>`;
-            });
-            document.getElementById('call-strikes-list').innerHTML = callHtml;
-
-            let putHtml = '';
-            data.puts.forEach(item => {
-                putHtml += `<div class="flex justify-between items-center border-b border-gray-700 pb-2">
-                    <div><strong class="text-gray-200">${item.strike}</strong> <span class="text-gray-400 text-[10px]">(${item.tag})</span></div>
-                    <span class="text-green-400 font-bold">OI: ${item.oi}</span>
-                </div>`;
-            });
-            document.getElementById('put-strikes-list').innerHTML = putHtml;
-        }
-        window.switchIndex = switchIndex;
 
         function calculateRisk() {
             const capital = parseFloat(document.getElementById('calc-capital').value) || 0;
