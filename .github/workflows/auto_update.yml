@@ -2,9 +2,11 @@ name: Auto Update FII DII Data
 
 on:
   schedule:
-    # Roz sham ko 7:30 PM IST (14:00 UTC) par market data update karne ke liye
     - cron: '0 14 * * 1-5'
-  workflow_dispatch: # Isse aap manually bhi GitHub par button dabakar run kar sakte hain
+  workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   update-data:
@@ -28,5 +30,5 @@ jobs:
           git config --global user.name "FII Tracker Bot"
           git config --global user.email "bot@users.noreply.github.com"
           git add index.html
-          git commit -m "Auto-update FII/DII institutional data [skip ci]"
+          git commit -m "Auto-update FII/DII institutional data [skip ci]" || echo "No changes to commit"
           git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:main
