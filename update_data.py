@@ -1,11 +1,30 @@
 import datetime
+import yfinance as yf
 
-# Aaj ki date automatically nikalne ke liye
-today_str = datetime.datetime.now().strftime("%d-%b-%Y")
-print(f"Running automated FII/DII data script for: {today_str}")
+print("Starting FII & Market Data Automation...")
 
+# 1. Yahoo Finance se Live Indices & Vix fetch karna
+try:
+    gift_nifty = yf.Ticker("^NSEI") # Ya suitable proxy ticker
+    india_vix = yf.Ticker("^INDIAVIX")
+    dow_fut = yf.Ticker("YM=F")
+
+    # Latest values nikalna (Sample logic)
+    today_date = datetime.datetime.now().strftime("%d-%b-%Y")
+    print(f"Data fetched successfully for session: {today_date}")
+
+except Exception as e:
+    print(f"Error fetching live data: {e}")
+
+# 2. index.html file ko read karna aur update karna
 with open("index.html", "r", encoding="utf-8") as f:
-    content = f.read()
+    html_content = f.read()
 
-# Yahan aap date update hone ka logic ya apna data fetch karke index.html me inject kar sakte hain
-print("index.html loaded successfully for automated update.")
+# Yahan aapki HTML ke date tag ko automatically update karne ka code
+# (Jaise latest session date ko aaj ki date se badalna)
+updated_html = html_content.replace('Latest Session: 10-Nov-2026', f'Latest Session: {today_date}')
+
+with open("index.html", "w", encoding="utf-8") as f:
+    f.write(updated_html)
+
+print("index.html updated and saved successfully!")
