@@ -8,37 +8,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Chart.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-    <style>
-      /* Light theme overrides for the existing Tailwind dark dashboard */
-      body.light-theme { background:#f3f6fb !important; color:#172033 !important; }
-      body.light-theme .bg-gray-950 { background-color:#f3f6fb !important; }
-      body.light-theme .bg-gray-900 { background-color:#ffffff !important; }
-      body.light-theme .bg-gray-800 { background-color:#edf1f7 !important; }
-      body.light-theme .bg-gray-800\/80, body.light-theme .bg-gray-900\/50 { background-color:#f1f5f9 !important; }
-      body.light-theme .border-gray-900, body.light-theme .border-gray-800,
-      body.light-theme .border-gray-700 { border-color:#d8e0eb !important; }
-      body.light-theme .text-gray-100, body.light-theme .text-gray-200,
-      body.light-theme .text-gray-300 { color:#263449 !important; }
-      body.light-theme .text-gray-400, body.light-theme .text-gray-500 { color:#64748b !important; }
-      body.light-theme .text-white { color:#172033 !important; }
-      body.light-theme .bg-gradient-to-r.from-blue-950,
-      body.light-theme .bg-gradient-to-r.from-indigo-950 { background-image:linear-gradient(to right,#e8f0ff,#ffffff,#eef2ff) !important; }
-      body.light-theme .bg-purple-950\/80 { background-color:#e9e4ff !important; color:#49358c !important; }
-      body.light-theme input { background:#fff !important; color:#172033 !important; border-color:#cbd5e1 !important; }
-      body.light-theme #screener-modal { background-color:rgba(15,23,42,.55) !important; }
-      body.light-theme #screener-modal > div { background:#fff !important; border-color:#d8e0eb !important; }
-      body.light-theme .divide-gray-800 > :not([hidden]) ~ :not([hidden]) { border-color:#e2e8f0 !important; }
-      .control-switch { position:relative; display:inline-flex; width:42px; height:23px; flex-shrink:0; }
-      .control-switch input { opacity:0; width:0; height:0; }
-      .control-slider { position:absolute; inset:0; cursor:pointer; border-radius:999px; background:#64748b; transition:.2s; }
-      .control-slider:before { content:""; position:absolute; width:17px; height:17px; left:3px; top:3px; border-radius:50%; background:#fff; transition:.2s; }
-      .control-switch input:checked + .control-slider { background:#2563eb; }
-      .control-switch input:checked + .control-slider:before { transform:translateX(19px); }
-      .dashboard-control { display:flex; align-items:center; gap:8px; padding:7px 10px; border:1px solid #475569; border-radius:12px; background:rgba(15,23,42,.45); font-size:11px; font-weight:700; }
-      body.light-theme .dashboard-control { background:#fff; border-color:#cbd5e1; color:#263449; }
-    </style>
-
 </head>
 <body class="bg-gray-950 text-gray-100 font-sans min-h-screen p-4 md:p-8">
 
@@ -59,26 +28,8 @@
                 <a href="https://t.me/share/url?url=https://pinnaclemultiheights-gif.github.io/fii-tracker/&text=Check%20out%20today's%20Global%20Terminal%20Updates!" target="_blank" class="bg-blue-600 hover:bg-blue-500 text-white text-xs px-3 py-1.5 rounded-full font-medium transition-all shadow-md flex items-center gap-1">
                     📢 Share Telegram
                 </a>
-                <label class="dashboard-control" title="Switch dashboard appearance">
-                    <span id="theme-label">🌙 Dark</span>
-                    <span class="control-switch">
-                        <input type="checkbox" id="theme-toggle" aria-label="Toggle light theme">
-                        <span class="control-slider"></span>
-                    </span>
-                </label>
-                <label class="dashboard-control" title="Fetch configured market API every 3 seconds">
-                    <span>⚡ 3s Live</span>
-                    <span class="control-switch">
-                        <input type="checkbox" id="live-toggle" aria-label="Toggle 3 second auto refresh">
-                        <span class="control-slider"></span>
-                    </span>
-                </label>
             </div>
         </header>
-        <div class="flex flex-wrap items-center justify-between gap-2 mb-5 text-xs">
-            <span id="live-status" class="text-gray-400">● Auto-refresh OFF</span>
-            <span id="last-updated" class="text-gray-500">Last checked: --</span>
-        </div>
 
         <!-- Global Markets & VIX Fear Meter Bar -->
         <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
@@ -381,29 +332,25 @@
         <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 mb-8 shadow-xl">
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 gap-4">
                 <div>
-                    <h3 class="text-lg font-bold text-gray-200">🔍 Index-wise Stock Universe & Trend Scanner</h3>
-                    <p class="text-xs text-gray-400 mt-0.5">Browse stocks by major NSE indices and sector indices.</p>
+                    <h3 class="text-lg font-bold text-gray-200">🔍 F&O Stock Built-up & Trend Scanner</h3>
+                    <p class="text-xs text-gray-400 mt-0.5">Filter by Index and Buildup status.</p>
                 </div>
                 <div class="w-full md:w-64">
                     <input type="text" id="stock-search" onkeyup="filterStocks()" placeholder="Search stock symbol..." class="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-blue-500">
                 </div>
             </div>
 
-            <!-- Expanded index selector -->
-            <div class="flex flex-col sm:flex-row sm:items-center gap-2 mb-3 bg-gray-950 p-3 rounded-xl border border-gray-800 text-xs">
-                <label for="index-select" class="text-gray-400 font-bold uppercase">Select Index / Segment:</label>
-                <select id="index-select" onchange="filterByIndex(this.value)" class="bg-gray-800 border border-gray-700 text-white rounded-lg px-3 py-2 font-bold sm:min-w-64">
-                    <option value="ALL">All listed index stocks</option>
-                    <option value="NIFTY50">Nifty 50</option><option value="NEXT50">Nifty Next 50</option>
-                    <option value="BANKNIFTY">Nifty Bank</option><option value="FINNIFTY">Nifty Financial Services</option>
-                    <option value="IT">Nifty IT</option><option value="AUTO">Nifty Auto</option>
-                    <option value="PHARMA">Nifty Pharma</option><option value="FMCG">Nifty FMCG</option>
-                    <option value="METAL">Nifty Metal</option><option value="REALTY">Nifty Realty</option>
-                    <option value="PSUBANK">Nifty PSU Bank</option>
-                </select>
-                <span id="stock-count" class="text-gray-400 sm:ml-auto">Loading stocks…</span>
+            <!-- Multi-Index Filter Bar -->
+            <div class="flex flex-wrap items-center gap-2 mb-3 bg-gray-950 p-2.5 rounded-xl border border-gray-800 text-xs font-bold">
+                <span class="text-gray-400 mr-2 text-[11px] uppercase">Select Index:</span>
+                <button onclick="filterByIndex('ALL')" id="idx-all" class="bg-blue-600 text-white px-3 py-1.5 rounded-lg transition-all cursor-pointer shadow">All F&O</button>
+                <button onclick="filterByIndex('NIFTY50')" id="idx-nifty" class="bg-gray-800 text-gray-300 hover:text-white px-3 py-1.5 rounded-lg border border-gray-700 transition-all cursor-pointer">Nifty 50</button>
+                <button onclick="filterByIndex('BANKNIFTY')" id="idx-bank" class="bg-gray-800 text-gray-300 hover:text-white px-3 py-1.5 rounded-lg border border-gray-700 transition-all cursor-pointer">Bank Nifty</button>
+                <button onclick="filterByIndex('FINNIFTY')" id="idx-fin" class="bg-gray-800 text-gray-300 hover:text-white px-3 py-1.5 rounded-lg border border-gray-700 transition-all cursor-pointer">FinNifty</button>
+                <button onclick="filterByIndex('IT')" id="idx-it" class="bg-gray-800 text-gray-300 hover:text-white px-3 py-1.5 rounded-lg border border-gray-700 transition-all cursor-pointer">Nifty IT</button>
+                <button onclick="filterByIndex('AUTO')" id="idx-auto" class="bg-gray-800 text-gray-300 hover:text-white px-3 py-1.5 rounded-lg border border-gray-700 transition-all cursor-pointer">Auto</button>
+                <button onclick="filterByIndex('PHARMA')" id="idx-pharma" class="bg-gray-800 text-gray-300 hover:text-white px-3 py-1.5 rounded-lg border border-gray-700 transition-all cursor-pointer">Pharma</button>
             </div>
-            <p class="text-[11px] text-amber-400 mb-4">Index constituents are listed by category; not every constituent is F&O-eligible. Live price, OI, volume and buildup require a connected market-data API; blank values are intentional, not live quotes.</p>
 
             <!-- Buildup Filter Buttons Bar -->
             <div class="flex flex-wrap items-center gap-2 mb-4 bg-gray-950 p-3 rounded-xl border border-gray-800 text-xs font-bold">
@@ -537,20 +484,6 @@
             </div>
         </div>
 
-        <!-- Monthly FII / DII flow selector -->
-        <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 mb-8 shadow-xl overflow-hidden">
-            <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-4">
-                <div><h3 class="text-lg font-bold text-gray-200">🗓️ Monthly FII / DII Cash Flow</h3><p class="text-xs text-gray-400 mt-1">Month-wise NSE cash-market buy, sell and net totals (₹ crore). Current month is month-to-date.</p></div>
-                <select id="monthly-flow-select" onchange="renderMonthlyFlow(this.value)" class="bg-gray-800 border border-gray-700 text-white rounded-lg px-3 py-2 text-sm"></select>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                <div class="bg-gray-950 border border-gray-800 rounded-xl p-4"><div class="text-xs text-gray-400">FII Net Flow</div><div id="monthly-fii-net" class="text-2xl font-bold mt-1">—</div></div>
-                <div class="bg-gray-950 border border-gray-800 rounded-xl p-4"><div class="text-xs text-gray-400">DII Net Flow</div><div id="monthly-dii-net" class="text-2xl font-bold mt-1">—</div></div>
-            </div>
-            <div class="overflow-x-auto"><table class="w-full text-xs text-left text-gray-300"><thead class="bg-gray-800 text-gray-300 uppercase"><tr><th class="p-3">Month</th><th class="p-3">Sessions</th><th class="p-3">FII Buy</th><th class="p-3">FII Sell</th><th class="p-3">FII Net</th><th class="p-3">DII Buy</th><th class="p-3">DII Sell</th><th class="p-3">DII Net</th></tr></thead><tbody id="monthly-flow-body" class="divide-y divide-gray-800"></tbody></table></div>
-            <p class="text-[10px] text-gray-500 mt-3">Source: NSE daily institutional-activity disclosures, summed by calendar month. Figures may be revised by the exchange; not investment advice.</p>
-        </div>
-
         <!-- Historical Data Table -->
         <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 mb-8 shadow-xl overflow-hidden">
             <h3 class="text-lg font-bold text-gray-200 mb-4">📋 Historical Trading Data (Cash Segment)</h3>
@@ -604,115 +537,6 @@
     <script>
         document.getElementById("current-date").innerText = "Latest Session: 10-Nov-2026";
 
-        /*
-         * LIVE API SETUP:
-         * Put your own backend/API URL below. Do not put broker passwords or API
-         * secrets in public front-end HTML. Use a secure backend proxy instead.
-         *
-         * Expected JSON example:
-         * {
-         *   "values": {
-         *     "#fii-net-val": "+ ₹8,000 Cr",
-         *     "#dii-net-val": "- ₹2,000 Cr"
-         *   }
-         * }
-         * "values" keys are CSS selectors and values are plain text.
-         */
-        const LIVE_API_URL = ""; // Example: "https://your-domain.com/api/market-summary"
-        let liveRefreshTimer = null;
-
-        // Theme toggle with saved preference
-        const themeToggle = document.getElementById("theme-toggle");
-        const themeLabel = document.getElementById("theme-label");
-
-        function applyTheme(isLight) {
-            document.body.classList.toggle("light-theme", isLight);
-            themeToggle.checked = isLight;
-            themeLabel.textContent = isLight ? "☀️ Light" : "🌙 Dark";
-            try { localStorage.setItem("fii-terminal-theme", isLight ? "light" : "dark"); } catch (e) {}
-        }
-
-        let savedTheme = "dark";
-        try { savedTheme = localStorage.getItem("fii-terminal-theme") || "dark"; } catch (e) {}
-        applyTheme(savedTheme === "light");
-        themeToggle.addEventListener("change", () => applyTheme(themeToggle.checked));
-
-        // 3-second polling toggle. This fetches real updates only after an API is configured.
-        const liveToggle = document.getElementById("live-toggle");
-        const liveStatus = document.getElementById("live-status");
-        const lastUpdated = document.getElementById("last-updated");
-
-        async function refreshLiveSession() {
-            const checkedAt = new Date().toLocaleTimeString("en-IN");
-            lastUpdated.textContent = "Last checked: " + checkedAt;
-
-            if (!LIVE_API_URL) {
-                liveStatus.textContent = "● ON, but API not configured — showing existing sample data";
-                liveStatus.className = "text-amber-500";
-                return;
-            }
-
-            try {
-                const response = await fetch(LIVE_API_URL, {
-                    method: "GET",
-                    cache: "no-store",
-                    headers: { "Accept": "application/json" }
-                });
-                if (!response.ok) throw new Error("API HTTP " + response.status);
-                const payload = await response.json();
-
-                // Safely update only text content using selectors provided by your API.
-                if (payload.values && typeof payload.values === "object") {
-                    Object.entries(payload.values).forEach(([selector, value]) => {
-                        if (typeof value !== "string" && typeof value !== "number") return;
-                        document.querySelectorAll(selector).forEach(el => {
-                            el.textContent = String(value);
-                        });
-                    });
-                }
-
-                liveStatus.textContent = "● Connected — refreshed successfully";
-                liveStatus.className = "text-green-500";
-            } catch (error) {
-                liveStatus.textContent = "● API error: " + error.message;
-                liveStatus.className = "text-red-500";
-            }
-        }
-
-        function startLiveRefresh() {
-            stopLiveRefresh();
-            liveStatus.textContent = "● Auto-refresh ON — every 3 seconds";
-            liveStatus.className = "text-green-500";
-            refreshLiveSession();
-            liveRefreshTimer = setInterval(refreshLiveSession, 3000);
-        }
-
-        function stopLiveRefresh() {
-            if (liveRefreshTimer !== null) {
-                clearInterval(liveRefreshTimer);
-                liveRefreshTimer = null;
-            }
-            liveStatus.textContent = "● Auto-refresh OFF";
-            liveStatus.className = "text-gray-400";
-        }
-
-        liveToggle.addEventListener("change", () => {
-            if (liveToggle.checked) startLiveRefresh();
-            else stopLiveRefresh();
-        });
-
-        // Stop polling when the tab is hidden; resume when it becomes visible.
-        document.addEventListener("visibilitychange", () => {
-            if (document.hidden) {
-                if (liveRefreshTimer !== null) {
-                    clearInterval(liveRefreshTimer);
-                    liveRefreshTimer = null;
-                }
-            } else if (liveToggle.checked && liveRefreshTimer === null) {
-                startLiveRefresh();
-            }
-        });
-
         function calculateRisk() {
             const capital = parseFloat(document.getElementById('calc-capital').value) || 0;
             const riskPct = parseFloat(document.getElementById('calc-risk-pct').value) || 0;
@@ -727,27 +551,22 @@
         }
         window.calculateRisk = calculateRisk;
 
-        // Index constituent symbols. A stock may belong to multiple indices; the first listed index is its display group.
-        const indexConstituents = {
-            NIFTY50: "ADANIENT ADANIPORTS APOLLOHOSP ASIANPAINT AXISBANK BAJAJ-AUTO BAJFINANCE BAJAJFINSV BEL BHARTIARTL CIPLA COALINDIA DRREDDY EICHERMOT ETERNAL GRASIM HCLTECH HDFCBANK HDFCLIFE HEROMOTOCO HINDALCO HINDUNILVR ICICIBANK INDUSINDBK INFY ITC JIOFIN JSWSTEEL KOTAKBANK LT M&M MARUTI NESTLEIND NTPC ONGC POWERGRID RELIANCE SBILIFE SBIN SHRIRAMFIN SUNPHARMA TATACONSUM TATASTEEL TCS TECHM TITAN TRENT ULTRACEMCO WIPRO",
-            NEXT50: "ABB ADANIENSOL ADANIGREEN AMBUJACEM ATGL AUROPHARMA BANKBARODA BERGEPAINT BOSCH BRITANNIA CANBK CHOLAFIN DLF DIVISLAB DMART GAIL GODREJCP HAL HAVELLS ICICIGI ICICIPRULI INDHOTEL IOC IRCTC JINDALSTEL JSWENERGY LODHA LTIM MARICO MOTHERSON NAUKRI PFC PIDILITIND PIIND REC SBICARD SHREECEM SIEMENS TATAPOWER TORNTPOWER TVSMOTOR VEDL ZOMATO ZYDUSLIFE UNIONBANK OFSS POLYCAB",
-            BANKNIFTY: "HDFCBANK ICICIBANK SBIN AXISBANK KOTAKBANK INDUSINDBK BANKBARODA PNB CANBK IDFCFIRSTB FEDERALBNK AUBANK",
-            FINNIFTY: "HDFCBANK ICICIBANK SBIN AXISBANK KOTAKBANK BAJFINANCE BAJAJFINSV SBICARD CHOLAFIN HDFCLIFE SBILIFE ICICIPRULI ICICIGI SHRIRAMFIN PFC RECLTD JIOFIN MUTHOOTFIN MANAPPURAM",
-            IT: "TCS INFY HCLTECH WIPRO TECHM LTIM PERSISTENT COFORGE MPHASIS LTTS OFSS",
-            AUTO: "MARUTI M&M TATAMOTORS EICHERMOT HEROMOTOCO BAJAJ-AUTO TVSMOTOR BOSCH ASHOKLEY MOTHERSON BHARATFORG",
-            PHARMA: "SUNPHARMA DRREDDY CIPLA DIVISLAB APOLLOHOSP AUROPHARMA LUPIN ZYDUSLIFE BIOCON GLENMARK ALKEM LAURUSLABS",
-            FMCG: "HINDUNILVR ITC NESTLEIND TATACONSUM BRITANNIA GODREJCP DABUR MARICO COLPAL VBL UNITEDSPR",
-            METAL: "TATASTEEL HINDALCO JSWSTEEL COALINDIA VEDL JINDALSTEL NMDC NATIONALUM SAIL HINDZINC",
-            REALTY: "DLF GODREJPROP LODHA PHOENIX PRESTIGE OBEROIRLTY BRIGADE SOBHA",
-            PSUBANK: "SBIN BANKBARODA PNB CANBK UNIONBANK INDIANB BANKINDIA MAHABANK UCOBANK CENTRALBK IOB"
-        };
-        const indexLabels = {NIFTY50:"NIFTY50",NEXT50:"NEXT50",BANKNIFTY:"BANKNIFTY",FINNIFTY:"FINNIFTY",IT:"IT",AUTO:"AUTO",PHARMA:"PHARMA",FMCG:"FMCG",METAL:"METAL",REALTY:"REALTY",PSUBANK:"PSUBANK"};
-        const stockMap = new Map();
-        Object.entries(indexConstituents).forEach(([idx, symbols]) => symbols.trim().split(/\s+/).filter(Boolean).forEach(symbol => {
-            if (!stockMap.has(symbol)) stockMap.set(symbol, {symbol, index: idx, indices:[idx], buildup:"Data Pending", price:null, change:null, pctChange:"—", oi:"—", oiChange:"—", vol:"—", expiry:"—"});
-            else stockMap.get(symbol).indices.push(idx);
-        }));
-        const stockData = [...stockMap.values()].sort((a,b)=>a.symbol.localeCompare(b.symbol));
+        const stockData = [
+            { symbol: "RELIANCE", index: "NIFTY50", buildup: "Long Builtup", price: 1280.50, change: 18.50, pctChange: "1.47%", oi: "4,25,00,000", oiChange: "+12,50,000", vol: "1,25,00,000", expiry: "26-Nov-26" },
+            { symbol: "TCS", index: "IT", buildup: "Short Unwind", price: 4120.00, change: -15.00, pctChange: "-0.36%", oi: "1,10,00,000", oiChange: "-3,20,000", vol: "45,00,000", expiry: "26-Nov-26" },
+            { symbol: "HDFCBANK", index: "BANKNIFTY", buildup: "Long Builtup", price: 1750.25, change: 22.10, pctChange: "1.28%", oi: "6,50,00,000", oiChange: "+25,00,000", vol: "2,10,00,000", expiry: "26-Nov-26" },
+            { symbol: "ICICIBANK", index: "BANKNIFTY", buildup: "Short Cover", price: 1240.80, change: 15.30, pctChange: "1.25%", oi: "5,10,00,000", oiChange: "-14,00,000", vol: "1,80,00,000", expiry: "26-Nov-26" },
+            { symbol: "INFY", index: "IT", buildup: "Short Builtup", price: 1890.10, change: -24.50, pctChange: "-1.28%", oi: "2,40,00,000", oiChange: "+8,50,000", vol: "95,00,000", expiry: "26-Nov-26" },
+            { symbol: "SBIN", index: "BANKNIFTY", buildup: "Long Builtup", price: 830.40, change: 12.60, pctChange: "1.54%", oi: "4,80,00,000", oiChange: "+19,00,000", vol: "1,60,00,000", expiry: "26-Nov-26" },
+            { symbol: "SBICARD", index: "FINNIFTY", buildup: "Long Unwind", price: 740.00, change: -5.20, pctChange: "-0.70%", oi: "1,15,00,000", oiChange: "-1,10,000", vol: "30,00,000", expiry: "26-Nov-26" },
+            { symbol: "BAJFINANCE", index: "FINNIFTY", buildup: "Long Builtup", price: 7200.50, change: 95.00, pctChange: "1.34%", oi: "1,85,00,000", oiChange: "+7,40,000", vol: "55,00,000", expiry: "26-Nov-26" },
+            { symbol: "TATAMOTORS", index: "AUTO", buildup: "Long Builtup", price: 780.20, change: 25.40, pctChange: "3.37%", oi: "7,20,00,000", oiChange: "+42,00,000", vol: "3,10,00,000", expiry: "26-Nov-26" },
+            { symbol: "M&M", index: "AUTO", buildup: "Short Cover", price: 2950.00, change: 42.10, pctChange: "1.45%", oi: "2,30,00,000", oiChange: "-6,50,000", vol: "90,00,000", expiry: "26-Nov-26" },
+            { symbol: "SUNPHARMA", index: "PHARMA", buildup: "Long Builtup", price: 1820.00, change: 21.00, pctChange: "1.17%", oi: "1,95,00,000", oiChange: "+5,20,000", vol: "65,00,000", expiry: "26-Nov-26" },
+            { symbol: "DRREDDY", index: "PHARMA", buildup: "Short Builtup", price: 1310.50, change: -18.20, pctChange: "-1.37%", oi: "85,00,000", oiChange: "+3,10,00,000", vol: "25,00,000", expiry: "26-Nov-26" },
+            { symbol: "WIPRO", index: "IT", buildup: "Long Unwind", price: 560.00, change: -4.50, pctChange: "-0.80%", oi: "1,40,00,000", oiChange: "-2,30,000", vol: "50,00,000", expiry: "26-Nov-26" },
+            { symbol: "MARUTI", index: "AUTO", buildup: "Short Builtup", price: 12450.00, change: -120.00, pctChange: "-0.95%", oi: "90,00,000", oiChange: "+3,40,000", vol: "35,00,000", expiry: "26-Nov-26" }
+        ];
 
         let currentIndexFilter = 'ALL';
         let currentBuildupFilter = 'ALL';
@@ -759,13 +578,11 @@
             const query = document.getElementById("stock-search").value.toLowerCase();
             const filtered = data.filter(item => {
                 const matchesSearch = item.symbol.toLowerCase().includes(query);
-                const matchesIndex = (currentIndexFilter === 'ALL' || item.indices.includes(currentIndexFilter));
+                const matchesIndex = (currentIndexFilter === 'ALL' || item.index === currentIndexFilter);
                 const matchesBuildup = (currentBuildupFilter === 'ALL' || item.buildup === currentBuildupFilter);
                 return matchesSearch && matchesIndex && matchesBuildup;
             });
 
-            const countLabel = document.getElementById('stock-count');
-            if (countLabel) countLabel.textContent = filtered.length + ' stocks shown';
             if(filtered.length === 0) {
                 tbody.innerHTML = `<tr><td colspan="9" class="py-4 text-center text-gray-500">No matching stocks found.</td></tr>`;
                 return;
@@ -783,8 +600,8 @@
                     <td class="py-3 px-4 font-bold text-white">${item.symbol}</td>
                     <td class="py-3 px-4 text-gray-400 font-semibold">${item.index}</td>
                     <td class="py-3 px-4"><span class="px-2.5 py-1 rounded text-[10px] font-bold ${badgeClass}">${item.buildup}</span></td>
-                    <td class="py-3 px-4 font-semibold">${item.price == null ? '—' : '₹' + item.price.toFixed(2)}</td>
-                    <td class="py-3 px-4 font-bold">${item.change == null ? '—' : (item.change >= 0 ? '+' : '') + item.change + ' (' + item.pctChange + ')'}</td>
+                    <td class="py-3 px-4 font-semibold">₹${item.price.toFixed(2)}</td>
+                    <td class="py-3 px-4 font-bold ${item.change >= 0 ? 'text-green-400' : 'text-red-400'}">${item.change >= 0 ? '+' : ''}${item.change} (${item.pctChange})</td>
                     <td class="py-3 px-4 text-gray-200">${item.oi}</td>
                     <td class="py-3 px-4 font-bold ${item.oiChange.startsWith('-') ? 'text-yellow-400' : 'text-green-400'}">${item.oiChange}</td>
                     <td class="py-3 px-4 text-gray-300">${item.vol}</td>
@@ -825,8 +642,8 @@
                         <td class="py-2.5 px-3 font-bold text-white">${item.symbol}</td>
                         <td class="py-2.5 px-3 text-gray-400">${item.index}</td>
                         <td class="py-2.5 px-3 font-semibold text-blue-300">${item.buildup}</td>
-                        <td class="py-2.5 px-3 font-bold">${item.price == null ? '—' : '₹' + item.price.toFixed(2)}</td>
-                        <td class="py-2.5 px-3 font-bold">${item.change == null ? '—' : (item.change >= 0 ? '+' : '') + item.change + ' (' + item.pctChange + ')'}</td>
+                        <td class="py-2.5 px-3 font-bold">₹${item.price.toFixed(2)}</td>
+                        <td class="py-2.5 px-3 font-bold ${item.change >= 0 ? 'text-green-400' : 'text-red-400'}">${item.change >= 0 ? '+' : ''}${item.change} (${item.pctChange})</td>
                     `;
                     modalBody.appendChild(tr);
                 });
@@ -843,8 +660,16 @@
 
         function filterByIndex(idx) {
             currentIndexFilter = idx;
-            const selector = document.getElementById('index-select');
-            if (selector) selector.value = idx;
+            const indices = ['all', 'nifty', 'bank', 'fin', 'it', 'auto', 'pharma'];
+            indices.forEach(i => {
+                const btn = document.getElementById('idx-' + i);
+                if(btn) btn.className = "bg-gray-800 text-gray-300 hover:text-white px-3 py-1.5 rounded-lg border border-gray-700 transition-all cursor-pointer";
+            });
+
+            const activeBtnMap = { 'ALL': 'idx-all', 'NIFTY50': 'idx-nifty', 'BANKNIFTY': 'idx-bank', 'FINNIFTY': 'idx-fin', 'IT': 'idx-it', 'AUTO': 'idx-auto', 'PHARMA': 'idx-pharma' };
+            if(activeBtnMap[idx]) {
+                document.getElementById(activeBtnMap[idx]).className = "bg-blue-600 text-white px-3 py-1.5 rounded-lg shadow cursor-pointer";
+            }
             renderStockTable(stockData);
         }
 
@@ -884,40 +709,6 @@
             `;
             tableBody.appendChild(tr);
         });
-
-        // Monthly figures are sums of NSE-disclosed daily cash-market values; latest month is MTD.
-        const monthlyFlowData = [
-            {month:"November 2026 (MTD)",sessions:7,fb:141694.22,fs:88522.23,fn:53171.99,db:101453.89,ds:133523.25,dn:-32069.36},
-            {month:"October 2026",sessions:20,fb:293947.63,fs:339109.34,fn:-45161.71,db:359813.08,ds:297592.97,dn:62220.11},
-            {month:"September 2026",sessions:21,fb:313522.98,fs:357535.80,fn:-44012.82,db:367838.29,ds:291808.00,dn:76030.29},
-            {month:"August 2026",sessions:20,fb:327221.80,fs:334170.28,fn:-6948.48,db:339548.69,ds:284818.25,dn:54730.44},
-            {month:"July 2026",sessions:22,fb:316002.38,fs:321041.68,fn:-5039.30,db:386768.47,ds:354596.93,dn:32171.54},
-            {month:"June 2026",sessions:21,fb:340120.27,fs:389148.90,fn:-49028.63,db:422821.98,ds:337021.84,dn:85800.14},
-            {month:"May 2026",sessions:19,fb:353913.83,fs:409877.16,fn:-55963.33,db:361325.17,ds:278656.24,dn:82668.93},
-            {month:"April 2026",sessions:20,fb:303387.09,fs:373522.55,fn:-70135.46,db:377771.28,ds:326707.41,dn:51063.87},
-            {month:"March 2026",sessions:19,fb:278800.39,fs:401340.80,fn:-122540.41,db:414657.07,ds:271696.70,dn:142960.37},
-            {month:"February 2026",sessions:21,fb:339315.95,fs:345956.73,fn:-6640.78,db:346722.22,ds:308299.11,dn:38423.11},
-            {month:"January 2026",sessions:20,fb:300257.57,fs:341692.79,fn:-41435.22,db:364373.29,ds:295152.55,dn:69220.74},
-            {month:"December 2025",sessions:22,fb:249054.90,fs:283404.52,fn:-34349.62,db:356905.61,ds:277285.70,dn:79619.91}
-        ];
-        const fmtCr = n => (n < 0 ? "−" : "+") + "₹" + Math.abs(n).toLocaleString("en-IN", {minimumFractionDigits:2, maximumFractionDigits:2}) + " Cr";
-        function renderMonthlyFlow(selectedMonth) {
-            const row = monthlyFlowData.find(x => x.month === selectedMonth) || monthlyFlowData[0];
-            const fii = document.getElementById('monthly-fii-net'), dii = document.getElementById('monthly-dii-net');
-            fii.textContent = fmtCr(row.fn); fii.className = "text-2xl font-bold mt-1 " + (row.fn >= 0 ? "text-green-400" : "text-red-400");
-            dii.textContent = fmtCr(row.dn); dii.className = "text-2xl font-bold mt-1 " + (row.dn >= 0 ? "text-green-400" : "text-red-400");
-            const body = document.getElementById('monthly-flow-body'); body.innerHTML = "";
-            monthlyFlowData.forEach(item => {
-                const tr = document.createElement('tr');
-                if (item.month === row.month) tr.className = "bg-blue-950/40";
-                tr.innerHTML = `<td class="p-3 font-semibold">${item.month}</td><td class="p-3">${item.sessions}</td><td class="p-3">₹${item.fb.toLocaleString('en-IN',{maximumFractionDigits:2})}</td><td class="p-3">₹${item.fs.toLocaleString('en-IN',{maximumFractionDigits:2})}</td><td class="p-3 font-bold ${item.fn>=0?'text-green-400':'text-red-400'}">${fmtCr(item.fn)}</td><td class="p-3">₹${item.db.toLocaleString('en-IN',{maximumFractionDigits:2})}</td><td class="p-3">₹${item.ds.toLocaleString('en-IN',{maximumFractionDigits:2})}</td><td class="p-3 font-bold ${item.dn>=0?'text-green-400':'text-red-400'}">${fmtCr(item.dn)}</td>`;
-                body.appendChild(tr);
-            });
-        }
-        const monthSelect = document.getElementById('monthly-flow-select');
-        monthlyFlowData.forEach(item => { const option=document.createElement('option'); option.value=item.month; option.textContent=item.month; monthSelect.appendChild(option); });
-        renderMonthlyFlow(monthlyFlowData[0].month);
-        window.renderMonthlyFlow = renderMonthlyFlow;
 
         const ctx = document.getElementById('flowChart').getContext('2d');
         new Chart(ctx, {
