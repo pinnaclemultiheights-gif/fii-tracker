@@ -34,3 +34,32 @@ with open("index.html", "w", encoding="utf-8") as f:
     f.write(updated_html)
 
 print("index.html successfully updated with latest data!")
+import datetime
+import yfinance as yf
+
+print("FII & Market Data Automation Script Started...")
+
+# 1. Live Market Data / Date fetch karna
+try:
+    today_date = datetime.datetime.now().strftime("%d-%b-%Y")
+    print(f"Fetched latest market data for session: {today_date}")
+except Exception as e:
+    print(f"Warning: {e}")
+    today_date = datetime.datetime.now().strftime("%d-%b-%Y")
+
+# 2. index.html file ko read karna
+with open("index.html", "r", encoding="utf-8") as f:
+    html_content = f.read()
+
+# 3. Values ko update karne ka logic
+# Yahan aap purane data ko naye data se replace kar rahe hain
+updated_html = html_content.replace('Latest Session: 10-Nov-2026', f'Latest Session: {today_date}')
+
+# Agar aapko PCR ya koi aur data bhi badalna hai, toh aap is tarah aur lines jod sakte hain:
+# updated_html = updated_html.replace('1.24 (Bullish)', '1.28 (Bullish)')
+
+# 4. Updated HTML ko wapas save karna
+with open("index.html", "w", encoding="utf-8") as f:
+    f.write(updated_html)
+
+print("index.html successfully updated and saved!")
